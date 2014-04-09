@@ -1,0 +1,28 @@
+#ifndef __Scene_h_
+#define __Scene_h_
+
+#include "GameResource.h"
+
+class Scene
+{
+protected:
+	bool isSceneSetup;
+	Ogre::Camera* camera;
+	Ogre::SceneManager* graphicsEngine;
+	PhysicsEngine* physicsEngine;
+	Ogre::SceneNode* sceneRootNode;
+public:
+	Scene(Ogre::SceneManager* mSceneMgr);
+	~Scene(void);
+	virtual bool setupScene(int level);
+	virtual bool destroyScene(void);
+	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);
+	virtual void runNextFrame(const Ogre::FrameEvent& evt) = 0;
+	virtual void handleKeyPressed(const OIS::KeyCode key) = 0;
+	virtual void handleKeyReleased(const OIS::KeyCode key) = 0;
+	virtual void handleMouseMoved( int dx, int dy ) = 0;
+	virtual void handleMousePressed( int x, int y, OIS::MouseButtonID id ) = 0;
+	virtual void handleMouseReleased( int x, int y, OIS::MouseButtonID id ) = 0;
+};
+
+#endif // #ifndef __Scene_h_
