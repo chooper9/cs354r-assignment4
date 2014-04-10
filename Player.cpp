@@ -8,7 +8,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	physicsEngine(bulletEngine),
 	attackEffectChecked(true)
 {
-	int height = HEIGHT_NINJA;
+	int height = isPluto ? HEIGHT_PLUTO : HEIGHT_NINJA;
 	playerState.defaultHP = isPluto ? HP_PLUTO : HP_NINJA;
 	positionNode = parentNode->createChildSceneNode(pos);
 	isAI = !isPluto;
@@ -160,7 +160,7 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt) {
 	if (playerState.action == IDLE){
 		if (direction.x != 0 || direction.z != 0) {
 			animation = playerEnt->getAnimationState("Walk");
-			animation->addTime(evt.timeSinceLastFrame*1.5);
+			animation->addTime(evt.timeSinceLastFrame*(playerState.step == STEP_NINJA ? 1.5: 2.5));
 		}else{
 			animation = playerEnt->getAnimationState("Idle1");
 			animation->addTime(evt.timeSinceLastFrame*0.5);
@@ -199,7 +199,11 @@ void Player::checkAttackEffect(Player* enemy) {
 //-------------------------------------------------------------------------------------
 
 void Player::reactTo(Player* enemy) {
-	if(playerState.action == DIE) return;
+	if(playerState.action == DIE || enemy->playerState.action == DIE ) {
+		playerState.movingForward = false;
+		playerState.movingBackward = false;
+		return;
+	}
 	Ogre::Vector3 dirToEnemy = enemy->positionNode->getPosition() - positionNode->getPosition();
 	Ogre::Real dist = dirToEnemy.length();
 	Ogre::Real yaw = orient.getRotationTo(dirToEnemy).getYaw().valueDegrees();
@@ -260,6 +264,8 @@ void Player::handleKeyPressed(const OIS::KeyCode key) {
 		playerState.movingBackward = true; break;
 	case OIS::KC_D: 
 		playerState.movingRight = true; break;
+	case OIS::KC_LCONTROL: 
+		playerState.step = STEP_NINJA_RUN; break;
 	case OIS::KC_SPACE: 
 		jump();
 		break;
@@ -281,6 +287,8 @@ void Player::handleKeyReleased(const OIS::KeyCode key) {
 		playerState.movingBackward = false; break;
 	case OIS::KC_D: 
 		playerState.movingRight = false; break;
+	case OIS::KC_LCONTROL: 
+		playerState.step = STEP_NINJA; break;
 	}
 }
 

@@ -13,9 +13,9 @@
 
 // ======================== Player Constants ======================== 
 enum PlayerAction { IDLE, KICK, ATTACK, BLOCK, STOP_BLOCK, JUMP, DIE };
-enum PlayerHp { HP_PLUTO = 10000, HP_NINJA = 20 };
-enum PlayerHeight { HEIGHT_NINJA = 90 };
-enum PlayerStep { STEP_NINJA = 150 };
+enum PlayerHp { HP_PLUTO = 100, HP_NINJA = 20 };
+enum PlayerHeight { HEIGHT_PLUTO = 90, HEIGHT_NINJA = 80 };
+enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
 enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10 }; 
 
 typedef struct PlayerState {
