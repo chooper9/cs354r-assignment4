@@ -28,7 +28,7 @@ void Game::enterScene(enum GameScene newGameScene) {
 		currentScene = sceneSpace;
 		break;
 	case SCENE_PLANET:
-		scenePlanet->setupScene(0);
+		scenePlanet->setupScene(1);
 		scenePlanet->addCamera(mainCam);
 		currentScene = scenePlanet;
 		break;

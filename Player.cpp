@@ -1,18 +1,18 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, const Ogre::Vector3& pos) :  
+Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, const Ogre::Vector3& pos) :  
 	graphicsEngine(mSceneMgr),
 	positionNode(0),
 	visible(true),
-	physicsEngine(bulletEngine)
+	physicsEngine(bulletEngine),
+	attackEffectChecked(true)
 {
-	resetState();
 	int height = HEIGHT_NINJA;
-
+	playerState.defaultHP = isPluto ? HP_PLUTO : HP_NINJA;
 	positionNode = parentNode->createChildSceneNode(pos);
-
-	playerEnt = mSceneMgr->createEntity( "playerEnt", "ninja.mesh" );
+	isAI = !isPluto;
+	playerEnt = mSceneMgr->createEntity("ninja.mesh" );
 	playerEnt->setCastShadows(true);
 
         playerEnt->getAnimationState("Idle1")->setLoop(true);
@@ -21,6 +21,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
         playerEnt->getAnimationState("Attack3")->setLoop(false);
         playerEnt->getAnimationState("Kick")->setLoop(false);
         playerEnt->getAnimationState("Jump")->setLoop(false);
+        playerEnt->getAnimationState("Death1")->setLoop(false);
 
 
 	Ogre::SceneNode* characterNode = positionNode->createChildSceneNode();
@@ -28,6 +29,8 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	Ogre::Real ratio = height/195.649;
 	characterNode->scale(ratio, ratio, ratio);
 	
+	orient = positionNode->getOrientation() * Ogre::Vector3::NEGATIVE_UNIT_Z;
+
 	physicsObject.setToBox(
 		btVector3(10,height,5),
 		100,
@@ -41,14 +44,17 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	physicsObject.setFriction(1);  
 
 	physicsEngine->addObject(&physicsObject);
+	resetState();
 }
 
 //-------------------------------------------------------------------------------------
 
 Player::~Player(void) {
 	physicsEngine->removeObject(&physicsObject);
+
+	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
-	graphicsEngine->destroyEntity(playerEnt);
+	graphicsEngine->destroySceneNode(positionNode);
 	std::cout << "========= Debug: Player Deleted =========" << std::endl;
 }
 
@@ -66,16 +72,21 @@ void Player::toggleVisible(void) {
 
 void Player::resetState(void) {
 	playerState.action = IDLE;
-	playerState.hp = HP_PLUTO;
+	playerState.hp = playerState.defaultHP;
 	playerState.step = STEP_NINJA;
 	playerState.degreeYaw = 0;
 	playerState.movingLeft = false;
 	playerState.movingRight = false;
 	playerState.movingForward = false;
 	playerState.movingBackward = false;
+	attackEffectChecked = true;
 }
 
-void Player::nextAction(const Ogre::FrameEvent& evt) {
+void Player::runNextFrame(const Ogre::FrameEvent& evt) {
+	if (isDead()) {
+		die();
+	}
+
 	if (playerState.action != IDLE){
 	        playerEnt->getAnimationState("Walk")->setEnabled(false);
 	        playerEnt->getAnimationState("Idle1")->setEnabled(false);
@@ -91,6 +102,7 @@ void Player::nextAction(const Ogre::FrameEvent& evt) {
 			playerState.action = IDLE;
 			animation->setTimePosition(0);
 			animation->setEnabled(false);
+			attackEffectChecked = true;
 		}
 		break;
 	case BLOCK:
@@ -121,12 +133,13 @@ void Player::nextAction(const Ogre::FrameEvent& evt) {
 			animation->setTimePosition(0);
 			animation->setEnabled(false);
 		}
-		break;
+		return; // don't proceed to walk while kicking
+	case DIE:
+		animation = playerEnt->getAnimationState("Death1");
+		animation->addTime(evt.timeSinceLastFrame);
+		return; // don't proceed to walk while dying
 	default: break;
 	}
-
-	if (playerState.action == KICK) return;
-
 
 	positionNode->yaw(Ogre::Degree(playerState.degreeYaw), Ogre::Node::TS_LOCAL);
 	playerState.degreeYaw = 0;
@@ -145,15 +158,19 @@ void Player::nextAction(const Ogre::FrameEvent& evt) {
 	positionNode->translate(direction, Ogre::Node::TS_LOCAL);
 
 	if (playerState.action == IDLE){
-		if (direction.x != 0 || direction.z != 0)
+		if (direction.x != 0 || direction.z != 0) {
 			animation = playerEnt->getAnimationState("Walk");
-		else
+			animation->addTime(evt.timeSinceLastFrame*1.5);
+		}else{
 			animation = playerEnt->getAnimationState("Idle1");
+			animation->addTime(evt.timeSinceLastFrame*0.5);
+		}
 	        animation->setEnabled(true);
-		animation->addTime(evt.timeSinceLastFrame);
 	}
 
 	Ogre::Quaternion q = positionNode->getOrientation();
+	
+	orient = q * Ogre::Vector3::NEGATIVE_UNIT_Z;
 	Ogre::Vector3 p = positionNode->getPosition();
 	btTransform playerTrans;
 	physicsObject.getWorldTransform(playerTrans);
@@ -165,9 +182,66 @@ void Player::nextAction(const Ogre::FrameEvent& evt) {
 
 //-------------------------------------------------------------------------------------
 
+void Player::checkAttackEffect(Player* enemy) {
+	if (!attackEffectChecked && 
+		playerEnt->getAnimationState("Attack3")->getTimePosition() > 0.3 && 
+		enemy->playerEnt->getAnimationState("Block")->getTimePosition() < 0.15
+	) {
+		enemy->hitBy(ATTACK_BLADE);
+		attackEffectChecked = true;
+	}else 
+	if (!attackEffectChecked && playerEnt->getAnimationState("Kick")->getTimePosition() > 0.3) {
+		enemy->hitBy(ATTACK_KICK);
+		attackEffectChecked = true;
+	}
+}
+
+//-------------------------------------------------------------------------------------
+
+void Player::reactTo(Player* enemy) {
+	if(playerState.action == DIE) return;
+	Ogre::Vector3 dirToEnemy = enemy->positionNode->getPosition() - positionNode->getPosition();
+	Ogre::Real dist = dirToEnemy.length();
+	Ogre::Real yaw = orient.getRotationTo(dirToEnemy).getYaw().valueDegrees();
+
+
+	if (!isAI) {
+		if (dist < 80 && yaw < 10 && yaw > -10 && 
+			(playerState.action == ATTACK || playerState.action == KICK))
+			checkAttackEffect(enemy);
+		return;
+	}
+
+
+	if (dist < 90) {
+		if (isAI && enemy->playerState.action == ATTACK) {
+			block();
+			playerState.movingForward = false;
+			playerState.movingBackward = false;
+			return;
+		} else {
+			if (isAI) stopBlock();
+			if (yaw < 10 && yaw > -10) {
+				if (isAI) attack();
+				checkAttackEffect(enemy);
+			}
+		}
+	}
+	if (yaw > 0) playerState.degreeYaw = 1;
+	else if (yaw < 0) playerState.degreeYaw = -1;
+	
+	playerState.movingForward = dist > 60;
+	playerState.movingBackward = dist < 60;
+
+
+}
+
+//-------------------------------------------------------------------------------------
+
 void Player::setPosition(const Ogre::Vector3& pos) {
 	positionNode->setPosition(pos);
 	positionNode->resetOrientation();
+	orient = positionNode->getOrientation() * Ogre::Vector3::NEGATIVE_UNIT_Z;
 	btTransform trans;
 	physicsObject.getWorldTransform(trans);
 	trans.setOrigin(btVector3(pos.x, pos.y, pos.z));
@@ -187,16 +261,10 @@ void Player::handleKeyPressed(const OIS::KeyCode key) {
 	case OIS::KC_D: 
 		playerState.movingRight = true; break;
 	case OIS::KC_SPACE: 
-		if (playerState.action == IDLE) {
-			playerState.action = JUMP;
-			playerEnt->getAnimationState("Jump")->setEnabled(true);
-		}
+		jump();
 		break;
 	case OIS::KC_E: 
-		if (playerState.action == IDLE) {
-			playerState.action = KICK;
-			playerEnt->getAnimationState("Kick")->setEnabled(true);
-		}
+		kick();
 		break;
 	}
 }
@@ -228,12 +296,10 @@ void Player::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
 	if (playerState.action != IDLE) return;
 	switch(id) {
 	case OIS::MB_Left:
-		playerState.action = ATTACK;
-		playerEnt->getAnimationState("Attack3")->setEnabled(true);
+		attack();
 		break;
 	case OIS::MB_Right:
-		playerState.action = BLOCK;
-		playerEnt->getAnimationState("Block")->setEnabled(true);
+		block();
 		break;
 	}
 }
@@ -243,9 +309,7 @@ void Player::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
 void Player::handleMouseReleased( int x, int y, OIS::MouseButtonID id ) {
 	switch(id) {
 	case OIS::MB_Right:
-		if (playerState.action == BLOCK){
-			playerState.action = STOP_BLOCK;
-		}
+		stopBlock();
 		break;
 	}
 }

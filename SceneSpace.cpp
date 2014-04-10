@@ -49,7 +49,9 @@ bool SceneSpace::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 
 //-------------------------------------------------------------------------------------
 
-void SceneSpace::runNextFrame(const Ogre::FrameEvent& evt) {
+bool SceneSpace::runNextFrame(const Ogre::FrameEvent& evt) {
+	if(!Scene::runNextFrame(evt)) return false;
+	return true;
 }
 
 //-------------------------------------------------------------------------------------

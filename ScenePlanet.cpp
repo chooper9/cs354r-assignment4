@@ -2,6 +2,7 @@
 
 ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr) {
 	cameraMode = CAM_THIRD_PERSON;
+	enemies.clear();
 	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
 	Ogre::MeshManager::getSingleton().createPlane(
 		"planetSurface", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
@@ -26,8 +27,11 @@ bool ScenePlanet::setupScene(int level) {
 	entSide->setCastShadows(false);
 	sceneRootNode->attachObject(entSide);
 
-	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine);
-
+	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true);
+	for(int i = 0; i < level*10; i++)
+		enemies.push_back(new Player(
+			graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(i*40 - level*200, 0, -100)
+		));
 }
 
 //-------------------------------------------------------------------------------------
@@ -36,6 +40,9 @@ bool ScenePlanet::destroyScene(void) {
 	if (camera->getParentSceneNode() != NULL)
 		camera->getParentSceneNode()->detachObject(camera);
 	if (pluto) delete pluto;
+	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++)
+		delete (*it);
+	enemies.clear();
 	if (!Scene::destroyScene()) return false;
 }
 
@@ -55,16 +62,34 @@ bool ScenePlanet::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 
 //-------------------------------------------------------------------------------------
 
-void ScenePlanet::runNextFrame(const Ogre::FrameEvent& evt) {
-	if (!isSceneSetup) return;
-	pluto->nextAction(evt);
+void ScenePlanet::runAI(const Ogre::FrameEvent& evt) {
+	int i = 0;
+	bool run = false;
+	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+		Player* enemy = *it;
+		if (!enemy->isDead() && !run){
+			pluto->reactTo(enemy);
+			enemy->reactTo(pluto);
+			run = true;
+		}
+		enemy->runNextFrame(evt);
+	}
+}
+
+//-------------------------------------------------------------------------------------
+
+bool ScenePlanet::runNextFrame(const Ogre::FrameEvent& evt) {
+	if(!Scene::runNextFrame(evt)) return false;
+	pluto->runNextFrame(evt);
+	runAI(evt);
+	return true;
 }
 
 //-------------------------------------------------------------------------------------
 
 void ScenePlanet::handleKeyPressed(const OIS::KeyCode key) {
 	if (!isSceneSetup) return;
-	pluto->handleKeyPressed(key);	
+	pluto->handleKeyPressed(key);
 
 	switch(key) {
 	case OIS::KC_R:

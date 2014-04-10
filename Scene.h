@@ -17,7 +17,7 @@ public:
 	virtual bool setupScene(int level);
 	virtual bool destroyScene(void);
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);
-	virtual void runNextFrame(const Ogre::FrameEvent& evt) = 0;
+	virtual bool runNextFrame(const Ogre::FrameEvent& evt);
 	virtual void handleKeyPressed(const OIS::KeyCode key) = 0;
 	virtual void handleKeyReleased(const OIS::KeyCode key) = 0;
 	virtual void handleMouseMoved( int dx, int dy ) = 0;

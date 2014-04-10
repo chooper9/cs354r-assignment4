@@ -12,8 +12,8 @@
 #include <OISMouse.h>
 
 // ======================== Player Constants ======================== 
-enum PlayerAction { IDLE, KICK, ATTACK, BLOCK, STOP_BLOCK, JUMP };
-enum PlayerHp { HP_PLUTO = 300, HP_NINJA = 10 };
+enum PlayerAction { IDLE, KICK, ATTACK, BLOCK, STOP_BLOCK, JUMP, DIE };
+enum PlayerHp { HP_PLUTO = 10000, HP_NINJA = 20 };
 enum PlayerHeight { HEIGHT_NINJA = 90 };
 enum PlayerStep { STEP_NINJA = 150 };
 enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10 }; 
@@ -21,7 +21,8 @@ enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10 };
 typedef struct PlayerState {
 	enum PlayerAction action;
 	enum PlayerStep step;
-	int hp;
+	enum PlayerHp defaultHP;
+	int hp;	
 	Ogre::Real degreeYaw;
 	bool movingLeft;
 	bool movingRight;

@@ -9,14 +9,16 @@ class ScenePlanet : public Scene
 {
 private:
 	Player* pluto;
+	std::vector<Player*> enemies;
 	enum CameraMode cameraMode;
+	void runAI(const Ogre::FrameEvent& evt);
 public:
 	ScenePlanet(Ogre::SceneManager* mSceneMgr);
 	~ScenePlanet(void);
 	virtual bool setupScene(int level);
 	virtual bool destroyScene(void);
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);
-	virtual void runNextFrame(const Ogre::FrameEvent& evt);
+	virtual bool runNextFrame(const Ogre::FrameEvent& evt);
 	virtual void handleKeyPressed(const OIS::KeyCode key);
 	virtual void handleKeyReleased(const OIS::KeyCode key);
 	virtual void handleMouseMoved( int dx, int dy );

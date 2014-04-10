@@ -50,3 +50,9 @@ bool Scene::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 	camera = cam;
 	return true;
 }
+
+//-------------------------------------------------------------------------------------
+
+bool Scene::runNextFrame(const Ogre::FrameEvent& evt) {
+	return isSceneSetup;
+}
