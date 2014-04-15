@@ -1,5 +1,6 @@
 
 #include "Pluto.h"
+#include "PlutoGui.h"
 #include <OgreMath.h>
 #include <OgreSphere.h>
 #include <iostream>
@@ -37,6 +38,7 @@ void Pluto::createCamera(void)
 
 void Pluto::createScene(void)
 {
+	setup_PlutoGui();
 
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
@@ -83,6 +85,7 @@ bool Pluto::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	if (mShutDown) return false;
 	mKeyboard->capture();
 	mMouse->capture();
+	CEGUI::System::getSingleton().injectTimePulse(evt.timeSinceLastFrame);
 	//mCamNode->translate(mDirection * evt.timeSinceLastFrame, Ogre::Node::TS_LOCAL);
 	game->runNextFrame(evt);
 	return true;
@@ -90,6 +93,10 @@ bool Pluto::frameRenderingQueued(const Ogre::FrameEvent& evt)
 //-------------------------------------------------------------------------------------
 // OIS::KeyListener
 bool Pluto::keyPressed( const OIS::KeyEvent& evt ){
+	CEGUI::System &sys = CEGUI::System::getSingleton();
+	sys.injectKeyDown(evt.key);
+	sys.injectChar(evt.text);
+
 	if(evt.key == OIS::KC_ESCAPE) {
 		mShutDown = true;
 		return true;
@@ -99,6 +106,7 @@ bool Pluto::keyPressed( const OIS::KeyEvent& evt ){
 }
 //-------------------------------------------------------------------------------------
 bool Pluto::keyReleased( const OIS::KeyEvent& evt ){
+	CEGUI::System::getSingleton().injectKeyUp(evt.key);
 	game->handleKeyReleased(evt.key);
 	return true;
 }
@@ -106,6 +114,11 @@ bool Pluto::keyReleased( const OIS::KeyEvent& evt ){
 
 // OIS::MouseListener
 bool Pluto::mouseMoved( const OIS::MouseEvent& evt ){
+	CEGUI::System &sys = CEGUI::System::getSingleton();
+	sys.injectMouseMove(evt.state.X.rel, evt.state.Y.rel);
+	if(evt.state.Z.rel)
+		sys.injectMouseWheelChange(evt.state.Z.rel / 120.0f);
+
 	game->handleMouseMoved(evt.state.X.rel, evt.state.Y.rel);
 	//mCamNode->yaw(Ogre::Degree(-mRotate * evt.state.X.rel), Ogre::Node::TS_WORLD);
     	//mCamNode->pitch(Ogre::Degree(-mRotate * evt.state.Y.rel), Ogre::Node::TS_LOCAL);
@@ -113,6 +126,7 @@ bool Pluto::mouseMoved( const OIS::MouseEvent& evt ){
 }
 //-------------------------------------------------------------------------------------
 bool Pluto::mousePressed( const OIS::MouseEvent& evt, OIS::MouseButtonID id ){
+	CEGUI::System::getSingleton().injectMouseButtonDown(convertButton(id));
 	game->handleMousePressed(evt.state.X.abs, evt.state.Y.abs, id);
 	return true;
 }
@@ -120,6 +134,7 @@ bool Pluto::mousePressed( const OIS::MouseEvent& evt, OIS::MouseButtonID id ){
 //-------------------------------------------------------------------------------------
 
 bool Pluto::mouseReleased( const OIS::MouseEvent& evt, OIS::MouseButtonID id ){
+	CEGUI::System::getSingleton().injectMouseButtonUp(convertButton(id));
 	game->handleMouseReleased(evt.state.X.abs, evt.state.Y.abs, id);
 	return true;
 }
