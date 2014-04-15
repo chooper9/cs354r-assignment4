@@ -53,16 +53,16 @@ public:
 	}
 
 	void attack(void) {
-		if (playerState.action == BLOCK || 
-			playerState.action == STOP_BLOCK || 
-			playerState.action == ATTACK) 
-			return;
+		if (playerState.action == BLOCK || playerState.action == STOP_BLOCK) {
+			playerEnt->getAnimationState("Block")->setTimePosition(0);
+			playerEnt->getAnimationState("Block")->setEnabled(false);
+		} else if (playerState.action != IDLE) return;
 		playerState.action = ATTACK;
 		playerEnt->getAnimationState("Attack3")->setEnabled(true);
 		attackEffectChecked = false;
 	}
 	void block(void) {
-		if (playerState.action == ATTACK) return;
+		if (playerState.action != IDLE) return;
 		playerState.action = BLOCK;
 		playerEnt->getAnimationState("Block")->setEnabled(true);
 	}
@@ -70,22 +70,32 @@ public:
 		if (playerState.action == BLOCK) playerState.action = STOP_BLOCK;
 	}
 	void jump(void) {
-		if (playerState.action == KICK) return;
+		if (playerState.action != IDLE) return;;
 		playerState.action = JUMP;
 		playerEnt->getAnimationState("Jump")->setEnabled(true);
 	}
 	void kick(void) {
-		if (playerState.action == JUMP) return;
+		if (playerState.action != IDLE) return;
 		playerState.action = KICK;
 		attackEffectChecked = false;
-		playerEnt->getAnimationState("Attack3")->setEnabled(false);
-		playerEnt->getAnimationState("Block")->setEnabled(false);
-		playerEnt->getAnimationState("Jump")->setEnabled(false);
 		playerEnt->getAnimationState("Kick")->setEnabled(true);
+	}
+	void kicked(void) {
+		playerState.action = KICKED;
+		playerEnt->getAnimationState("Attack3")->setTimePosition(0);
+		playerEnt->getAnimationState("Attack3")->setEnabled(false);
+		playerEnt->getAnimationState("Block")->setTimePosition(0);
+		playerEnt->getAnimationState("Block")->setEnabled(false);
+		playerEnt->getAnimationState("Jump")->setTimePosition(0);
+		playerEnt->getAnimationState("Jump")->setEnabled(false);
+		playerEnt->getAnimationState("Kick")->setTimePosition(0);
+		playerEnt->getAnimationState("Kick")->setEnabled(false);
+		playerEnt->getAnimationState("Backflip")->setEnabled(true);
 	}
 	void die(void) {
 		playerState.hp = 0;
 		playerState.action = DIE;
+		playerEnt->getAnimationState("Backflip")->setEnabled(false);
 		playerEnt->getAnimationState("Attack3")->setEnabled(false);
 		playerEnt->getAnimationState("Block")->setEnabled(false);
 		playerEnt->getAnimationState("Jump")->setEnabled(false);

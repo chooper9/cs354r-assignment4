@@ -28,10 +28,11 @@ bool ScenePlanet::setupScene(int level) {
 	sceneRootNode->attachObject(entSide);
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true);
-	for(int i = 0; i < level*10; i++)
+	for(int i = 0; i < level*10; i++) {
 		enemies.push_back(new Player(
 			graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(i*40 - level*200, 0, -100)
 		));
+	}
 }
 
 //-------------------------------------------------------------------------------------
@@ -67,7 +68,7 @@ void ScenePlanet::runAI(const Ogre::FrameEvent& evt) {
 	bool run = false;
 	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
 		Player* enemy = *it;
-		if (!enemy->isDead() /*&& !run*/){
+		if (!enemy->isDead() && !run){
 			pluto->reactTo(enemy);
 			enemy->reactTo(pluto);
 			run = true;

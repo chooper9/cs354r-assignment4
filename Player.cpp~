@@ -21,6 +21,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
         playerEnt->getAnimationState("Attack3")->setLoop(false);
         playerEnt->getAnimationState("Kick")->setLoop(false);
         playerEnt->getAnimationState("Jump")->setLoop(false);
+        playerEnt->getAnimationState("Stealth")->setLoop(false);
         playerEnt->getAnimationState("Death1")->setLoop(false);
 
 
@@ -134,6 +135,15 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 			animation->setEnabled(false);
 		}
 		return; // don't proceed to walk while kicking
+	case KICKED:
+		animation = playerEnt->getAnimationState("Stealth");
+		animation->addTime(evt.timeSinceLastFrame);
+		if (animation->getTimePosition() == animation->getLength()) {
+			playerState.action = IDLE;
+			animation->setTimePosition(0);
+			animation->setEnabled(false);
+		}
+		return; // don't proceed to walk while being kicked
 	case DIE:
 		animation = playerEnt->getAnimationState("Death1");
 		animation->addTime(evt.timeSinceLastFrame);
@@ -165,14 +175,14 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 		for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
 			Player* enemy = *it;
 			if (isAI && this == enemy) continue;
-			if (this != enemy && !enemy->isDead() && isCollidingWith(enemy, pushedPosition)){
+			if (this != enemy && !enemy->isDead() && isCollidingWith(enemy)){
 				positionNode->translate(direction*(-0.6), Ogre::Node::TS_LOCAL);
 				if (isCollidingWith(enemy, pushedPosition))
 					positionNode->setPosition(pushedPosition);
 				break;
 			}
 		}
-		if (isAI && !pluto->isDead() && isCollidingWith(pluto, pushedPosition)) {
+		if (isAI && !pluto->isDead() && isCollidingWith(pluto)) {
 			positionNode->translate(direction*(-0.6), Ogre::Node::TS_LOCAL);
 			if (isCollidingWith(pluto, pushedPosition))
 				positionNode->setPosition(pushedPosition);
@@ -206,6 +216,7 @@ void Player::checkAttackEffect(Player* enemy) {
 	}else 
 	if (!attackEffectChecked && playerEnt->getAnimationState("Kick")->getTimePosition() > 0.3) {
 		enemy->hitBy(ATTACK_KICK);
+		enemy->kicked();
 		attackEffectChecked = true;
 	}
 }
@@ -251,7 +262,7 @@ void Player::reactTo(Player* enemy) {
 	else if (yaw < 0) playerState.degreeYaw = -1;
 	
 	playerState.movingForward = dist > 60;
-	playerState.movingBackward = dist < 60;
+	playerState.movingBackward = dist < 20;
 
 
 }
@@ -317,7 +328,6 @@ void Player::handleMouseMoved( int dx, int dy ) {
 //-------------------------------------------------------------------------------------
 
 void Player::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
-	if (playerState.action != IDLE) return;
 	switch(id) {
 	case OIS::MB_Left:
 		attack();

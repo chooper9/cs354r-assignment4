@@ -12,7 +12,7 @@
 #include <OISMouse.h>
 
 // ======================== Player Constants ======================== 
-enum PlayerAction { IDLE, KICK, ATTACK, BLOCK, STOP_BLOCK, JUMP, DIE };
+enum PlayerAction { IDLE, KICK, KICKED, ATTACK, BLOCK, STOP_BLOCK, JUMP, DIE };
 enum PlayerHp { HP_PLUTO = 1000000, HP_NINJA = 20 };
 enum PlayerHeight { HEIGHT_PLUTO = 90, HEIGHT_NINJA = 80 };
 enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
