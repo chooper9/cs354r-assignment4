@@ -36,7 +36,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 		btVector3(10,height,5),
 		100,
 		btQuaternion(0, 0, 0, 1),
-		btVector3(pos.x, pos.y, pos.z)
+		btVector3(pos.x, pos.y + height/2, pos.z)
 	);
 	physicsObject.toggleRigidBodyAndKinematic(); // change to Kinematic
 
@@ -52,7 +52,6 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 
 Player::~Player(void) {
 	physicsEngine->removeObject(&physicsObject);
-
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
 	graphicsEngine->destroySceneNode(positionNode);
@@ -207,16 +206,18 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 //-------------------------------------------------------------------------------------
 
 void Player::checkAttackEffect(Player* enemy) {
-	if (!attackEffectChecked && 
-		playerEnt->getAnimationState("Attack3")->getTimePosition() > 0.3 && 
-		enemy->playerEnt->getAnimationState("Block")->getTimePosition() < 0.15
-	) {
-		enemy->hitBy(ATTACK_BLADE);
+	if (!attackEffectChecked && playerEnt->getAnimationState("Attack3")->getTimePosition() > 0.3) {
 		attackEffectChecked = true;
-	}else 
-	if (!attackEffectChecked && playerEnt->getAnimationState("Kick")->getTimePosition() > 0.3) {
+		if (enemy->playerEnt->getAnimationState("Block")->getTimePosition() < 0.15) {
+			enemy->hitBy(ATTACK_BLADE);
+			;// play sound - hit by blade
+		} else {
+			;// play sound - blocked
+		}
+	} else if (!attackEffectChecked && playerEnt->getAnimationState("Kick")->getTimePosition() > 0.3) {
 		enemy->hitBy(ATTACK_KICK);
 		enemy->kicked();
+		;// play sound - kicked
 		attackEffectChecked = true;
 	}
 }
@@ -243,20 +244,23 @@ void Player::reactTo(Player* enemy) {
 
 
 	if (dist < 90) {
-		if (isAI && enemy->playerState.action == ATTACK) {
+		if (enemy->playerState.action == ATTACK) {
 			block();
 			playerState.movingForward = false;
 			playerState.movingBackward = false;
 			return;
 		} else {
-			if (isAI) stopBlock();
+			stopBlock();
 			if (yaw < 10 && yaw > -10) {
-				if (isAI) attack();
-				checkAttackEffect(enemy);
+				if (Ogre::Math::UnitRandom() < 0.9)
+					attack();
+				else
+					kick();
 			}
+			checkAttackEffect(enemy);
 		}
 	} else {
-		if (isAI) stopBlock();
+		stopBlock();
 	}
 	if (yaw > 0) playerState.degreeYaw = 1;
 	else if (yaw < 0) playerState.degreeYaw = -1;

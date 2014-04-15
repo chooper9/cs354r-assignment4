@@ -15,6 +15,7 @@ private:
 public:
 	ScenePlanet(Ogre::SceneManager* mSceneMgr);
 	~ScenePlanet(void);
+	ScenePlanetResult getResult(void);
 	virtual bool setupScene(int level);
 	virtual bool destroyScene(void);
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);

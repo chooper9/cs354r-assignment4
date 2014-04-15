@@ -61,6 +61,10 @@ void Game::exitScene(void) {
 
 void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	if(currentGameScene != SCENE_NONE) currentScene->runNextFrame(evt);
+	if(currentGameScene == SCENE_PLANET && scenePlanet->getResult() != PLUTO_FIGHTING) {
+		exitScene();
+		enterScene(SCENE_PLANET);
+	}
 }
 
 //-------------------------------------------------------------------------------------

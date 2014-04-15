@@ -32,6 +32,7 @@ typedef struct PlayerState {
 
 // ======================== ScenePlanet Constants ======================== 
 enum ScenePlanetSize { LENGTH_ScenePlanet = 1000, WIDTH_ScenePlanet = 1000 };
+enum ScenePlanetResult { PLUTO_WIN, PLUTO_LOSE, PLUTO_FIGHTING };
 
 // ======================== SceneSpace Constants ======================== 
 enum SceneSpaceSize { LENGTH_SceneSpace = 1000, WIDTH_SceneSpace = 1000, HEIGHT_SceneSpace = 1000 };

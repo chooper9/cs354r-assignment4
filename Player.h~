@@ -90,12 +90,12 @@ public:
 		playerEnt->getAnimationState("Jump")->setEnabled(false);
 		playerEnt->getAnimationState("Kick")->setTimePosition(0);
 		playerEnt->getAnimationState("Kick")->setEnabled(false);
-		playerEnt->getAnimationState("Stealth")->setEnabled(true);
+		playerEnt->getAnimationState("Backflip")->setEnabled(true);
 	}
 	void die(void) {
 		playerState.hp = 0;
 		playerState.action = DIE;
-		playerEnt->getAnimationState("Stealth")->setEnabled(false);
+		playerEnt->getAnimationState("Backflip")->setEnabled(false);
 		playerEnt->getAnimationState("Attack3")->setEnabled(false);
 		playerEnt->getAnimationState("Block")->setEnabled(false);
 		playerEnt->getAnimationState("Jump")->setEnabled(false);

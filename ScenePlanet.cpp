@@ -88,6 +88,23 @@ bool ScenePlanet::runNextFrame(const Ogre::FrameEvent& evt) {
 
 //-------------------------------------------------------------------------------------
 
+ScenePlanetResult ScenePlanet::getResult(void) {
+	if (pluto->isDead()) return PLUTO_LOSE;
+	bool botsAllDead = true;
+	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+		Player* enemy = *it;
+		if (!enemy->isDead()){
+			botsAllDead = false;
+		}
+	}
+	if (botsAllDead)
+		return PLUTO_WIN;
+	else
+		return PLUTO_FIGHTING;
+}
+
+//-------------------------------------------------------------------------------------
+
 void ScenePlanet::handleKeyPressed(const OIS::KeyCode key) {
 	if (!isSceneSetup) return;
 	pluto->handleKeyPressed(key);
