@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<Animations>
+
+	<AnimationDefinition name="Fade_out" duration="0.4" replayMode="once">
+		<Affector property="Alpha" interpolator="float">
+			<KeyFrame position="0" value="1" />
+			<KeyFrame position="0.4" value=".4" progression="quadratic accelerating" />
+		</Affector>
+		<Subscription event="MouseEntersArea" action="Start" />
+		<Subscription event="MouseLeavesArea" action="Stop" />
+	</AnimationDefinition>
+
+	<AnimationDefinition name="Fade_in" duration="0.2" replayMode="once">
+	        <Affector property="Alpha" interpolator="float">
+			<KeyFrame position="0" value="0.4" />
+			<KeyFrame position="0.2" value="1" progression="linear" />
+		</Affector>
+		<Subscription event="MouseLeavesArea" action="Start" />
+		<Subscription event="MouseEntersArea" action="Stop" />
+	</AnimationDefinition>
+
+	<AnimationDefinition name="Slide_in" duration="0.3" replayMode="once">
+		<Affector property="UnifiedPosition" interpolator="UVector2">
+			<KeyFrame position="0" value="{{0,0}, {0,0}}" />
+			<KeyFrame position="0.3" value="{{0.2,0}, {0,0}}" progression="linear" />
+		</Affector>
+	</AnimationDefinition>
+
+</Animations>

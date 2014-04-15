@@ -32,10 +32,18 @@ bool ScenePlanet::setupScene(int level) {
 	physicsEngine->addObject(ground);
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true);
+	enemyHPset = new Ogre::BillboardSet("EnemyHPSet");
+	enemyHPset->setPoolSize(level*10);
+	enemyHPset->setMaterialName("Pluto/EnemyHP");
+	enemyHPset->setDefaultDimensions(8,2);
+	enemyHPset->setBounds(Ogre::AxisAlignedBox(-1000,-1000,-1000,1000,1000,1000), 1000);
+	Ogre::SceneNode* hpBBSnode = sceneRootNode->createChildSceneNode();
+	hpBBSnode->attachObject(enemyHPset);
 	for(int i = 0; i < level*10; i++) {
 		enemies.push_back(new Player(
 			graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(i*40 - level*200, 0, -100)
 		));
+		enemies[i]->setBillboard(enemyHPset->createBillboard(Ogre::Vector3(i*40 - level*200, 80, -100)));
 	}
 }
 
@@ -48,6 +56,7 @@ bool ScenePlanet::destroyScene(void) {
 	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++)
 		delete (*it);
 	enemies.clear();
+	delete enemyHPset;
 	if (!Scene::destroyScene()) return false;
 }
 

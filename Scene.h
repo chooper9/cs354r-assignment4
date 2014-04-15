@@ -2,6 +2,8 @@
 #define __Scene_h_
 
 #include "GameResource.h"
+#include <OgreBillboardSet.h>
+#include <OgreBillboard.h>
 
 class Scene
 {

@@ -10,10 +10,12 @@
 #include <OISInputManager.h>
 #include <OISKeyboard.h>
 #include <OISMouse.h>
+#include <CEGUI.h>
+#include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 
 // ======================== Player Constants ======================== 
 enum PlayerAction { IDLE, KICK, KICKED, ATTACK, BLOCK, STOP_BLOCK, JUMP, DIE };
-enum PlayerHp { HP_PLUTO = 1000000, HP_NINJA = 20 };
+enum PlayerHp { HP_PLUTO = 1000, HP_NINJA = 200 };
 enum PlayerHeight { HEIGHT_PLUTO = 90, HEIGHT_NINJA = 80 };
 enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
 enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10, ATTACK_SHURIKEN = 7 }; 
@@ -64,6 +66,25 @@ enum MouseEvent { HIT_START, HIT_STOP };
 
 // =================== Global Variables and Functions ===================
 static Sound* soundHandler;
+static CEGUI::OgreRenderer* mRenderer;
+
+static CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
+{
+    switch (buttonID)
+    {
+    case OIS::MB_Left:
+        return CEGUI::LeftButton;
+
+    case OIS::MB_Right:
+        return CEGUI::RightButton;
+
+    case OIS::MB_Middle:
+        return CEGUI::MiddleButton;
+
+    default:
+        return CEGUI::LeftButton;
+    }
+}
 
 static void destroySceneNodeHelper(Ogre::SceneNode* node) {
 	if(!node) return;

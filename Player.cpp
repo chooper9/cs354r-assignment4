@@ -24,6 +24,10 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
         playerEnt->getAnimationState("Backflip")->setLoop(false);
         playerEnt->getAnimationState("Death1")->setLoop(false);
 
+	if(isPluto) {
+		playerEnt->setMaterialName("Examples/Ninja/Blue");
+		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(0.22, 0));
+	}
 
 	Ogre::SceneNode* characterNode = positionNode->createChildSceneNode();
 	characterNode->attachObject(playerEnt);
@@ -227,6 +231,7 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 	}
 
 	setTransform(positionNode->getPosition(), positionNode->getOrientation());
+
 }
 
 //-------------------------------------------------------------------------------------
@@ -306,6 +311,8 @@ void Player::setTransform(const Ogre::Vector3& pos, const Ogre::Quaternion& q) {
 	trans.setOrigin(btVector3(pos.x, pos.y, pos.z));
 	trans.setRotation(btQuaternion(q.x, q.y, q.z, q.w));
 	physicsObject.setWorldTransform(trans);
+	if(isAI)
+	  hpbar->setPosition(pos.x, pos.y+80, pos.z);
 }
 //-------------------------------------------------------------------------------------
 
@@ -327,6 +334,14 @@ void Player::handleKeyPressed(const OIS::KeyCode key) {
 	case OIS::KC_E: 
 		kick();
 		break;
+	case OIS::KC_LSHIFT: 
+		if (isDead()) return;
+		Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
+		shurikenPos.y += 50;
+		Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos);
+		s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
+		shurikens.push_back(s);
+		break;
 	}
 }
 
@@ -344,13 +359,7 @@ void Player::handleKeyReleased(const OIS::KeyCode key) {
 		playerState.movingRight = false; break;
 	case OIS::KC_LCONTROL: 
 		playerState.step = STEP_NINJA; break;
-	case OIS::KC_H: 
-		Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
-		shurikenPos.y += 50;
-		Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos);
-		s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
-		shurikens.push_back(s);
-		break;
+	
 	}
 }
 

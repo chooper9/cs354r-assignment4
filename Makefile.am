@@ -1,5 +1,5 @@
 ACLOCAL_AMFLAGS= -I m4
-noinst_HEADERS= PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Shuriken.h Player.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h 
+noinst_HEADERS= PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Shuriken.h Player.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h PlutoGui.h
 
 bin_PROGRAMS= OgreApp
 OgreApp_CPPFLAGS= -I$(top_srcdir)

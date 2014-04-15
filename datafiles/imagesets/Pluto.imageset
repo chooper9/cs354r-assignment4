@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<Imageset Name="Pluto" Imagefile="PlutoImages.png" AutoScaled="true">
+	<Image Name="HPBox" XPos="1" YPos="1" Width="255" Height="88" />
+	<Image Name="HPBar" XPos="1" YPos="90" Width="224" Height="21" />
+</Imageset>

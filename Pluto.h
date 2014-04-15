@@ -42,6 +42,12 @@ Ogre::AnimationState* animation;
 	virtual bool mouseMoved( const OIS::MouseEvent& evt );
 	virtual bool mousePressed( const OIS::MouseEvent& evt, OIS::MouseButtonID id );
 	virtual bool mouseReleased( const OIS::MouseEvent& evt, OIS::MouseButtonID id );
+
+	// CEGUI
+	void setup_PlutoGui(void);
+	bool resumeGame(const CEGUI::EventArgs &e);
+	bool quitGame(const CEGUI::EventArgs &e);
+	bool showOptions(const CEGUI::EventArgs &e);
 };
 
 #endif // #ifndef __Pluto_h_

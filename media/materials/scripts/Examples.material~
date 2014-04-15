@@ -1,3 +1,33 @@
+material Examples/Ninja/Blue
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture nskinblue.jpg
+			}
+		}
+	}
+}
+
+material Pluto/EnemyHP
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			texture_unit
+			{
+				texture enemyHPBar.png
+			}
+		}
+	}
+}
+
 material Examples/SphereMappedRustySteel
 {
 	technique
@@ -919,7 +949,7 @@ material Examples/TennisNet
 			texture_unit
 			{
 				texture tennis_net.png
-				scale 0.6 10
+				scale 1 10
 			}
 		}
 	}
