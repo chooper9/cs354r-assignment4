@@ -15,7 +15,7 @@
 
 // ======================== Player Constants ======================== 
 enum PlayerAction { IDLE, KICK, KICKED, ATTACK, BLOCK, STOP_BLOCK, JUMP, DIE };
-enum PlayerHp { HP_PLUTO = 1000, HP_NINJA = 200 };
+enum PlayerHp { HP_PLUTO = 100000, HP_NINJA = 100 };
 enum PlayerHeight { HEIGHT_PLUTO = 90, HEIGHT_NINJA = 80 };
 enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
 enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10, ATTACK_SHURIKEN = 7 }; 
@@ -56,13 +56,6 @@ enum SceneSpaceSize { LENGTH_SceneSpace = 1000, WIDTH_SceneSpace = 1000, HEIGHT_
 enum CameraMode { CAM_THIRD_PERSON, CAM_FIRST_PERSON };
 enum GameScene { SCENE_NONE, SCENE_SPACE, SCENE_PLANET };
 
-enum KeyboardEvent {
-	GO_LEFT, GO_RIGHT, GO_FORWARD, GO_BACKWARD,		// player movement
-	STOP_LEFT, STOP_RIGHT, STOP_FORWARD, STOP_BACKWARD,	// player movement
-	RUN, STOP_RUN, USE_WEAK_HIT, USE_NORMAL_HIT, USE_STRONG_HIT,	// change player state
-	TOGGLE_CAMERA, PAUSE, RESTART, TOGGLE_GAME_MODE		// overall game params
-};
-enum MouseEvent { HIT_START, HIT_STOP };
 
 // =================== Global Variables and Functions ===================
 static Sound* soundHandler;

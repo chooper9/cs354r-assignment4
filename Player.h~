@@ -3,6 +3,8 @@
 
 #include "GameResource.h"
 #include "Shuriken.h"
+#include <OgreBillboardSet.h>
+#include <OgreBillboard.h>
 
 class Player {
 private:
@@ -16,6 +18,7 @@ protected:
 	Ogre::SceneManager* graphicsEngine;
 	Ogre::Entity* playerEnt;
 	Ogre::SceneNode* positionNode;
+	Ogre::Billboard* hpbar;
 	PhysicsObject physicsObject;
 	PhysicsEngine* physicsEngine;
 	PlayerState playerState;
@@ -26,6 +29,7 @@ public:
 	void resetState(void);
 	void runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vector<Player*>& enemies);
 	void reactTo(Player* enemy);
+	void setBillboard(Ogre::Billboard* bb) { hpbar = bb; }
 	void setTransform(const Ogre::Vector3& pos=Ogre::Vector3::ZERO, const Ogre::Quaternion& q=Ogre::Quaternion::IDENTITY);
 	Ogre::SceneNode* getSceneNode(void) { return positionNode; }
 	Ogre::Entity* getEntity(void) { return playerEnt; }
@@ -59,6 +63,13 @@ public:
 			std::cout <<"  play sound - kicked" << std::endl; break;
 		case ATTACK_SHURIKEN:
 			std::cout <<"  play sound - hit by shuriken" << std::endl; break;
+		}
+		if(isAI) {
+			hpbar->resetDimensions();
+			hpbar->setDimensions(hpbar->mParentSet->getDefaultWidth()*((float)playerState.hp / (float)playerState.defaultHP),
+									hpbar->mParentSet->getDefaultHeight());
+		} else {
+			CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(((float)playerState.hp / (float)playerState.defaultHP)*0.22, 0));
 		}
 	}
 

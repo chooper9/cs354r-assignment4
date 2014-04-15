@@ -99,7 +99,7 @@ public:
 		if (playerState.action != IDLE) return;
 		playerState.action = KICK;
 		attackEffectChecked = false;
-		playerEnt->getAnimationState("Kick")->setEnabled(true);
+		playerEnt->getAnimationState("SideKick")->setEnabled(true);
 	}
 	void kicked(void) {
 		playerState.action = KICKED;
@@ -109,8 +109,8 @@ public:
 		playerEnt->getAnimationState("Block")->setEnabled(false);
 		playerEnt->getAnimationState("Jump")->setTimePosition(0);
 		playerEnt->getAnimationState("Jump")->setEnabled(false);
-		playerEnt->getAnimationState("Kick")->setTimePosition(0);
-		playerEnt->getAnimationState("Kick")->setEnabled(false);
+		playerEnt->getAnimationState("SideKick")->setTimePosition(0);
+		playerEnt->getAnimationState("SideKick")->setEnabled(false);
 		playerEnt->getAnimationState("Backflip")->setEnabled(true);
 	}
 	void die(void) {
@@ -120,7 +120,7 @@ public:
 		playerEnt->getAnimationState("Attack3")->setEnabled(false);
 		playerEnt->getAnimationState("Block")->setEnabled(false);
 		playerEnt->getAnimationState("Jump")->setEnabled(false);
-		playerEnt->getAnimationState("Kick")->setEnabled(false);
+		playerEnt->getAnimationState("SideKick")->setEnabled(false);
 		playerEnt->getAnimationState("Death1")->setEnabled(true);
 	}
 };

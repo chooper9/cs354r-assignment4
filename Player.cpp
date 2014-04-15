@@ -19,7 +19,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
         playerEnt->getAnimationState("Walk")->setLoop(true);
         playerEnt->getAnimationState("Block")->setLoop(false);
         playerEnt->getAnimationState("Attack3")->setLoop(false);
-        playerEnt->getAnimationState("Kick")->setLoop(false);
+        playerEnt->getAnimationState("SideKick")->setLoop(false);
         playerEnt->getAnimationState("Jump")->setLoop(false);
         playerEnt->getAnimationState("Backflip")->setLoop(false);
         playerEnt->getAnimationState("Death1")->setLoop(false);
@@ -156,7 +156,7 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 		}
 		break;
 	case KICK:
-		animation = playerEnt->getAnimationState("Kick");
+		animation = playerEnt->getAnimationState("SideKick");
 		animation->addTime(evt.timeSinceLastFrame);
 		if (animation->getTimePosition() == animation->getLength()) {
 			playerState.action = IDLE;
@@ -244,7 +244,7 @@ void Player::checkAttackEffect(Player* enemy) {
 		} else {
 			std::cout <<"  play sound - blocked" << std::endl;
 		}
-	} else if (!attackEffectChecked && playerEnt->getAnimationState("Kick")->getTimePosition() > 0.3) {
+	} else if (!attackEffectChecked && playerEnt->getAnimationState("SideKick")->getTimePosition() > 0.3) {
 		enemy->hitBy(ATTACK_KICK);
 		enemy->kicked();
 		attackEffectChecked = true;

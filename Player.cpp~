@@ -24,9 +24,10 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
         playerEnt->getAnimationState("Backflip")->setLoop(false);
         playerEnt->getAnimationState("Death1")->setLoop(false);
 
-	if(isPluto)
+	if(isPluto) {
 		playerEnt->setMaterialName("Examples/Ninja/Blue");
-
+		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(0.22, 0));
+	}
 
 	Ogre::SceneNode* characterNode = positionNode->createChildSceneNode();
 	characterNode->attachObject(playerEnt);
@@ -333,7 +334,7 @@ void Player::handleKeyPressed(const OIS::KeyCode key) {
 	case OIS::KC_E: 
 		kick();
 		break;
-	case OIS::KC_H: 
+	case OIS::KC_LSHIFT: 
 		if (isDead()) return;
 		Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
 		shurikenPos.y += 50;
