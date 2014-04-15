@@ -82,7 +82,7 @@ void Player::resetState(void) {
 	attackEffectChecked = true;
 }
 
-void Player::runNextFrame(const Ogre::FrameEvent& evt) {
+void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vector<Player*>& enemies) {
 	if (isDead()) {
 		die();
 	}
@@ -153,12 +153,35 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt) {
 		direction.z -= playerState.step;
 	if (playerState.movingBackward)
 		direction.z += playerState.step;
-	direction *= evt.timeSinceLastFrame;
 
-	positionNode->translate(direction, Ogre::Node::TS_LOCAL);
+	bool moved = direction.x != 0 || direction.z != 0;
+
+	if(moved) {
+		direction *= evt.timeSinceLastFrame;
+		Ogre::Vector3 oldPos = positionNode->getPosition();
+		positionNode->translate(direction, Ogre::Node::TS_LOCAL);
+		// check collisions between ninjas
+		Ogre::Vector3 pushedPosition(0, 0, 0);
+		for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+			Player* enemy = *it;
+			if (isAI && this == enemy) continue;
+			if (this != enemy && !enemy->isDead() && isCollidingWith(enemy, pushedPosition)){
+				positionNode->translate(direction*(-0.6), Ogre::Node::TS_LOCAL);
+				if (isCollidingWith(enemy, pushedPosition))
+					positionNode->setPosition(pushedPosition);
+				break;
+			}
+		}
+		if (isAI && !pluto->isDead() && isCollidingWith(pluto, pushedPosition)) {
+			positionNode->translate(direction*(-0.6), Ogre::Node::TS_LOCAL);
+			if (isCollidingWith(pluto, pushedPosition))
+				positionNode->setPosition(pushedPosition);
+		}
+	}
+	
 
 	if (playerState.action == IDLE){
-		if (direction.x != 0 || direction.z != 0) {
+		if (moved) {
 			animation = playerEnt->getAnimationState("Walk");
 			animation->addTime(evt.timeSinceLastFrame*(playerState.step == STEP_NINJA ? 1.5: 2.5));
 		}else{
@@ -168,16 +191,7 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt) {
 	        animation->setEnabled(true);
 	}
 
-	Ogre::Quaternion q = positionNode->getOrientation();
-	
-	orient = q * Ogre::Vector3::NEGATIVE_UNIT_Z;
-	Ogre::Vector3 p = positionNode->getPosition();
-	btTransform playerTrans;
-	physicsObject.getWorldTransform(playerTrans);
-	playerTrans.setOrigin(btVector3(p.x, p.y, p.z));
-	playerTrans.setRotation(btQuaternion(q.x, q.y, q.z, q.w));
-	physicsObject.setWorldTransform(playerTrans);
-
+	setTransform(positionNode->getPosition(), positionNode->getOrientation());
 }
 
 //-------------------------------------------------------------------------------------
@@ -199,7 +213,11 @@ void Player::checkAttackEffect(Player* enemy) {
 //-------------------------------------------------------------------------------------
 
 void Player::reactTo(Player* enemy) {
-	if(playerState.action == DIE || enemy->playerState.action == DIE ) return;
+	if(playerState.action == DIE || enemy->playerState.action == DIE ) {
+		playerState.movingForward = false;
+		playerState.movingBackward = false;
+		return;
+	}
 	Ogre::Vector3 dirToEnemy = enemy->positionNode->getPosition() - positionNode->getPosition();
 	Ogre::Real dist = dirToEnemy.length();
 	Ogre::Real yaw = orient.getRotationTo(dirToEnemy).getYaw().valueDegrees();
@@ -226,6 +244,8 @@ void Player::reactTo(Player* enemy) {
 				checkAttackEffect(enemy);
 			}
 		}
+	} else {
+		if (isAI) stopBlock();
 	}
 	if (yaw > 0) playerState.degreeYaw = 1;
 	else if (yaw < 0) playerState.degreeYaw = -1;
@@ -238,14 +258,14 @@ void Player::reactTo(Player* enemy) {
 
 //-------------------------------------------------------------------------------------
 
-void Player::setPosition(const Ogre::Vector3& pos) {
+void Player::setTransform(const Ogre::Vector3& pos, const Ogre::Quaternion& q) {
+	orient = q * Ogre::Vector3::NEGATIVE_UNIT_Z;
 	positionNode->setPosition(pos);
-	positionNode->resetOrientation();
-	orient = positionNode->getOrientation() * Ogre::Vector3::NEGATIVE_UNIT_Z;
+	positionNode->setOrientation(q);
 	btTransform trans;
 	physicsObject.getWorldTransform(trans);
 	trans.setOrigin(btVector3(pos.x, pos.y, pos.z));
-	trans.setRotation(btQuaternion(0, 0, 0, 1));
+	trans.setRotation(btQuaternion(q.x, q.y, q.z, q.w));
 	physicsObject.setWorldTransform(trans);
 }
 //-------------------------------------------------------------------------------------

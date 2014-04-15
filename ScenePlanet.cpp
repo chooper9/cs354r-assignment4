@@ -67,12 +67,12 @@ void ScenePlanet::runAI(const Ogre::FrameEvent& evt) {
 	bool run = false;
 	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
 		Player* enemy = *it;
-		if (!enemy->isDead() && !run){
+		if (!enemy->isDead() /*&& !run*/){
 			pluto->reactTo(enemy);
 			enemy->reactTo(pluto);
 			run = true;
 		}
-		enemy->runNextFrame(evt);
+		enemy->runNextFrame(evt, pluto, enemies);
 	}
 }
 
@@ -80,7 +80,7 @@ void ScenePlanet::runAI(const Ogre::FrameEvent& evt) {
 
 bool ScenePlanet::runNextFrame(const Ogre::FrameEvent& evt) {
 	if(!Scene::runNextFrame(evt)) return false;
-	pluto->runNextFrame(evt);
+	pluto->runNextFrame(evt, pluto, enemies);
 	runAI(evt);
 	return true;
 }

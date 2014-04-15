@@ -22,12 +22,24 @@ public:
 	~Player(void);
 	void toggleVisible(void);
 	void resetState(void);
-	void runNextFrame(const Ogre::FrameEvent& evt);
+	void runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vector<Player*>& enemies);
 	void reactTo(Player* enemy);
-	void setPosition(const Ogre::Vector3& pos);
+	void setTransform(const Ogre::Vector3& pos=Ogre::Vector3::ZERO, const Ogre::Quaternion& q=Ogre::Quaternion::IDENTITY);
 	Ogre::SceneNode* getSceneNode(void) { return positionNode; }
 	Ogre::Entity* getEntity(void) { return playerEnt; }
 	PhysicsObject& getPhysicsObject(void) { return physicsObject; }
+	bool isCollidingWith(Player* other, Ogre::Vector3& pushedPosition) { 
+		Ogre::Vector3 dist = other->positionNode->getPosition() - positionNode->getPosition();
+		bool collide = dist.squaredLength() < 256; // distance < 16
+		dist.normalise();
+		pushedPosition = other->positionNode->getPosition() + dist*(-16);
+		return collide;
+	}
+	bool isCollidingWith(Player* other) { 
+		return positionNode->getPosition().squaredDistance(
+			other->positionNode->getPosition()
+		) < 256; // distance < 16
+	}
 	void handleKeyPressed(const OIS::KeyCode key);
 	void handleKeyReleased(const OIS::KeyCode key);
 	void handleMouseMoved( int dx, int dy );
