@@ -6,6 +6,8 @@
 #include "Scene.h"
 #include "Player.h"
 #include "Shuriken.h"
+#include "SceneTerrain.h"
+
 class ScenePlanet : public Scene
 {
 private:
@@ -13,6 +15,8 @@ private:
 	std::vector<Player*> enemies;
 	enum CameraMode cameraMode;
 	void runAI(const Ogre::FrameEvent& evt);
+	SceneTerrain* terrain;
+
 public:
 	ScenePlanet(Ogre::SceneManager* mSceneMgr);
 	~ScenePlanet(void);

@@ -865,7 +865,19 @@ OgreApp-Game.o: Game.cpp Game.h GameResource.h \
  /usr/include/OIS/OISKeyboard.h /usr/include/OIS/OISObject.h \
  /usr/include/OIS/OISInterface.h /usr/include/OIS/OISEvents.h \
  /usr/include/OIS/OISMouse.h ScenePlanet.h Scene.h Player.h Shuriken.h \
- SceneSpace.h
+ SceneTerrain.h /usr/include/OGRE/Terrain/OgreTerrain.h \
+ /usr/include/OGRE/Terrain/OgreTerrainPrerequisites.h \
+ /usr/include/OGRE/OgrePrerequisites.h /usr/include/OGRE/OgreCommon.h \
+ /usr/include/OGRE/OgreVector3.h /usr/include/OGRE/OgreAxisAlignedBox.h \
+ /usr/include/OGRE/OgreSceneManager.h \
+ /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h \
+ /usr/include/OGRE/OgrePixelFormat.h /usr/include/OGRE/OgreMaterial.h \
+ /usr/include/OGRE/OgreTexture.h \
+ /usr/include/OGRE/Terrain/OgreTerrainLayerBlendMap.h \
+ /usr/include/OGRE/OgreDataStream.h /usr/include/OGRE/OgreWorkQueue.h \
+ /usr/include/OGRE/Terrain/OgreTerrainGroup.h \
+ /usr/include/OGRE/Terrain/OgreTerrain.h \
+ /usr/include/OGRE/OgreIteratorWrappers.h SceneSpace.h
 
 Game.h:
 
@@ -2916,5 +2928,41 @@ Scene.h:
 Player.h:
 
 Shuriken.h:
+
+SceneTerrain.h:
+
+/usr/include/OGRE/Terrain/OgreTerrain.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainPrerequisites.h:
+
+/usr/include/OGRE/OgrePrerequisites.h:
+
+/usr/include/OGRE/OgreCommon.h:
+
+/usr/include/OGRE/OgreVector3.h:
+
+/usr/include/OGRE/OgreAxisAlignedBox.h:
+
+/usr/include/OGRE/OgreSceneManager.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
+
+/usr/include/OGRE/OgrePixelFormat.h:
+
+/usr/include/OGRE/OgreMaterial.h:
+
+/usr/include/OGRE/OgreTexture.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainLayerBlendMap.h:
+
+/usr/include/OGRE/OgreDataStream.h:
+
+/usr/include/OGRE/OgreWorkQueue.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainGroup.h:
+
+/usr/include/OGRE/Terrain/OgreTerrain.h:
+
+/usr/include/OGRE/OgreIteratorWrappers.h:
 
 SceneSpace.h:
