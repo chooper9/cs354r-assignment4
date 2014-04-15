@@ -16,7 +16,7 @@ enum PlayerAction { IDLE, KICK, KICKED, ATTACK, BLOCK, STOP_BLOCK, JUMP, DIE };
 enum PlayerHp { HP_PLUTO = 1000000, HP_NINJA = 20 };
 enum PlayerHeight { HEIGHT_PLUTO = 90, HEIGHT_NINJA = 80 };
 enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
-enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10 }; 
+enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10, ATTACK_SHURIKEN = 7 }; 
 
 typedef struct PlayerState {
 	enum PlayerAction action;
@@ -29,6 +29,19 @@ typedef struct PlayerState {
 	bool movingForward;
 	bool movingBackward;
 } PlayerState;
+
+// ======================== Shuriken Constants ======================== 
+enum ShurikenCollisionEvent { HIT_NOTHING, HIT_NINJA, HIT_WORLD };
+struct ShurikenContactResultCallback : public btCollisionWorld::ContactResultCallback {
+    ShurikenContactResultCallback(void) : hit(false){}
+    virtual btScalar addSingleResult(btManifoldPoint& cp,
+	const btCollisionObject* colObj0, int partId0, int index0,
+	const btCollisionObject* colObj1, int partId1, int index)
+    {
+	hit = true;
+    }
+    bool hit;
+};
 
 // ======================== ScenePlanet Constants ======================== 
 enum ScenePlanetSize { LENGTH_ScenePlanet = 1000, WIDTH_ScenePlanet = 1000 };

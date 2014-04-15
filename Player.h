@@ -2,9 +2,11 @@
 #define __Player_h_
 
 #include "GameResource.h"
+#include "Shuriken.h"
 
 class Player {
 private:
+	std::vector<Shuriken*> shurikens;
 	bool attackEffectChecked;
 	Ogre::Vector3 orient;
 	bool visible;
@@ -50,6 +52,14 @@ public:
 	void hitBy(PlayerAttack n) {
 		playerState.hp -= n;
 		playerState.hp = playerState.hp < 0 ? 0 : playerState.hp;
+		switch (n) {
+		case ATTACK_BLADE:
+			std::cout <<"  play sound - hit by blade" << std::endl; break;
+		case ATTACK_KICK:
+			std::cout <<"  play sound - kicked" << std::endl; break;
+		case ATTACK_SHURIKEN:
+			std::cout <<"  play sound - hit by shuriken" << std::endl; break;
+		}
 	}
 
 	void attack(void) {

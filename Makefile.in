@@ -54,11 +54,11 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_OgreApp_OBJECTS = OgreApp-PhysicsObject.$(OBJEXT) \
-	OgreApp-PhysicsEngine.$(OBJEXT) OgreApp-Player.$(OBJEXT) \
-	OgreApp-BaseApplication.$(OBJEXT) OgreApp-Scene.$(OBJEXT) \
-	OgreApp-ScenePlanet.$(OBJEXT) OgreApp-SceneSpace.$(OBJEXT) \
-	OgreApp-Pluto.$(OBJEXT) OgreApp-Game.$(OBJEXT) \
-	OgreApp-Sound.$(OBJEXT)
+	OgreApp-PhysicsEngine.$(OBJEXT) OgreApp-Shuriken.$(OBJEXT) \
+	OgreApp-Player.$(OBJEXT) OgreApp-BaseApplication.$(OBJEXT) \
+	OgreApp-Scene.$(OBJEXT) OgreApp-ScenePlanet.$(OBJEXT) \
+	OgreApp-SceneSpace.$(OBJEXT) OgreApp-Pluto.$(OBJEXT) \
+	OgreApp-Game.$(OBJEXT) OgreApp-Sound.$(OBJEXT)
 OgreApp_OBJECTS = $(am_OgreApp_OBJECTS)
 am__DEPENDENCIES_1 =
 OgreApp_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
@@ -244,9 +244,9 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ACLOCAL_AMFLAGS = -I m4
-noinst_HEADERS = PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Player.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h 
+noinst_HEADERS = PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Shuriken.h Player.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h 
 OgreApp_CPPFLAGS = -I$(top_srcdir)
-OgreApp_SOURCES = PhysicsObject.cpp PhysicsEngine.cpp Player.cpp BaseApplication.cpp Scene.cpp ScenePlanet.cpp SceneSpace.cpp Pluto.cpp Game.cpp Sound.cpp
+OgreApp_SOURCES = PhysicsObject.cpp PhysicsEngine.cpp Shuriken.cpp Player.cpp BaseApplication.cpp Scene.cpp ScenePlanet.cpp SceneSpace.cpp Pluto.cpp Game.cpp Sound.cpp
 OgreApp_CXXFLAGS = $(OGRE_CFLAGS) $(OIS_CFLAGS) $(bullet_CFLAGS) $(CEGUI_CFLAGS) $(CEGUI_OGRE_CFLAGS) $(SDL_mixer_CFLAGS) $(SDL_net_CFLAGS)
 OgreApp_LDADD = $(OGRE_LIBS) $(OIS_LIBS) $(bullet_LIBS) $(CEGUI_LIBS) $(CEGUI_OGRE_LIBS) $(SDL_mixer_LIBS) $(SDL_net_LIBS)
 EXTRA_DIST = buildit makeit
@@ -367,6 +367,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/OgreApp-Scene.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/OgreApp-ScenePlanet.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/OgreApp-SceneSpace.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/OgreApp-Shuriken.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/OgreApp-Sound.Po@am__quote@
 
 .cpp.o:
@@ -417,6 +418,20 @@ OgreApp-PhysicsEngine.obj: PhysicsEngine.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='PhysicsEngine.cpp' object='OgreApp-PhysicsEngine.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-PhysicsEngine.obj `if test -f 'PhysicsEngine.cpp'; then $(CYGPATH_W) 'PhysicsEngine.cpp'; else $(CYGPATH_W) '$(srcdir)/PhysicsEngine.cpp'; fi`
+
+OgreApp-Shuriken.o: Shuriken.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-Shuriken.o -MD -MP -MF $(DEPDIR)/OgreApp-Shuriken.Tpo -c -o OgreApp-Shuriken.o `test -f 'Shuriken.cpp' || echo '$(srcdir)/'`Shuriken.cpp
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/OgreApp-Shuriken.Tpo $(DEPDIR)/OgreApp-Shuriken.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Shuriken.cpp' object='OgreApp-Shuriken.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-Shuriken.o `test -f 'Shuriken.cpp' || echo '$(srcdir)/'`Shuriken.cpp
+
+OgreApp-Shuriken.obj: Shuriken.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-Shuriken.obj -MD -MP -MF $(DEPDIR)/OgreApp-Shuriken.Tpo -c -o OgreApp-Shuriken.obj `if test -f 'Shuriken.cpp'; then $(CYGPATH_W) 'Shuriken.cpp'; else $(CYGPATH_W) '$(srcdir)/Shuriken.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(am__mv) $(DEPDIR)/OgreApp-Shuriken.Tpo $(DEPDIR)/OgreApp-Shuriken.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='Shuriken.cpp' object='OgreApp-Shuriken.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-Shuriken.obj `if test -f 'Shuriken.cpp'; then $(CYGPATH_W) 'Shuriken.cpp'; else $(CYGPATH_W) '$(srcdir)/Shuriken.cpp'; fi`
 
 OgreApp-Player.o: Player.cpp
 @am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-Player.o -MD -MP -MF $(DEPDIR)/OgreApp-Player.Tpo -c -o OgreApp-Player.o `test -f 'Player.cpp' || echo '$(srcdir)/'`Player.cpp

@@ -874,7 +874,7 @@ OgreApp-Pluto.o: Pluto.cpp Pluto.h BaseApplication.h \
  /usr/local/include/bullet/BulletDynamics/Vehicle/btWheelInfo.h \
  /usr/local/include/bullet/BulletDynamics/Dynamics/btActionInterface.h \
  /usr/local/include/bullet/BulletDynamics/Dynamics/btRigidBody.h Game.h \
- ScenePlanet.h Scene.h Player.h SceneSpace.h \
+ ScenePlanet.h Scene.h Player.h Shuriken.h SceneSpace.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUI.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUIAffector.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUIString.h \
@@ -3194,6 +3194,8 @@ ScenePlanet.h:
 Scene.h:
 
 Player.h:
+
+Shuriken.h:
 
 SceneSpace.h:
 

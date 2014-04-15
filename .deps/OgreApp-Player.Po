@@ -864,7 +864,7 @@ OgreApp-Player.o: Player.cpp Player.h GameResource.h \
  /usr/include/OIS/OISConfig.h /usr/include/OIS/OISInputManager.h \
  /usr/include/OIS/OISKeyboard.h /usr/include/OIS/OISObject.h \
  /usr/include/OIS/OISInterface.h /usr/include/OIS/OISEvents.h \
- /usr/include/OIS/OISMouse.h
+ /usr/include/OIS/OISMouse.h Shuriken.h
 
 Player.h:
 
@@ -2907,3 +2907,5 @@ PhysicsObject.h:
 /usr/include/OIS/OISEvents.h:
 
 /usr/include/OIS/OISMouse.h:
+
+Shuriken.h:

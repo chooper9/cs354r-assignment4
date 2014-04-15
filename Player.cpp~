@@ -33,10 +33,10 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	orient = positionNode->getOrientation() * Ogre::Vector3::NEGATIVE_UNIT_Z;
 
 	physicsObject.setToBox(
-		btVector3(10,height,5),
+		btVector3(10,height*0.8,5),
 		100,
 		btQuaternion(0, 0, 0, 1),
-		btVector3(pos.x, pos.y + height/2, pos.z)
+		btVector3(pos.x, pos.y, pos.z)
 	);
 	physicsObject.toggleRigidBodyAndKinematic(); // change to Kinematic
 
@@ -51,6 +51,9 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 //-------------------------------------------------------------------------------------
 
 Player::~Player(void) {
+	for (std::vector<Shuriken*>::iterator it = shurikens.begin(); it != shurikens.end(); it++)
+		delete (*it);
+	shurikens.clear();
 	physicsEngine->removeObject(&physicsObject);
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
@@ -83,6 +86,29 @@ void Player::resetState(void) {
 }
 
 void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vector<Player*>& enemies) {
+	std::vector<Shuriken*>::iterator it = shurikens.begin();
+	while (it != shurikens.end()) {
+		Shuriken* shuriken = (*it);
+		shuriken->updateGraphicsScene();
+		if (shuriken->collidesWith(pluto->getPhysicsObject()) == HIT_NINJA) {
+			delete shuriken;
+			it = shurikens.erase(it);
+			pluto->hitBy(ATTACK_SHURIKEN);
+			continue;
+		}
+		bool hit = false;
+		for (std::vector<Player*>::iterator p = enemies.begin(); p != enemies.end(); p++) {
+			if (shuriken->collidesWith((*p)->getPhysicsObject()) == HIT_NINJA) {
+				delete shuriken;
+				it = shurikens.erase(it);
+				(*p)->hitBy(ATTACK_SHURIKEN);
+				hit = true;
+				break;
+			}
+		}
+		if(!hit) it++;
+	}
+
 	if (isDead()) {
 		die();
 	}
@@ -210,14 +236,12 @@ void Player::checkAttackEffect(Player* enemy) {
 		attackEffectChecked = true;
 		if (enemy->playerEnt->getAnimationState("Block")->getTimePosition() < 0.15) {
 			enemy->hitBy(ATTACK_BLADE);
-			;// play sound - hit by blade
 		} else {
-			;// play sound - blocked
+			std::cout <<"  play sound - blocked" << std::endl;
 		}
 	} else if (!attackEffectChecked && playerEnt->getAnimationState("Kick")->getTimePosition() > 0.3) {
 		enemy->hitBy(ATTACK_KICK);
 		enemy->kicked();
-		;// play sound - kicked
 		attackEffectChecked = true;
 	}
 }
@@ -320,6 +344,13 @@ void Player::handleKeyReleased(const OIS::KeyCode key) {
 		playerState.movingRight = false; break;
 	case OIS::KC_LCONTROL: 
 		playerState.step = STEP_NINJA; break;
+	case OIS::KC_H: 
+		Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
+		shurikenPos.y += 50;
+		Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos);
+		s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
+		shurikens.push_back(s);
+		break;
 	}
 }
 
