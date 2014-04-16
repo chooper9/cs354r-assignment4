@@ -99,6 +99,12 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 	while (it != shurikens.end()) {
 		Shuriken* shuriken = (*it);
 		shuriken->updateGraphicsScene();
+		std::cout << shuriken->getSceneNode()->getPosition().y << std::endl;
+		if (shuriken->getSceneNode()->getPosition().y <= 5) {
+			shuriken->getPhysicsObject().deactivate();
+			it++;
+			continue;
+		}
 		if (shuriken->collidesWith(pluto->getPhysicsObject()) == HIT_NINJA) {
 			delete shuriken;
 			it = shurikens.erase(it);
@@ -317,13 +323,12 @@ void Player::reactTo(Player* enemy) {
 	} else {
 		stopBlock();
 	}
+
 	if (yaw > 0) playerState.degreeYaw = 1;
 	else if (yaw < 0) playerState.degreeYaw = -1;
 	
-	playerState.movingForward = dist > 60;
+	playerState.movingForward = dist > 60 && dist < 500;
 	playerState.movingBackward = dist < 20;
-
-
 }
 
 //-------------------------------------------------------------------------------------
