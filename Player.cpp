@@ -84,6 +84,7 @@ void Player::resetState(void) {
 	playerState.hp = playerState.defaultHP;
 	playerState.step = STEP_NINJA;
 	playerState.weapon = WEAPON_BLADE;
+	playerState.numShuriken = 10000000;
 	playerEnt->getSubEntity(1)->setVisible(true);
 	playerState.degreeYaw = 0;
 	playerState.movingLeft = false;
@@ -154,12 +155,13 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 		animation = playerEnt->getAnimationState("Spin");
 		animation->addTime(evt.timeSinceLastFrame*1.4);
 		if (animation->getTimePosition() > 0.73) {
-			if (!attackEffectChecked) {
+			if (!attackEffectChecked && playerState.numShuriken > 0) {
 				Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
 				shurikenPos.y += 50;
 				Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos);
 				s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
 				shurikens.push_back(s);
+				playerState.numShuriken--;
 				if (!isPerformingShurikenAOE) attackEffectChecked = true;
 			}
 			if (animation->getTimePosition() == animation->getLength()) {

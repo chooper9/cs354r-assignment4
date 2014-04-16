@@ -27,6 +27,7 @@ typedef struct PlayerState {
 	enum PlayerHp defaultHP;
 	enum PlayerWeapon weapon;
 	int hp;	
+	int numShuriken;
 	Ogre::Real degreeYaw;
 	bool movingLeft;
 	bool movingRight;
