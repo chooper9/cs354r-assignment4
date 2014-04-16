@@ -15,11 +15,11 @@ Shuriken::Shuriken(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, P
 	positionNode = parentNode->createChildSceneNode(pos);
 	Ogre::SceneNode* tempNode = positionNode->createChildSceneNode();
 	tempNode->attachObject(entShuriken);
-	Ogre::Real ratio = Shuriken_RADIUS/100;
+	Ogre::Real ratio = SIZE_REGULAR_SHURIKEN/100.0;
 	tempNode->scale(ratio, ratio, ratio);
 	
 	physicsObject.setToSphere(
-		Shuriken_RADIUS, 
+		SIZE_REGULAR_SHURIKEN, 
 		2, 
 		btQuaternion(0.2f, 0.6f, 0.1f, 1.0f).normalized(),
 		btVector3(pos.x,pos.y,pos.z) 

@@ -98,13 +98,12 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 	std::vector<Shuriken*>::iterator it = shurikens.begin();
 	while (it != shurikens.end()) {
 		Shuriken* shuriken = (*it);
-		shuriken->updateGraphicsScene();
-		std::cout << shuriken->getSceneNode()->getPosition().y << std::endl;
-		if (shuriken->getSceneNode()->getPosition().y <= 5) {
+		if (shuriken->getSceneNode()->getPosition().y <= SIZE_REGULAR_SHURIKEN) {
 			shuriken->getPhysicsObject().deactivate();
 			it++;
 			continue;
 		}
+		shuriken->updateGraphicsScene();
 		if (shuriken->collidesWith(pluto->getPhysicsObject()) == HIT_NINJA) {
 			delete shuriken;
 			it = shurikens.erase(it);

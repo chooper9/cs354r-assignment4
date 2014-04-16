@@ -9,7 +9,6 @@ class Shuriken {
 private:
 	ShurikenCollisionEvent collidesWithHelper(ShurikenCollisionEvent result);
 protected:
-	const static Ogre::Real Shuriken_RADIUS = 5.0f;
 	Ogre::SceneManager* graphicsEngine;
 	Ogre::SceneNode* positionNode;
 	Ogre::Entity* entShuriken;

@@ -36,6 +36,7 @@ typedef struct PlayerState {
 } PlayerState;
 
 // ======================== Shuriken Constants ======================== 
+enum ShurikenSize { SIZE_REGULAR_SHURIKEN = 5 };
 enum ShurikenCollisionEvent { HIT_NOTHING, HIT_NINJA, HIT_WORLD };
 struct ShurikenContactResultCallback : public btCollisionWorld::ContactResultCallback {
     ShurikenContactResultCallback(void) : hit(false){}
