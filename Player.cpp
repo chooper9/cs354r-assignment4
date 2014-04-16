@@ -5,6 +5,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	graphicsEngine(mSceneMgr),
 	positionNode(0),
 	visible(true),
+	isPerformingShurikenAOE(false),
 	physicsEngine(bulletEngine),
 	attackEffectChecked(true)
 {
@@ -22,6 +23,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
         playerEnt->getAnimationState("SideKick")->setLoop(false);
         playerEnt->getAnimationState("Jump")->setLoop(false);
         playerEnt->getAnimationState("Backflip")->setLoop(false);
+        playerEnt->getAnimationState("Spin")->setLoop(false);
         playerEnt->getAnimationState("Death1")->setLoop(false);
 
 	if(isPluto) {
@@ -81,6 +83,8 @@ void Player::resetState(void) {
 	playerState.action = IDLE;
 	playerState.hp = playerState.defaultHP;
 	playerState.step = STEP_NINJA;
+	playerState.weapon = WEAPON_BLADE;
+	playerEnt->getSubEntity(1)->setVisible(true);
 	playerState.degreeYaw = 0;
 	playerState.movingLeft = false;
 	playerState.movingRight = false;
@@ -144,6 +148,26 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 		if (animation->getTimePosition() <= 0) {
 			playerState.action = IDLE;
 			animation->setEnabled(false);
+		}
+		break; 
+	case THROW_SHURIKEN:
+		animation = playerEnt->getAnimationState("Spin");
+		animation->addTime(evt.timeSinceLastFrame*1.4);
+		if (animation->getTimePosition() > 0.73) {
+			if (!attackEffectChecked) {
+				Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
+				shurikenPos.y += 50;
+				Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos);
+				s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
+				shurikens.push_back(s);
+				if (!isPerformingShurikenAOE) attackEffectChecked = true;
+			}
+			if (animation->getTimePosition() == animation->getLength()) {
+				playerState.action = IDLE;
+				animation->setTimePosition(0);
+				animation->setEnabled(false);
+				attackEffectChecked = true;
+			}
 		}
 		break;
 	case JUMP:
@@ -334,13 +358,11 @@ void Player::handleKeyPressed(const OIS::KeyCode key) {
 	case OIS::KC_E: 
 		kick();
 		break;
-	case OIS::KC_LSHIFT: 
-		if (isDead()) return;
-		Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
-		shurikenPos.y += 50;
-		Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos);
-		s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
-		shurikens.push_back(s);
+	case OIS::KC_Q: 
+		switchWeapon();
+		break;
+	case OIS::KC_H: 
+		if (playerState.weapon == WEAPON_SHURIKEN) shurikenAOE();
 		break;
 	}
 }
@@ -374,10 +396,14 @@ void Player::handleMouseMoved( int dx, int dy ) {
 void Player::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
 	switch(id) {
 	case OIS::MB_Left:
-		attack();
+		switch(playerState.weapon) {
+		case WEAPON_BLADE: attack(); break;
+		case WEAPON_SHURIKEN: throwShuriken(); break;
+		}
 		break;
 	case OIS::MB_Right:
-		block();
+		if (playerState.weapon != WEAPON_SHURIKEN)
+			block();
 		break;
 	}
 }

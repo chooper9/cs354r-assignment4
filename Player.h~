@@ -10,6 +10,7 @@ class Player {
 private:
 	std::vector<Shuriken*> shurikens;
 	bool attackEffectChecked;
+	bool isPerformingShurikenAOE;
 	Ogre::Vector3 orient;
 	bool visible;
 	bool isAI;
@@ -72,7 +73,18 @@ public:
 			CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(((float)playerState.hp / (float)playerState.defaultHP)*0.22, 0));
 		}
 	}
-
+	void switchWeapon(void) {
+		switch(playerState.weapon) {
+		case WEAPON_BLADE:
+			playerState.weapon = WEAPON_SHURIKEN;
+			playerEnt->getSubEntity(0)->setVisible(false);
+			break;
+		case WEAPON_SHURIKEN:
+			playerState.weapon = WEAPON_BLADE;
+			playerEnt->getSubEntity(0)->setVisible(true);
+			break;
+		}
+	}
 	void attack(void) {
 		if (playerState.action == BLOCK || playerState.action == STOP_BLOCK) {
 			playerEnt->getAnimationState("Block")->setTimePosition(0);
@@ -90,8 +102,21 @@ public:
 	void stopBlock(void) {
 		if (playerState.action == BLOCK) playerState.action = STOP_BLOCK;
 	}
+
+	void throwShuriken(void) {
+		if (playerState.action != IDLE) return;
+		playerState.action = THROW_SHURIKEN;
+		playerEnt->getAnimationState("Spin")->setEnabled(true);
+		attackEffectChecked = false;
+		isPerformingShurikenAOE = false;
+	}
+	void shurikenAOE(void) {
+		if (playerState.action != IDLE) return;
+		throwShuriken();
+		isPerformingShurikenAOE = true;
+	}
 	void jump(void) {
-		if (playerState.action != IDLE) return;;
+		if (playerState.action != IDLE) return;
 		playerState.action = JUMP;
 		playerEnt->getAnimationState("Jump")->setEnabled(true);
 	}
@@ -99,7 +124,7 @@ public:
 		if (playerState.action != IDLE) return;
 		playerState.action = KICK;
 		attackEffectChecked = false;
-		playerEnt->getAnimationState("Kick")->setEnabled(true);
+		playerEnt->getAnimationState("SideKick")->setEnabled(true);
 	}
 	void kicked(void) {
 		playerState.action = KICKED;
@@ -109,8 +134,8 @@ public:
 		playerEnt->getAnimationState("Block")->setEnabled(false);
 		playerEnt->getAnimationState("Jump")->setTimePosition(0);
 		playerEnt->getAnimationState("Jump")->setEnabled(false);
-		playerEnt->getAnimationState("Kick")->setTimePosition(0);
-		playerEnt->getAnimationState("Kick")->setEnabled(false);
+		playerEnt->getAnimationState("SideKick")->setTimePosition(0);
+		playerEnt->getAnimationState("SideKick")->setEnabled(false);
 		playerEnt->getAnimationState("Backflip")->setEnabled(true);
 	}
 	void die(void) {
@@ -120,7 +145,7 @@ public:
 		playerEnt->getAnimationState("Attack3")->setEnabled(false);
 		playerEnt->getAnimationState("Block")->setEnabled(false);
 		playerEnt->getAnimationState("Jump")->setEnabled(false);
-		playerEnt->getAnimationState("Kick")->setEnabled(false);
+		playerEnt->getAnimationState("SideKick")->setEnabled(false);
 		playerEnt->getAnimationState("Death1")->setEnabled(true);
 	}
 };
