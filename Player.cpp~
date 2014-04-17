@@ -28,7 +28,11 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 
 	if(isPluto) {
 		playerEnt->setMaterialName("Examples/Ninja/Blue");
-		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(0.22, 0));
+		CEGUI::WindowManager* wmgr = CEGUI::WindowManager::getSingletonPtr();
+		wmgr->getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(0.22, 0));
+		wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(true);
+		wmgr->getWindow("Pluto/PlanetRoot/Shuriken")->setVisible(false);
+		wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setVisible(false);
 	}
 
 	Ogre::SceneNode* characterNode = positionNode->createChildSceneNode();
@@ -60,6 +64,11 @@ Player::~Player(void) {
 	for (std::vector<Shuriken*>::iterator it = shurikens.begin(); it != shurikens.end(); it++)
 		delete (*it);
 	shurikens.clear();
+	
+	CEGUI::WindowManager* wmgr = CEGUI::WindowManager::getSingletonPtr();
+	wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(false);
+	wmgr->getWindow("Pluto/PlanetRoot/Shuriken")->setVisible(false);
+	wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setVisible(false);
 	physicsEngine->removeObject(&physicsObject);
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
