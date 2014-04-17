@@ -5,6 +5,7 @@
 #include "Shuriken.h"
 #include <OgreBillboardSet.h>
 #include <OgreBillboard.h>
+#include <stdio.h>
 
 class Player {
 private:
@@ -15,6 +16,7 @@ private:
 	bool visible;
 	bool isAI;
 	void checkAttackEffect(Player* enemy);
+	char shuriken_buf[10];
 protected:
 	Ogre::SceneManager* graphicsEngine;
 	Ogre::Entity* playerEnt;
@@ -74,14 +76,23 @@ public:
 		}
 	}
 	void switchWeapon(void) {
+		CEGUI::WindowManager* wmgr = CEGUI::WindowManager::getSingletonPtr();
 		switch(playerState.weapon) {
 		case WEAPON_BLADE:
 			playerState.weapon = WEAPON_SHURIKEN;
 			playerEnt->getSubEntity(1)->setVisible(false);
+			wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(false);
+			wmgr->getWindow("Pluto/PlanetRoot/Shuriken")->setVisible(true);
+			wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setVisible(true);
+			sprintf(shuriken_buf, "x%d", playerState.numShuriken);
+			wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setText(shuriken_buf);
 			break;
 		case WEAPON_SHURIKEN:
 			playerState.weapon = WEAPON_BLADE;
 			playerEnt->getSubEntity(1)->setVisible(true);
+			wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(true);
+			wmgr->getWindow("Pluto/PlanetRoot/Shuriken")->setVisible(false);
+			wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setVisible(false);
 			break;
 		}
 	}
@@ -137,6 +148,8 @@ public:
 		playerEnt->getAnimationState("SideKick")->setTimePosition(0);
 		playerEnt->getAnimationState("SideKick")->setEnabled(false);
 		playerEnt->getAnimationState("Backflip")->setEnabled(true);
+		playerEnt->getAnimationState("Spin")->setTimePosition(0);
+		playerEnt->getAnimationState("Spin")->setEnabled(false);
 	}
 	void die(void) {
 		playerState.hp = 0;

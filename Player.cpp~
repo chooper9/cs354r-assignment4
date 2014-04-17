@@ -167,6 +167,8 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 				s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
 				shurikens.push_back(s);
 				playerState.numShuriken--;
+				sprintf(shuriken_buf, "x%d", playerState.numShuriken);
+				CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/ShurikenCount")->setText(shuriken_buf);
 				if (!isPerformingShurikenAOE) attackEffectChecked = true;
 			}
 			if (animation->getTimePosition() == animation->getLength()) {
