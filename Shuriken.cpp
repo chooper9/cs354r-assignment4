@@ -8,14 +8,18 @@ Shuriken::Shuriken(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, P
 	colliding(false),
 	shooting(false)
 {
-	entShuriken = mSceneMgr->createEntity(Ogre::SceneManager::PT_SPHERE);
-	entShuriken->setCastShadows(true);
-	entShuriken->setMaterialName("Examples/TennisBall");
+	
+	//entShuriken = mSceneMgr->createEntity(Ogre::SceneManager::PT_SPHERE);
+	//entShuriken->setCastShadows(true);
+	//entShuriken->setMaterialName("Examples/TennisBall");
+	
+	entShuriken = mSceneMgr->createEntity("Shuriken.mesh");
 
 	positionNode = parentNode->createChildSceneNode(pos);
 	Ogre::SceneNode* tempNode = positionNode->createChildSceneNode();
 	tempNode->attachObject(entShuriken);
-	Ogre::Real ratio = SIZE_REGULAR_SHURIKEN/100.0;
+	//Ogre::Real ratio = SIZE_REGULAR_SHURIKEN/100.0;
+	Ogre::Real ratio = SIZE_REGULAR_SHURIKEN;
 	tempNode->scale(ratio, ratio, ratio);
 	
 	physicsObject.setToSphere(
