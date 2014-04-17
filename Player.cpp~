@@ -9,6 +9,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	physicsEngine(bulletEngine),
 	attackEffectChecked(true)
 {
+	shurikens.clear();
 	int height = isPluto ? HEIGHT_PLUTO : HEIGHT_NINJA;
 	playerState.defaultHP = isPluto ? HP_PLUTO : HP_NINJA;
 	positionNode = parentNode->createChildSceneNode(pos);
@@ -66,9 +67,11 @@ Player::~Player(void) {
 	shurikens.clear();
 	
 	CEGUI::WindowManager* wmgr = CEGUI::WindowManager::getSingletonPtr();
-	wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(false);
-	wmgr->getWindow("Pluto/PlanetRoot/Shuriken")->setVisible(false);
-	wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setVisible(false);
+	if (!isAI) {
+		wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(false);
+		wmgr->getWindow("Pluto/PlanetRoot/Shuriken")->setVisible(false);
+		wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setVisible(false);
+	}
 	physicsEngine->removeObject(&physicsObject);
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();

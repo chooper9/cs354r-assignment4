@@ -22,7 +22,7 @@ material Pluto/EnemyHP
 			cull_software none
 			texture_unit
 			{
-				texture enemyHPBar.png
+				texture EnemyHPBar.png
 			}
 		}
 	}
@@ -919,6 +919,34 @@ material Examples/Blue
 			texture_unit
 			{
 				blue.jpg
+			}
+		}
+	}
+}
+
+material Examples/Pluto
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture pluto.jpeg
+			}
+		}
+	}
+}
+
+material Examples/Neptune
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture neptune.jpg
 			}
 		}
 	}

@@ -1099,7 +1099,7 @@ OgreApp-SceneSpace.o: SceneSpace.cpp SceneSpace.h GameResource.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUISize.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h \
  Scene.h /usr/include/OGRE/OgreBillboardSet.h \
- /usr/include/OGRE/OgreBillboard.h
+ /usr/include/OGRE/OgreBillboard.h Planet.h
 
 SceneSpace.h:
 
@@ -3616,3 +3616,5 @@ Scene.h:
 /usr/include/OGRE/OgreBillboardSet.h:
 
 /usr/include/OGRE/OgreBillboard.h:
+
+Planet.h:

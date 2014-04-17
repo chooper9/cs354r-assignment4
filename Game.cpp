@@ -14,6 +14,7 @@ Game::Game(Ogre::SceneManager* mSceneMgr) {
 
 Game::~Game(void) {
 	delete scenePlanet;
+	std::cout << "========= Debug: Game Deleted =========" << std::endl;
 	delete sceneSpace;
 	std::cout << "========= Debug: Game Deleted =========" << std::endl;
 }

@@ -44,8 +44,8 @@ enum ShurikenCollisionEvent { HIT_NOTHING, HIT_NINJA, HIT_WORLD };
 struct ShurikenContactResultCallback : public btCollisionWorld::ContactResultCallback {
     ShurikenContactResultCallback(void) : hit(false){}
     virtual btScalar addSingleResult(btManifoldPoint& cp,
-	const btCollisionObjectWrapper* colObj0, int partId0, int index0,
-	const btCollisionObjectWrapper* colObj1, int partId1, int index)
+	const btCollisionObject* colObj0, int partId0, int index0,
+	const btCollisionObject* colObj1, int partId1, int index)
     {
 	hit = true;
     }
@@ -93,6 +93,11 @@ static CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
     default:
         return CEGUI::LeftButton;
     }
+}
+
+static void detachCamera(Ogre::Camera* camera) {
+	if (camera != NULL && camera->getParentSceneNode() != NULL)
+		camera->getParentSceneNode()->detachObject(camera);
 }
 
 static void destroySceneNodeHelper(Ogre::SceneNode* node) {

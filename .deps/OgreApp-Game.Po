@@ -1099,7 +1099,8 @@ OgreApp-Game.o: Game.cpp Game.h GameResource.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUISize.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h \
  ScenePlanet.h Scene.h /usr/include/OGRE/OgreBillboardSet.h \
- /usr/include/OGRE/OgreBillboard.h Player.h Shuriken.h SceneSpace.h
+ /usr/include/OGRE/OgreBillboard.h Player.h Shuriken.h SceneSpace.h \
+ Planet.h
 
 Game.h:
 
@@ -3624,3 +3625,5 @@ Player.h:
 Shuriken.h:
 
 SceneSpace.h:
+
+Planet.h:

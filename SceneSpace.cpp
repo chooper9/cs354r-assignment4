@@ -1,12 +1,10 @@
 #include "SceneSpace.h"
 
 SceneSpace::SceneSpace(Ogre::SceneManager* mSceneMgr) : Scene(mSceneMgr) {
-	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
-	Ogre::MeshManager::getSingleton().createPlane(
-		"space", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-        	plane, LENGTH_SceneSpace, WIDTH_SceneSpace, 1, 1, true, 1, 1, 1, Ogre::Vector3::UNIT_Z
-	);
 	mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox", 50000);
+	graphicsEngine->setSkyBoxEnabled (false);
+	enemies.clear();
+	pluto = NULL;
         std::cout << "========= Debug: SceneSpace Created =========" << std::endl;
 }
 
@@ -22,25 +20,23 @@ SceneSpace::~SceneSpace(void) {
 
 bool SceneSpace::setupScene(int level) {
 	if (!Scene::setupScene(level)) return false;
+	graphicsEngine->setSkyBoxEnabled (true);
 	
-	//Ogre::Entity* entSide = graphicsEngine->createEntity("space");
-	//entSide->setMaterialName("Examples/KAMEN");
-	//entSide->setCastShadows(false);
-	//sceneRootNode->attachObject(entSide);
+	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, Ogre::Vector3(0,100, 0));
-	targetPlanet = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, 100, -20000));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, 100, -20000)));
 }
 
 //-------------------------------------------------------------------------------------
 
 bool SceneSpace::destroyScene(void) {
-	if (camera->getParentSceneNode() != NULL)
-		camera->getParentSceneNode()->detachObject(camera);
+	detachCamera(camera);
 	if (pluto) delete pluto;
+	pluto = NULL;
 	for (std::vector<Planet*>::iterator it = enemies.begin(); it != enemies.end(); it++)
 		delete (*it);
 	enemies.clear();
-
+	graphicsEngine->setSkyBoxEnabled (false);
 	if (!Scene::destroyScene()) return false;
 }
 

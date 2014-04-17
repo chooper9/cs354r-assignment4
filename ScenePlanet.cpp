@@ -3,6 +3,7 @@
 ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr) {
 	cameraMode = CAM_THIRD_PERSON;
 	enemies.clear();
+	pluto = NULL;
 	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
 	Ogre::MeshManager::getSingleton().createPlane(
 		"planetSurface", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
@@ -32,13 +33,14 @@ bool ScenePlanet::setupScene(int level) {
 	physicsEngine->addObject(ground);
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true);
-	enemyHPset = new Ogre::BillboardSet("EnemyHPSet");
+	enemyHPset = graphicsEngine->createBillboardSet("EnemyHPSet");
 	enemyHPset->setPoolSize(level*10);
 	enemyHPset->setMaterialName("Pluto/EnemyHP");
 	enemyHPset->setDefaultDimensions(8,2);
 	enemyHPset->setBounds(Ogre::AxisAlignedBox(-1000,-1000,-1000,1000,1000,1000), 1000);
 	Ogre::SceneNode* hpBBSnode = sceneRootNode->createChildSceneNode();
 	hpBBSnode->attachObject(enemyHPset);
+	enemies.clear();
 	for(int i = 0; i < level*10; i++) {
 		enemies.push_back(new Player(
 			graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(i*40 - level*200, 0, -100)
@@ -50,13 +52,14 @@ bool ScenePlanet::setupScene(int level) {
 //-------------------------------------------------------------------------------------
 
 bool ScenePlanet::destroyScene(void) {
-	if (camera->getParentSceneNode() != NULL)
-		camera->getParentSceneNode()->detachObject(camera);
+	detachCamera(camera);
 	if (pluto) delete pluto;
+	pluto = NULL;
 	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++)
 		delete (*it);
 	enemies.clear();
-	delete enemyHPset;
+	if (graphicsEngine->hasBillboardSet("EnemyHPSet"))
+		graphicsEngine->destroyBillboardSet (enemyHPset);
 	if (!Scene::destroyScene()) return false;
 }
 

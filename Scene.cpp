@@ -2,6 +2,7 @@
 
 Scene::Scene(Ogre::SceneManager* mSceneMgr) : 
 	isSceneSetup(false),
+	camera(NULL),
 	graphicsEngine(mSceneMgr),
 	physicsEngine(NULL),
 	sceneRootNode(NULL)
@@ -45,8 +46,7 @@ bool Scene::destroyScene(void) {
 
 bool Scene::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 	if(!isSceneSetup) return false;
-	if (cam->getParentSceneNode() != NULL)
-		cam->getParentSceneNode()->detachObject(cam);
+	detachCamera(cam);
 	camera = cam;
 	return true;
 }

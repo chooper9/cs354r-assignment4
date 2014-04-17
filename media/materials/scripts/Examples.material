@@ -924,6 +924,34 @@ material Examples/Blue
 	}
 }
 
+material Examples/Pluto
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture pluto.jpeg
+			}
+		}
+	}
+}
+
+material Examples/Neptune
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture neptune.jpg
+			}
+		}
+	}
+}
+
 material Examples/TennisCourt
 {
 	technique

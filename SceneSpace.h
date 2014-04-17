@@ -9,7 +9,6 @@ class SceneSpace : public Scene
 {
 private:
 	Planet* pluto;
-	Planet* targetPlanet;
 	std::vector<Planet*> enemies;
 public:
 	SceneSpace(Ogre::SceneManager* mSceneMgr);

@@ -16,8 +16,7 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	if (isAI) {
 		planetEnt->setMaterialName("Examples/Neptune");
 		ratio = SIZE_PLANET/100;
-	}	
-	else { 
+	} else { 
 		planetEnt->setMaterialName("Examples/Pluto");
 		ratio = SIZE_PLUTO/100;
 	}
@@ -41,7 +40,7 @@ Planet::~Planet(void) {
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
 	graphicsEngine->destroySceneNode(positionNode);
-	std::cout << "========= Debug: Player Deleted =========" << std::endl;
+	std::cout << "========= Debug: Planet Deleted =========" << std::endl;
 }
 
 void Planet::resetState(void) {
@@ -68,7 +67,7 @@ void Planet::runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vecto
 		direction.z += planetState.step;
 
 	bool moved = direction.x != 0 || direction.z != 0;
-	std::cout << 1 << std::endl;
+
 	if(moved) {
 		direction *= evt.timeSinceLastFrame;
 		Ogre::Vector3 oldPos = positionNode->getPosition();

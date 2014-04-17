@@ -21,6 +21,9 @@ enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
 enum PlayerWeapon { WEAPON_BLADE, WEAPON_SHURIKEN }; 
 enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10, ATTACK_SHURIKEN = 7 }; 
 
+enum PlanetFly { FLY_PLANET = 1500, FLY_PLANET_FAST = 2500 };
+enum PlanetSize { SIZE_PLUTO = 100, SIZE_PLANET = 500 };
+
 typedef struct PlayerState {
 	enum PlayerAction action;
 	enum PlayerStep step;
@@ -36,7 +39,7 @@ typedef struct PlayerState {
 } PlayerState;
 
 // ======================== Shuriken Constants ======================== 
-enum ShurikenSize { SIZE_REGULAR_SHURIKEN = 5; };
+enum ShurikenSize { SIZE_REGULAR_SHURIKEN = 5 };
 enum ShurikenCollisionEvent { HIT_NOTHING, HIT_NINJA, HIT_WORLD };
 struct ShurikenContactResultCallback : public btCollisionWorld::ContactResultCallback {
     ShurikenContactResultCallback(void) : hit(false){}
@@ -48,6 +51,15 @@ struct ShurikenContactResultCallback : public btCollisionWorld::ContactResultCal
     }
     bool hit;
 };
+
+typedef struct PlanetState {
+	int hp;
+	enum PlanetFly step;
+	bool movingLeft;
+	bool movingRight;
+	bool movingForward;
+	bool movingBackward;
+} PlanetState;
 
 // ======================== ScenePlanet Constants ======================== 
 enum ScenePlanetSize { LENGTH_ScenePlanet = 1000, WIDTH_ScenePlanet = 1000 };
@@ -81,6 +93,11 @@ static CEGUI::MouseButton convertButton(OIS::MouseButtonID buttonID)
     default:
         return CEGUI::LeftButton;
     }
+}
+
+static void detachCamera(Ogre::Camera* camera) {
+	if (camera != NULL && camera->getParentSceneNode() != NULL)
+		camera->getParentSceneNode()->detachObject(camera);
 }
 
 static void destroySceneNodeHelper(Ogre::SceneNode* node) {

@@ -21,8 +21,8 @@ Pluto::Pluto(void) :
 
 Pluto::~Pluto(void)
 {
-	delete soundHandler;
 	delete game;
+	delete soundHandler;
 	std::cout << "========= Debug: Pluto Deleted =========" << std::endl;
 }
 
