@@ -10,13 +10,16 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	isAI = !isPluto;
 	planetEnt = mSceneMgr->createEntity(Ogre::SceneManager::PT_SPHERE);
 	planetEnt->setCastShadows(true);
-	Ogre::SceneNode* planetNode = positionNode->createChildSceneNode();
+	planetNode = positionNode->createChildSceneNode();
 	planetNode->attachObject(planetEnt);
 	Ogre::Real ratio;
+	destroyed = false;
 	if (isAI) {
+		planetState.size = SIZE_PLANET;
 		planetEnt->setMaterialName("Examples/Neptune");
 		ratio = SIZE_PLANET/100;
-	} else { 
+	} else {
+		planetState.size = SIZE_PLUTO;
 		planetEnt->setMaterialName("Examples/Pluto");
 		ratio = SIZE_PLUTO/100;
 	}
@@ -50,6 +53,8 @@ void Planet::resetState(void) {
 	planetState.movingRight = false;
 	planetState.movingForward = false;
 	planetState.movingBackward = false;
+	planetState.degreeYaw = 0;
+	planetState.degreePitch = 0;
 }
 
 
@@ -67,6 +72,15 @@ void Planet::runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vecto
 		direction.z += planetState.step;
 
 	bool moved = direction.x != 0 || direction.z != 0;
+	
+	planetNode->yaw(Ogre::Degree(0.01), Ogre::Node::TS_LOCAL);
+
+	positionNode->yaw(Ogre::Degree(planetState.degreeYaw), Ogre::Node::TS_LOCAL);
+	positionNode->pitch(Ogre::Degree(planetState.degreePitch), Ogre::Node::TS_LOCAL);
+	planetState.degreeYaw = 0;
+	planetState.degreePitch = 0;
+
+
 
 	if(moved) {
 		direction *= evt.timeSinceLastFrame;
@@ -145,6 +159,8 @@ void Planet::handleKeyReleased(const OIS::KeyCode key) {
 //-------------------------------------------------------------------------------------
 
 void Planet::handleMouseMoved( int dx, int dy ) {
+	planetState.degreeYaw = -dx/10.0;
+	planetState.degreePitch = -dy/10.0;
 	
 }
 

@@ -9,11 +9,15 @@ class SceneSpace : public Scene
 {
 private:
 	Planet* pluto;
-	Planet* targetPlanet;
 	std::vector<Planet*> enemies;
+	void runAI(const Ogre::FrameEvent& evt);
 public:
 	SceneSpace(Ogre::SceneManager* mSceneMgr);
 	~SceneSpace(void);
+	void finishLevel(int level) {
+		enemies.at(level)->setDestroyed(true);
+	}
+	SceneSpaceResult getResult(int* level);
 	virtual bool setupScene(int level);
 	virtual bool destroyScene(void);
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);

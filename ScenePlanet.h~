@@ -11,6 +11,7 @@ class ScenePlanet : public Scene
 private:
 	Player* pluto;
 	std::vector<Player*> enemies;
+	Ogre::BillboardSet* enemyHPset;
 	enum CameraMode cameraMode;
 	void runAI(const Ogre::FrameEvent& evt);
 public:

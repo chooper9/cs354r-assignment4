@@ -19,10 +19,7 @@ enum PlayerHp { HP_PLUTO = 100000, HP_NINJA = 100 };
 enum PlayerHeight { HEIGHT_PLUTO = 90, HEIGHT_NINJA = 80 };
 enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
 enum PlayerWeapon { WEAPON_BLADE, WEAPON_SHURIKEN }; 
-enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10, ATTACK_SHURIKEN = 7 }; 
-
-enum PlanetFly { FLY_PLANET = 1500, FLY_PLANET_FAST = 2500 };
-enum PlanetSize { SIZE_PLUTO = 100, SIZE_PLANET = 500 };
+enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10, ATTACK_SHURIKEN = 100 }; 
 
 typedef struct PlayerState {
 	enum PlayerAction action;
@@ -38,6 +35,22 @@ typedef struct PlayerState {
 	bool movingBackward;
 } PlayerState;
 
+// ======================== Planet Constants ========================
+enum PlanetFly { FLY_PLANET = 1500, FLY_PLANET_FAST = 2500 };
+enum PlanetSize { SIZE_PLUTO = 100, SIZE_PLANET = 500 }; 
+
+typedef struct PlanetState {
+	int hp;
+	enum PlanetSize size;
+	enum PlanetFly step;
+	Ogre::Real degreeYaw;
+	Ogre::Real degreePitch;
+	bool movingLeft;
+	bool movingRight;
+	bool movingForward;
+	bool movingBackward;
+} PlanetState;
+
 // ======================== Shuriken Constants ======================== 
 enum ShurikenSize { SIZE_REGULAR_SHURIKEN = 5 };
 enum ShurikenCollisionEvent { HIT_NOTHING, HIT_NINJA, HIT_WORLD };
@@ -52,25 +65,18 @@ struct ShurikenContactResultCallback : public btCollisionWorld::ContactResultCal
     bool hit;
 };
 
-typedef struct PlanetState {
-	int hp;
-	enum PlanetFly step;
-	bool movingLeft;
-	bool movingRight;
-	bool movingForward;
-	bool movingBackward;
-} PlanetState;
-
 // ======================== ScenePlanet Constants ======================== 
 enum ScenePlanetSize { LENGTH_ScenePlanet = 1000, WIDTH_ScenePlanet = 1000 };
 enum ScenePlanetResult { PLUTO_WIN, PLUTO_LOSE, PLUTO_FIGHTING };
 
 // ======================== SceneSpace Constants ======================== 
 enum SceneSpaceSize { LENGTH_SceneSpace = 1000, WIDTH_SceneSpace = 1000, HEIGHT_SceneSpace = 1000 };
+enum SceneSpaceResult { PLUTO_TRAVELLING, PLUTO_HIT_PLANET, PLUTO_HIT_OBSTACLE };
 
 // ============================ Game Constants ==========================
 enum CameraMode { CAM_THIRD_PERSON, CAM_FIRST_PERSON };
 enum GameScene { SCENE_NONE, SCENE_SPACE, SCENE_PLANET };
+enum GameLevels { LV_NEPTUNE,LV_URANUS, LV_SATURN, LV_JUPITER, LV_MARS, LV_EARTH };
 
 
 // =================== Global Variables and Functions ===================

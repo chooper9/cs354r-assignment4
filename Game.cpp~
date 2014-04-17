@@ -1,6 +1,7 @@
 #include "Game.h"
 
 Game::Game(Ogre::SceneManager* mSceneMgr) {
+	currentLevel= 0;
 	graphicsEngine = mSceneMgr;
 	mainCam = graphicsEngine->getCamera("MainCam");
 	currentGameScene = SCENE_NONE;
@@ -14,7 +15,6 @@ Game::Game(Ogre::SceneManager* mSceneMgr) {
 
 Game::~Game(void) {
 	delete scenePlanet;
-	std::cout << "========= Debug: Game Deleted =========" << std::endl;
 	delete sceneSpace;
 	std::cout << "========= Debug: Game Deleted =========" << std::endl;
 }
@@ -29,7 +29,7 @@ void Game::enterScene(enum GameScene newGameScene) {
 		currentScene = sceneSpace;
 		break;
 	case SCENE_PLANET:
-		scenePlanet->setupScene(1);
+		scenePlanet->setupScene(currentLevel+1);
 		scenePlanet->addCamera(mainCam);
 		currentScene = scenePlanet;
 		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot")->setVisible(true);
@@ -64,9 +64,35 @@ void Game::exitScene(void) {
 
 void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	if(currentGameScene != SCENE_NONE) currentScene->runNextFrame(evt);
-	if(currentGameScene == SCENE_PLANET && scenePlanet->getResult() != PLUTO_FIGHTING) {
-		//exitScene();
-		//enterScene(SCENE_PLANET);
+	int lv;
+	switch(currentGameScene) {
+	case SCENE_SPACE:
+		switch(sceneSpace->getResult(&lv)){
+		case PLUTO_HIT_PLANET:
+			currentLevel = lv;
+			sceneSpace->hideScene();
+			enterScene(SCENE_PLANET);
+			break;
+		case PLUTO_HIT_OBSTACLE: break;
+		default: break;
+		}
+		break;
+	case SCENE_PLANET: 
+		switch(scenePlanet->getResult()){
+		case PLUTO_WIN:
+			exitScene();
+	std::cout << "========= Debug: Game sadsadsadadsad =========" << std::endl;
+			sceneSpace->finishLevel(currentLevel);
+	std::cout << "========= Debug: Game sadsadsadadsad =========" << std::endl;
+			sceneSpace->showScene();
+	std::cout << "========= Debug: Game sadsadsadadsad =========" << std::endl;
+			//currentGameScene = SCENE_SPACE;
+			//currentScene = sceneSpace;
+			break;
+		case PLUTO_LOSE: break;
+		default: break;
+		}
+		break;
 	}
 }
 

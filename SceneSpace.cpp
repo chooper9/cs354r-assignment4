@@ -2,7 +2,6 @@
 
 SceneSpace::SceneSpace(Ogre::SceneManager* mSceneMgr) : Scene(mSceneMgr) {
 	mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox", 50000);
-	graphicsEngine->setSkyBoxEnabled (false);
 	enemies.clear();
 	pluto = NULL;
         std::cout << "========= Debug: SceneSpace Created =========" << std::endl;
@@ -20,11 +19,14 @@ SceneSpace::~SceneSpace(void) {
 
 bool SceneSpace::setupScene(int level) {
 	if (!Scene::setupScene(level)) return false;
-	graphicsEngine->setSkyBoxEnabled (true);
 	
 	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, Ogre::Vector3(0,100, 0));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, 100, -20000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, 0, -20000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, -1000, -20000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, -2000, -20000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, 1000, -20000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, 2000, -20000)));
 }
 
 //-------------------------------------------------------------------------------------
@@ -36,7 +38,6 @@ bool SceneSpace::destroyScene(void) {
 	for (std::vector<Planet*>::iterator it = enemies.begin(); it != enemies.end(); it++)
 		delete (*it);
 	enemies.clear();
-	graphicsEngine->setSkyBoxEnabled (false);
 	if (!Scene::destroyScene()) return false;
 }
 
@@ -54,10 +55,37 @@ bool SceneSpace::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 
 //-------------------------------------------------------------------------------------
 
+void SceneSpace::runAI(const Ogre::FrameEvent& evt) {
+	for (std::vector<Planet*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+		Planet* enemy = *it;
+		if (enemy->isDestroyed()) continue;
+		enemy->runNextFrame(evt, pluto, enemies);
+	}
+}
+
+
+//-------------------------------------------------------------------------------------
+
 bool SceneSpace::runNextFrame(const Ogre::FrameEvent& evt) {
 	if(!Scene::runNextFrame(evt)) return false;
 	pluto->runNextFrame(evt, pluto, enemies);
+	runAI(evt);
 	return true;
+}
+
+//-------------------------------------------------------------------------------------
+
+SceneSpaceResult SceneSpace::getResult(int* level) {
+	int lv = 0;
+	for (std::vector<Planet*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+		if (pluto->isCollidingWith(*it)) {
+			*level = lv;
+			return PLUTO_HIT_PLANET;
+		}
+		lv++;
+	}
+	return PLUTO_TRAVELLING;
+	// return PLUTO_HIT_OBSTACLE 
 }
 
 //-------------------------------------------------------------------------------------

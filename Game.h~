@@ -20,7 +20,7 @@ private:
 public:
 	Game(Ogre::SceneManager* mSceneMgr);
 	~Game(void);
-	void enterScene(enum GameScene newGameScene);
+	void enterScene(enum GameScene newGameScene, int level=0);
 	void exitScene(void);
 	void runNextFrame(const Ogre::FrameEvent& evt);
 	void handleKeyPressed(const OIS::KeyCode key);
