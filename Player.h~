@@ -2,18 +2,26 @@
 #define __Player_h_
 
 #include "GameResource.h"
+#include "Shuriken.h"
+#include <OgreBillboardSet.h>
+#include <OgreBillboard.h>
+#include <stdio.h>
 
 class Player {
 private:
+	std::vector<Shuriken*> shurikens;
 	bool attackEffectChecked;
+	bool isPerformingShurikenAOE;
 	Ogre::Vector3 orient;
 	bool visible;
 	bool isAI;
 	void checkAttackEffect(Player* enemy);
+	char shuriken_buf[10];
 protected:
 	Ogre::SceneManager* graphicsEngine;
 	Ogre::Entity* playerEnt;
 	Ogre::SceneNode* positionNode;
+	Ogre::Billboard* hpbar;
 	PhysicsObject physicsObject;
 	PhysicsEngine* physicsEngine;
 	PlayerState playerState;
@@ -24,6 +32,7 @@ public:
 	void resetState(void);
 	void runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vector<Player*>& enemies);
 	void reactTo(Player* enemy);
+	void setBillboard(Ogre::Billboard* bb) { hpbar = bb; }
 	void setTransform(const Ogre::Vector3& pos=Ogre::Vector3::ZERO, const Ogre::Quaternion& q=Ogre::Quaternion::IDENTITY);
 	Ogre::SceneNode* getSceneNode(void) { return positionNode; }
 	Ogre::Entity* getEntity(void) { return playerEnt; }
@@ -50,8 +59,43 @@ public:
 	void hitBy(PlayerAttack n) {
 		playerState.hp -= n;
 		playerState.hp = playerState.hp < 0 ? 0 : playerState.hp;
+		switch (n) {
+		case ATTACK_BLADE:
+			std::cout <<"  play sound - hit by blade" << std::endl; break;
+		case ATTACK_KICK:
+			std::cout <<"  play sound - kicked" << std::endl; break;
+		case ATTACK_SHURIKEN:
+			std::cout <<"  play sound - hit by shuriken" << std::endl; break;
+		}
+		if(isAI) {
+			hpbar->resetDimensions();
+			hpbar->setDimensions(hpbar->mParentSet->getDefaultWidth()*((float)playerState.hp / (float)playerState.defaultHP),
+									hpbar->mParentSet->getDefaultHeight());
+		} else {
+			CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(((float)playerState.hp / (float)playerState.defaultHP)*0.22, 0));
+		}
 	}
-
+	void switchWeapon(void) {
+		CEGUI::WindowManager* wmgr = CEGUI::WindowManager::getSingletonPtr();
+		switch(playerState.weapon) {
+		case WEAPON_BLADE:
+			playerState.weapon = WEAPON_SHURIKEN;
+			playerEnt->getSubEntity(1)->setVisible(false);
+			wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(false);
+			wmgr->getWindow("Pluto/PlanetRoot/Shuriken")->setVisible(true);
+			wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setVisible(true);
+			sprintf(shuriken_buf, "x%d", playerState.numShuriken);
+			wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setText(shuriken_buf);
+			break;
+		case WEAPON_SHURIKEN:
+			playerState.weapon = WEAPON_BLADE;
+			playerEnt->getSubEntity(1)->setVisible(true);
+			wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(true);
+			wmgr->getWindow("Pluto/PlanetRoot/Shuriken")->setVisible(false);
+			wmgr->getWindow("Pluto/PlanetRoot/ShurikenCount")->setVisible(false);
+			break;
+		}
+	}
 	void attack(void) {
 		if (playerState.action == BLOCK || playerState.action == STOP_BLOCK) {
 			playerEnt->getAnimationState("Block")->setTimePosition(0);
@@ -69,8 +113,21 @@ public:
 	void stopBlock(void) {
 		if (playerState.action == BLOCK) playerState.action = STOP_BLOCK;
 	}
+
+	void throwShuriken(void) {
+		if (playerState.action != IDLE) return;
+		playerState.action = THROW_SHURIKEN;
+		playerEnt->getAnimationState("Spin")->setEnabled(true);
+		attackEffectChecked = false;
+		isPerformingShurikenAOE = false;
+	}
+	void shurikenAOE(void) {
+		if (playerState.action != IDLE) return;
+		throwShuriken();
+		isPerformingShurikenAOE = true;
+	}
 	void jump(void) {
-		if (playerState.action != IDLE) return;;
+		if (playerState.action != IDLE) return;
 		playerState.action = JUMP;
 		playerEnt->getAnimationState("Jump")->setEnabled(true);
 	}
@@ -78,7 +135,7 @@ public:
 		if (playerState.action != IDLE) return;
 		playerState.action = KICK;
 		attackEffectChecked = false;
-		playerEnt->getAnimationState("Kick")->setEnabled(true);
+		playerEnt->getAnimationState("SideKick")->setEnabled(true);
 	}
 	void kicked(void) {
 		playerState.action = KICKED;
@@ -88,8 +145,8 @@ public:
 		playerEnt->getAnimationState("Block")->setEnabled(false);
 		playerEnt->getAnimationState("Jump")->setTimePosition(0);
 		playerEnt->getAnimationState("Jump")->setEnabled(false);
-		playerEnt->getAnimationState("Kick")->setTimePosition(0);
-		playerEnt->getAnimationState("Kick")->setEnabled(false);
+		playerEnt->getAnimationState("SideKick")->setTimePosition(0);
+		playerEnt->getAnimationState("SideKick")->setEnabled(false);
 		playerEnt->getAnimationState("Backflip")->setEnabled(true);
 	}
 	void die(void) {
@@ -99,7 +156,7 @@ public:
 		playerEnt->getAnimationState("Attack3")->setEnabled(false);
 		playerEnt->getAnimationState("Block")->setEnabled(false);
 		playerEnt->getAnimationState("Jump")->setEnabled(false);
-		playerEnt->getAnimationState("Kick")->setEnabled(false);
+		playerEnt->getAnimationState("SideKick")->setEnabled(false);
 		playerEnt->getAnimationState("Death1")->setEnabled(true);
 	}
 };

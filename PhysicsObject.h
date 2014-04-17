@@ -46,6 +46,11 @@ public:
 	void setFriction(btScalar factor);
 	void setRestitution(btScalar factor);
 	void setLinearVelocity(const btVector3& v);
+	void deactivate(void) { 
+		setAngularVelocity(btVector3(0,0,0));
+		setLinearVelocity(btVector3(0,0,0));
+		rigidBody->setActivationState(DISABLE_SIMULATION);
+	}
 	
 };
 #endif // #ifndef __PhysicsObject_h_

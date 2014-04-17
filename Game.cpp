@@ -31,6 +31,7 @@ void Game::enterScene(enum GameScene newGameScene) {
 		scenePlanet->setupScene(1);
 		scenePlanet->addCamera(mainCam);
 		currentScene = scenePlanet;
+		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot")->setVisible(true);
 		break;
 	default: 
 		currentScene = NULL;
@@ -48,6 +49,7 @@ void Game::exitScene(void) {
 		break;
 	case SCENE_PLANET:
 		scenePlanet->destroyScene();
+		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot")->setVisible(false);
 		break;
 	default: break;
 	}
@@ -62,8 +64,8 @@ void Game::exitScene(void) {
 void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	if(currentGameScene != SCENE_NONE) currentScene->runNextFrame(evt);
 	if(currentGameScene == SCENE_PLANET && scenePlanet->getResult() != PLUTO_FIGHTING) {
-		exitScene();
-		enterScene(SCENE_PLANET);
+		//exitScene();
+		//enterScene(SCENE_PLANET);
 	}
 }
 
@@ -82,6 +84,10 @@ void Game::handleKeyPressed(const OIS::KeyCode key) {
 		default: 
 			enterScene(SCENE_SPACE); break;
 		}
+		break;
+	case OIS::KC_RETURN:
+		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PauseRoot")->setVisible(true);
+		CEGUI::MouseCursor::getSingleton().show();
 		break;
 	default:break;
 	}

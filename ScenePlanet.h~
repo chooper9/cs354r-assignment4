@@ -5,6 +5,7 @@
 #include "GameResource.h"
 #include "Scene.h"
 #include "Player.h"
+#include "Shuriken.h"
 class ScenePlanet : public Scene
 {
 private:
