@@ -55,7 +55,7 @@ void Planet::resetState(void) {
 
 
 void Planet::runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vector<Planet*>& enemies) {
-	positionNode->getChild()->yaw(Ogre::Degree(100*evt.timeSinceLastFrame), Ogre::Node::TS_LOCAL);
+	
 	Ogre::Vector3 direction(0, 0, 0);
 	if (planetState.movingLeft) {
 		direction.x -= planetState.step;	

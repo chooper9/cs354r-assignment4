@@ -3,9 +3,14 @@
 
 #include "GameResource.h"
 #include "Scene.h"
+#include "Planet.h"
 
 class SceneSpace : public Scene
 {
+private:
+	Planet* pluto;
+	Planet* targetPlanet;
+	std::vector<Planet*> enemies;
 public:
 	SceneSpace(Ogre::SceneManager* mSceneMgr);
 	~SceneSpace(void);
