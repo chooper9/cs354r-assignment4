@@ -59,7 +59,8 @@ am_OgreApp_OBJECTS = OgreApp-PhysicsObject.$(OBJEXT) \
 	OgreApp-BaseApplication.$(OBJEXT) OgreApp-Scene.$(OBJEXT) \
 	OgreApp-ScenePlanet.$(OBJEXT) OgreApp-SceneSpace.$(OBJEXT) \
 	OgreApp-Pluto.$(OBJEXT) OgreApp-Game.$(OBJEXT) \
-	OgreApp-Sound.$(OBJEXT)
+	OgreApp-Sound.$(OBJEXT) OgreApp-SceneTerrain.$(OBJEXT) \
+	OgreApp-TerrainMaterial.$(OBJEXT)
 OgreApp_OBJECTS = $(am_OgreApp_OBJECTS)
 am__DEPENDENCIES_1 =
 OgreApp_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
@@ -102,12 +103,12 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /u/chooper9/cs354r/cs354r-assignment4/missing --run aclocal-1.11
+ACLOCAL = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 AR = ar
-AUTOCONF = ${SHELL} /u/chooper9/cs354r/cs354r-assignment4/missing --run autoconf
-AUTOHEADER = ${SHELL} /u/chooper9/cs354r/cs354r-assignment4/missing --run autoheader
-AUTOMAKE = ${SHELL} /u/chooper9/cs354r/cs354r-assignment4/missing --run automake-1.11
+AUTOCONF = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run autoconf
+AUTOHEADER = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run autoheader
+AUTOMAKE = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run automake-1.11
 AWK = gawk
 BULLET_CFLAGS = 
 BULLET_LIBS = 
@@ -150,15 +151,15 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /u/chooper9/cs354r/cs354r-assignment4/missing --run makeinfo
+MAKEINFO = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
 NMEDIT = 
 OBJDUMP = objdump
 OBJEXT = o
-OGRE_CFLAGS = -pthread -I/usr/include/OGRE  
-OGRE_LIBS = -lOgreMain -lpthread  
+OGRE_CFLAGS = -pthread -I/usr/include/OGRE -I/usr/include/OGRE/Terrain -I/usr/include/OGRE/Paging  
+OGRE_LIBS = -lOgreTerrain -lOgrePaging -lOgreMain -lpthread  
 OIS_CFLAGS = -I/usr/include/OIS  
 OIS_LIBS = -lOIS  
 OTOOL = 
@@ -187,10 +188,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.1
-abs_builddir = /u/chooper9/cs354r/cs354r-assignment4
-abs_srcdir = /u/chooper9/cs354r/cs354r-assignment4
-abs_top_builddir = /u/chooper9/cs354r/cs354r-assignment4
-abs_top_srcdir = /u/chooper9/cs354r/cs354r-assignment4
+abs_builddir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
+abs_srcdir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
+abs_top_builddir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
+abs_top_srcdir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -222,7 +223,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /u/chooper9/cs354r/cs354r-assignment4/install-sh
+install_sh = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -245,9 +246,9 @@ top_build_prefix =
 top_builddir = .
 top_srcdir = .
 ACLOCAL_AMFLAGS = -I m4
-noinst_HEADERS = PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Shuriken.h Player.h Planet.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h PlutoGui.h
+noinst_HEADERS = PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Shuriken.h Player.h Planet.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h PlutoGui.h SceneTerrain.h TerrainMaterial.h
 OgreApp_CPPFLAGS = -I$(top_srcdir)
-OgreApp_SOURCES = PhysicsObject.cpp PhysicsEngine.cpp Shuriken.cpp Player.cpp Planet.cpp BaseApplication.cpp Scene.cpp ScenePlanet.cpp SceneSpace.cpp Pluto.cpp Game.cpp Sound.cpp
+OgreApp_SOURCES = PhysicsObject.cpp PhysicsEngine.cpp Shuriken.cpp Player.cpp Planet.cpp BaseApplication.cpp Scene.cpp ScenePlanet.cpp SceneSpace.cpp Pluto.cpp Game.cpp Sound.cpp SceneTerrain.cpp TerrainMaterial.cpp
 OgreApp_CXXFLAGS = $(OGRE_CFLAGS) $(OIS_CFLAGS) $(bullet_CFLAGS) $(CEGUI_CFLAGS) $(CEGUI_OGRE_CFLAGS) $(SDL_mixer_CFLAGS) $(SDL_net_CFLAGS)
 OgreApp_LDADD = $(OGRE_LIBS) $(OIS_LIBS) $(bullet_LIBS) $(CEGUI_LIBS) $(CEGUI_OGRE_LIBS) $(SDL_mixer_LIBS) $(SDL_net_LIBS)
 EXTRA_DIST = buildit makeit
@@ -369,8 +370,10 @@ include ./$(DEPDIR)/OgreApp-Pluto.Po
 include ./$(DEPDIR)/OgreApp-Scene.Po
 include ./$(DEPDIR)/OgreApp-ScenePlanet.Po
 include ./$(DEPDIR)/OgreApp-SceneSpace.Po
+include ./$(DEPDIR)/OgreApp-SceneTerrain.Po
 include ./$(DEPDIR)/OgreApp-Shuriken.Po
 include ./$(DEPDIR)/OgreApp-Sound.Po
+include ./$(DEPDIR)/OgreApp-TerrainMaterial.Po
 
 .cpp.o:
 	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -560,6 +563,34 @@ OgreApp-Sound.obj: Sound.cpp
 #	source='Sound.cpp' object='OgreApp-Sound.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-Sound.obj `if test -f 'Sound.cpp'; then $(CYGPATH_W) 'Sound.cpp'; else $(CYGPATH_W) '$(srcdir)/Sound.cpp'; fi`
+
+OgreApp-SceneTerrain.o: SceneTerrain.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-SceneTerrain.o -MD -MP -MF $(DEPDIR)/OgreApp-SceneTerrain.Tpo -c -o OgreApp-SceneTerrain.o `test -f 'SceneTerrain.cpp' || echo '$(srcdir)/'`SceneTerrain.cpp
+	$(am__mv) $(DEPDIR)/OgreApp-SceneTerrain.Tpo $(DEPDIR)/OgreApp-SceneTerrain.Po
+#	source='SceneTerrain.cpp' object='OgreApp-SceneTerrain.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-SceneTerrain.o `test -f 'SceneTerrain.cpp' || echo '$(srcdir)/'`SceneTerrain.cpp
+
+OgreApp-SceneTerrain.obj: SceneTerrain.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-SceneTerrain.obj -MD -MP -MF $(DEPDIR)/OgreApp-SceneTerrain.Tpo -c -o OgreApp-SceneTerrain.obj `if test -f 'SceneTerrain.cpp'; then $(CYGPATH_W) 'SceneTerrain.cpp'; else $(CYGPATH_W) '$(srcdir)/SceneTerrain.cpp'; fi`
+	$(am__mv) $(DEPDIR)/OgreApp-SceneTerrain.Tpo $(DEPDIR)/OgreApp-SceneTerrain.Po
+#	source='SceneTerrain.cpp' object='OgreApp-SceneTerrain.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-SceneTerrain.obj `if test -f 'SceneTerrain.cpp'; then $(CYGPATH_W) 'SceneTerrain.cpp'; else $(CYGPATH_W) '$(srcdir)/SceneTerrain.cpp'; fi`
+
+OgreApp-TerrainMaterial.o: TerrainMaterial.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-TerrainMaterial.o -MD -MP -MF $(DEPDIR)/OgreApp-TerrainMaterial.Tpo -c -o OgreApp-TerrainMaterial.o `test -f 'TerrainMaterial.cpp' || echo '$(srcdir)/'`TerrainMaterial.cpp
+	$(am__mv) $(DEPDIR)/OgreApp-TerrainMaterial.Tpo $(DEPDIR)/OgreApp-TerrainMaterial.Po
+#	source='TerrainMaterial.cpp' object='OgreApp-TerrainMaterial.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-TerrainMaterial.o `test -f 'TerrainMaterial.cpp' || echo '$(srcdir)/'`TerrainMaterial.cpp
+
+OgreApp-TerrainMaterial.obj: TerrainMaterial.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-TerrainMaterial.obj -MD -MP -MF $(DEPDIR)/OgreApp-TerrainMaterial.Tpo -c -o OgreApp-TerrainMaterial.obj `if test -f 'TerrainMaterial.cpp'; then $(CYGPATH_W) 'TerrainMaterial.cpp'; else $(CYGPATH_W) '$(srcdir)/TerrainMaterial.cpp'; fi`
+	$(am__mv) $(DEPDIR)/OgreApp-TerrainMaterial.Tpo $(DEPDIR)/OgreApp-TerrainMaterial.Po
+#	source='TerrainMaterial.cpp' object='OgreApp-TerrainMaterial.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-TerrainMaterial.obj `if test -f 'TerrainMaterial.cpp'; then $(CYGPATH_W) 'TerrainMaterial.cpp'; else $(CYGPATH_W) '$(srcdir)/TerrainMaterial.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

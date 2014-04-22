@@ -3,6 +3,51 @@
 	<Window Type="DefaultWindow" Name="PlutoRoot">
 		<Property Name="AlwaysOnTop" Value="True" />
 		<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
+		<Window Type="DefaultWindow" Name="Pluto/TitleRoot">
+			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
+			<Window Type="TaharezLook/MenuItem" Name="Pluto/TitleRoot/StartGame">
+				<Property Name="UnifiedSize" Value="{{0.12,0},{0.05,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.44,0},{0.7,0}}" />
+				<Property Name="Text" Value=" Start Game" />
+			</Window>
+			<Window Type="TaharezLook/MenuItem" Name="Pluto/TitleRoot/Controls">
+				<Property Name="UnifiedSize" Value="{{0.12,0},{0.05,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.44,0},{0.78,0}}" />
+				<Property Name="Text" Value="   Controls" />
+			</Window>
+			<Window Type="TaharezLook/MenuItem" Name="Pluto/TitleRoot/Exit">
+				<Property Name="UnifiedSize" Value="{{0.12,0},{0.05,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.44,0},{0.86,0}}" />
+				<Property Name="Text" Value="       Exit" />
+			</Window>
+		</Window>
+		<Window Type="DefaultWindow" Name="Pluto/ControlRoot">
+			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
+			<Property Name="Visible" Value="False" />
+			<Window Type="TaharezLook/Button" Name="Pluto/ControlRoot/Return">
+				<Property Name="AlwaysOnTop" Value="True" />
+				<Property Name="UnifiedSize" Value="{{0.1,0},{0.05,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.85,0},{0.92,0}}" />
+				<Property Name="Text" Value="Return" />
+			</Window>
+			<Window Type="DefaultWindow" Name="Pluto/ControlRoot/Page1">
+				<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
+				<Window Type="TaharezLook/MenuItem" Name="Pluto/ControlRoot/NextPage">
+					<Property Name="UnifiedSize" Value="{{0.05,0},{0.3,0}}" />
+					<Property Name="UnifiedPosition" Value="{{0.93,0},{0.35,0}}" />
+					<Property Name="Text" Value="&gt;&gt;" />
+				</Window>
+			</Window>
+			<Window Type="DefaultWindow" Name="Pluto/ControlRoot/Page2">
+				<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
+				<Property Name="Visible" Value="False" />
+				<Window Type="TaharezLook/MenuItem" Name="Pluto/ControlRoot/PrevPage">
+					<Property Name="UnifiedSize" Value="{{0.05,0},{0.3,0}}" />
+					<Property Name="UnifiedPosition" Value="{{0.02,0},{0.35,0}}" />
+					<Property Name="Text" Value="&lt;&lt;" />
+				</Window>
+			</Window>
+		</Window>
 		<Window Type="DefaultWindow" Name="Pluto/PauseRoot">
 			<Property Name="AlwaysOnTop" Value="True" />
 			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
@@ -11,15 +56,24 @@
 				<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
 				<Property Name="InheritsAlpha" Value="False" />
 				<Property Name="Alpha" Value="0.5" />
+				<Property Name="ZOrderChangeEnabled" Value="False" />
 			</Window>
-			<Window Type="TaharezLook/FrameWindow" Name="Pluto/PauseRoot/Menu">
+			<Window Type="TaharezLook/Listbox" Name="Pluto/PauseRoot/Menu">
 				<Property Name="UnifiedSize" Value="{{0.2,0},{1,0}}" />
 				<Property Name="UnifiedPosition" Value="{{0,0},{0,0}}" />
-				<Property Name="Text" Value="Paused" />
 				<Property Name="DragMovingEnabled" Value="False" />
 				<Property Name="CloseButtonEnabled" Value="False" />
 				<Property Name="SizingEnabled" Value="False" />
 				<Property Name="AlwaysOnTop" Value="True" />
+				<Window Type="TaharezLook/StaticText" Name="Pluto/PauseRoot/Menu/Paused">
+					<Property Name="UnifiedSize" Value="{{1,0},{0.08,0}}" />
+					<Property Name="UnifiedPosition" Value="{{0,0},{0,0}}" />
+					<Property Name="Text" Value="-Paused-  " />
+					<Property Name="HorzFormatting" Value="HorzCentred" />
+					<Property Name="FrameEnabled" Value="False" />
+					<Property Name="BackgroundEnabled" Value="False" />
+					<Property Name="ZOrderChangeEnabled" Value="False" />
+				</Window>
 				<Window Type="TaharezLook/MenuItem" Name="Pluto/PauseRoot/Menu/Resume">
 					<Property Name="UnifiedSize" Value="{{1,0},{0.1,0}}" />
 					<Property Name="UnifiedPosition" Value="{{0,0},{0.1,0}}" />
@@ -28,7 +82,7 @@
 				<Window Type="TaharezLook/MenuItem" Name="Pluto/PauseRoot/Menu/Options">
 					<Property Name="UnifiedSize" Value="{{1,0},{0.1,0}}" />
 					<Property Name="UnifiedPosition" Value="{{0,0},{0.2,0}}" />
-					<Property Name="Text" Value="Options  >>" />
+					<Property Name="Text" Value="Options  &gt;&gt;" />
 				</Window>
 				<Window Type="TaharezLook/MenuItem" Name="Pluto/PauseRoot/Menu/Quit">
 					<Property Name="UnifiedSize" Value="{{1,0},{0.1,0}}" />
@@ -36,18 +90,47 @@
 					<Property Name="Text" Value="Quit" />
 				</Window>
 			</Window>
-			<Window Type="TaharezLook/FrameWindow" Name="Pluto/PauseRoot/OptionsMenu">
-				<Property Name="UnifiedSize" Value="{{0.2,0},{1,0}}" />
+			<Window Type="DefaultWindow" Name="Pluto/PauseRoot/OptionsRoot">
+				<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
 				<Property Name="UnifiedPosition" Value="{{0,0},{0,0}}" />
-				<Property Name="Text" Value="Options" />
-				<Property Name="DragMovingEnabled" Value="False" />
-				<Property Name="CloseButtonEnabled" Value="False" />
-				<Property Name="SizingEnabled" Value="False" />
-				<Property Name="Visible" Value="False" />
-				<Window Type="TaharezLook/MenuItem" Name="Pluto/PauseRoot/OptionsMenu/o1">
-					<Property Name="UnifiedSize" Value="{{1,0},{0.1,0}}" />
+				<Window Type="TaharezLook/Listbox" Name="Pluto/OptionsRoot/SoundOptions">
+					<Property Name="UnifiedSize" Value="{{0.2,0},{0.5,0}}" />
 					<Property Name="UnifiedPosition" Value="{{0,0},{0.1,0}}" />
-					<Property Name="Text" Value="-OPTION-" />
+					<Property Name="Text" Value="Options" />
+					<Property Name="DragMovingEnabled" Value="False" />
+					<Property Name="CloseButtonEnabled" Value="False" />
+					<Property Name="SizingEnabled" Value="False" />
+					<Property Name="Disabled" Value="True" />
+					<Property Name="ZOrderChangeEnabled" Value="False" />
+					<Window Type="TaharezLook/StaticText" Name="Pluto/OptionsRoot/OptionsMenu/Sounds/BGM">
+						<Property Name="UnifiedSize" Value="{{1,0},{0.2,0}}" />
+						<Property Name="UnifiedPosition" Value="{{0,0},{0,0}}" />
+						<Property Name="Text" Value=" BGM Volume" />
+						<Property Name="FrameEnabled" Value="False" />
+						<Property Name="BackgroundEnabled" Value="False" />
+						<Property Name="ZOrderChangeEnabled" Value="False" />
+					</Window>
+					<Window Type="TaharezLook/HorizontalScrollbar" Name="Pluto/OptionsRoot/OptionsMenu/Sounds/BGMVolume">
+						<Property Name="UnifiedSize" Value="{{0.9,0},{0.08,0}}" />
+						<Property Name="UnifiedPosition" Value="{{0.05,0},{0.2,0}}" />
+						<Property Name="StepSize" Value="0.2" />
+						<Property Name="ScrollPosition" Value="0.8" />
+						<Property Name="ZOrderChangeEnabled" Value="False" />
+					</Window>
+				</Window>
+				<Window Type="TaharezLook/Listbox" Name="Pluto/OptionsRoot/OptionsMenu">
+					<Property Name="UnifiedSize" Value="{{0.2,0},{1,0}}" />
+					<Property Name="UnifiedPosition" Value="{{0,0},{0,0}}" />
+					<Property Name="DragMovingEnabled" Value="False" />
+					<Property Name="CloseButtonEnabled" Value="False" />
+					<Property Name="SizingEnabled" Value="False" />
+					<Property Name="Disabled" Value="True" />
+					<Property Name="ZOrderChangeEnabled" Value="False" />
+					<Window Type="TaharezLook/MenuItem" Name="Pluto/OptionsRoot/OptionsMenu/Sounds">
+						<Property Name="UnifiedSize" Value="{{1,0},{0.1,0}}" />
+						<Property Name="UnifiedPosition" Value="{{0,0},{0.1,0}}" />
+						<Property Name="Text" Value="Adjust Sound &gt;&gt;" />
+					</Window>
 				</Window>
 			</Window>
 		</Window>
@@ -71,7 +154,7 @@
 			</Window>
 			<Window Type="TaharezLook/StaticImage" Name="Pluto/PlanetRoot/Blade">
 				<Property Name="UnifiedSize" Value="{{0.05,0},{0.05,0}}" />
-				<Property Name="UnifiedPosition" Value="{{0.83,0},{0.85,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.83,0},{0.86,0}}" />
 				<Property Name="Image" Value="set:Pluto image:Blade" />
 				<Property Name="BackgroundEnabled" Value="False" />
 				<Property Name="FrameEnabled" Value="False" />
@@ -79,7 +162,7 @@
 			</Window>
 			<Window Type="TaharezLook/StaticImage" Name="Pluto/PlanetRoot/Shuriken">
 				<Property Name="UnifiedSize" Value="{{0.05,0},{0.05,0}}" />
-				<Property Name="UnifiedPosition" Value="{{0.78,0},{0.85,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.78,0},{0.86,0}}" />
 				<Property Name="Image" Value="set:Pluto image:Shuriken" />
 				<Property Name="BackgroundEnabled" Value="False" />
 				<Property Name="FrameEnabled" Value="False" />
@@ -88,7 +171,7 @@
 			</Window>
 			<Window Type="TaharezLook/StaticText" Name="Pluto/PlanetRoot/ShurikenCount">
 				<Property Name="UnifiedSize" Value="{{0.1,0},{0.05,0}}" />
-				<Property Name="UnifiedPosition" Value="{{0.83,0},{0.85,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.83,0},{0.86,0}}" />
 				<Property Name="Text" Value="x" />
 				<Property Name="Visible" Value="False" />
 				<Property Name="BackgroundEnabled" Value="False" />

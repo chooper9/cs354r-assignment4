@@ -6,7 +6,7 @@
 #include "GameResource.h"
 #include "Game.h"
 #include <CEGUI.h>
-#include <CEGUI/RendererModules/Ogre/CEGUIOgreRenderer.h>
+#include <RendererModules/Ogre/CEGUIOgreRenderer.h>
 #include <stdio.h>
 
 
@@ -16,7 +16,7 @@ public:
     Pluto(void);
     virtual ~Pluto(void);
 protected:
-	const static Ogre::Real BOX_SIDE_LENGTH = 200.0f;
+	const static Ogre::Real BOX_SIDE_LENGTH;
 	Game* game;
 
 Ogre::AnimationState* animation;
@@ -48,6 +48,13 @@ Ogre::AnimationState* animation;
 	bool resumeGame(const CEGUI::EventArgs &e);
 	bool quitGame(const CEGUI::EventArgs &e);
 	bool showOptions(const CEGUI::EventArgs &e);
+	bool showSoundOptions(const CEGUI::EventArgs &e);
+	bool startGame(const CEGUI::EventArgs &e);
+	bool showControls(const CEGUI::EventArgs &e);
+	bool controls_togglePage(const CEGUI::EventArgs &e);
+	bool controls_return(const CEGUI::EventArgs &e);
 };
+
+const Ogre::Real Pluto::BOX_SIDE_LENGTH = 200.0f;
 
 #endif // #ifndef __Pluto_h_

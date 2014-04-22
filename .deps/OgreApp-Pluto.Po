@@ -1110,9 +1110,8 @@ OgreApp-Pluto.o: Pluto.cpp Pluto.h BaseApplication.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h \
  Game.h ScenePlanet.h Scene.h /usr/include/OGRE/OgreBillboardSet.h \
  /usr/include/OGRE/OgreBillboard.h Player.h Shuriken.h SceneSpace.h \
- Planet.h \
- /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/CEGUIOgreRenderer.h \
- PlutoGui.h /usr/include/OGRE/OgreMath.h /usr/include/OGRE/OgreSphere.h
+ Planet.h PlutoGui.h /usr/include/OGRE/OgreMath.h \
+ /usr/include/OGRE/OgreSphere.h
 
 Pluto.h:
 
@@ -3675,8 +3674,6 @@ Shuriken.h:
 SceneSpace.h:
 
 Planet.h:
-
-/lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/CEGUIOgreRenderer.h:
 
 PlutoGui.h:
 

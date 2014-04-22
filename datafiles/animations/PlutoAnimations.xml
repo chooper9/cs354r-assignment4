@@ -20,9 +20,16 @@
 	</AnimationDefinition>
 
 	<AnimationDefinition name="Slide_in" duration="0.3" replayMode="once">
-		<Affector property="UnifiedPosition" interpolator="UVector2">
-			<KeyFrame position="0" value="{{0,0}, {0,0}}" />
-			<KeyFrame position="0.3" value="{{0.2,0}, {0,0}}" progression="linear" />
+		<Affector property="UnifiedXPosition" interpolator="UDim" applicationMethod="relative">
+			<KeyFrame position="0" value="{0,0}" />
+			<KeyFrame position="0.3" value="{0.2,0}" progression="linear" />
+		</Affector>
+	</AnimationDefinition>
+
+	<AnimationDefinition name="Slide_out" duration="0.3" replayMode="once">
+		<Affector property="UnifiedXPosition" interpolator="UDim" applicationMethod="relative">
+			<KeyFrame position="0" value="{0.2,0}" />
+			<KeyFrame position="0.3" value="{0,0}" progression="linear" />
 		</Affector>
 	</AnimationDefinition>
 
