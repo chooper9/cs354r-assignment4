@@ -877,7 +877,8 @@ OgreApp-Game.o: Game.cpp Game.h GameResource.h \
  /usr/include/OGRE/OgreDataStream.h /usr/include/OGRE/OgreWorkQueue.h \
  /usr/include/OGRE/Terrain/OgreTerrainGroup.h \
  /usr/include/OGRE/Terrain/OgreTerrain.h \
- /usr/include/OGRE/OgreIteratorWrappers.h SceneSpace.h
+ /usr/include/OGRE/OgreIteratorWrappers.h TerrainMaterial.h \
+ /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h SceneSpace.h
 
 Game.h:
 
@@ -2964,5 +2965,9 @@ SceneTerrain.h:
 /usr/include/OGRE/Terrain/OgreTerrain.h:
 
 /usr/include/OGRE/OgreIteratorWrappers.h:
+
+TerrainMaterial.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
 
 SceneSpace.h:

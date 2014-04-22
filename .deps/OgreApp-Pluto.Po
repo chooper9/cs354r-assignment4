@@ -886,7 +886,8 @@ OgreApp-Pluto.o: Pluto.cpp Pluto.h BaseApplication.h \
  /usr/include/OGRE/OgreDataStream.h /usr/include/OGRE/OgreWorkQueue.h \
  /usr/include/OGRE/Terrain/OgreTerrainGroup.h \
  /usr/include/OGRE/Terrain/OgreTerrain.h \
- /usr/include/OGRE/OgreIteratorWrappers.h SceneSpace.h \
+ /usr/include/OGRE/OgreIteratorWrappers.h TerrainMaterial.h \
+ /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h SceneSpace.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUI.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUIAffector.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUIString.h \
@@ -3242,6 +3243,10 @@ SceneTerrain.h:
 /usr/include/OGRE/Terrain/OgreTerrain.h:
 
 /usr/include/OGRE/OgreIteratorWrappers.h:
+
+TerrainMaterial.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
 
 SceneSpace.h:
 

@@ -9,7 +9,7 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
 	//Terrain stuff
 	Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
     Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(7);
-	Ogre::Vector3 lightdir(0.55,-0.3, 0.75);
+	Ogre::Vector3 lightdir(0.55, -0.3, 0.75);
 	lightdir.normalise();
 	Ogre::Light* light = mSceneMgr->createLight("tstLight");
 	light->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -22,7 +22,18 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
     mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(mSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 12000.0f);
     mTerrainGroup->setFilenameConvention(Ogre::String("PlutoPissedTerrain"), Ogre::String("dat"));
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
- 
+
+    // Init custom materialgenerator
+    Ogre::TerrainMaterialGeneratorPtr terrainMaterialGenerator;
+
+    // Set Ogre Material  with the name "TerrainMaterial" in constructor
+    terrainMaterial = OGRE_NEW TerrainMaterial("TerrainMaterial");         
+    terrainMaterialGenerator.bind( terrainMaterial );  
+               
+    mTerrainGlobals->setDefaultMaterialGenerator( terrainMaterialGenerator );
+
+    terrainMaterial->setMaterialByName("PlutoTerrainTexture");
+
     configureTerrainDefaults(light);
  
     for (long x = 0; x <= 0; ++x)
@@ -31,23 +42,21 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
  
     // sync load since we want everything in place when we start
     mTerrainGroup->loadAllTerrains(true);
- 
-    if (mTerrainsImported)
-    {
-        Ogre::TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
-        while(ti.hasMoreElements())
-        {
-            Ogre::Terrain* t = ti.getNext()->instance;
-            initBlendMaps(t);
-        }
-    }
- 
+
     mTerrainGroup->freeTemporaryResources();
+
+	// may need to put these...somewhere after Terrain is generated
+	//terrainMaterial->setMaterialByName("Examples/TerrainTest");
+	//terrainMaterial->generate(mTerrainGroup->getTerrain(0,0));
+
  	//Terrain stuff end
 }
 //-------------------------------------------------------------------------------------
 SceneTerrain::~SceneTerrain(void)
 {
+	OGRE_DELETE terrainMaterial;
+	OGRE_DELETE mTerrainGroup;
+	OGRE_DELETE mTerrainGlobals;
 }
 
 //-----------------------------------------------------------------------
@@ -125,6 +134,7 @@ void SceneTerrain::configureTerrainDefaults(Ogre::Light* light)
     defaultimp.minBatchSize = 33;
     defaultimp.maxBatchSize = 65;
 
+/*
     // textures
     defaultimp.layerList.resize(3);
     defaultimp.layerList[0].worldSize = 100;
@@ -136,6 +146,7 @@ void SceneTerrain::configureTerrainDefaults(Ogre::Light* light)
     defaultimp.layerList[2].worldSize = 200;
     defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_diffusespecular.dds");
     defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_normalheight.dds");
+*/
 }
 
 //-------------------------------------------------------------------------------------

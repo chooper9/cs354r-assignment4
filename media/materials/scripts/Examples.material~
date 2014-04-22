@@ -1,3 +1,18 @@
+material Examples/TerrainTest
+{
+	technique
+	{
+		pass
+		{
+			
+			texture_unit
+			{
+				texture rockwall.tga
+			}
+		}
+	}
+}
+
 material Examples/SphereMappedRustySteel
 {
 	technique
@@ -919,7 +934,7 @@ material Examples/TennisNet
 			texture_unit
 			{
 				texture tennis_net.png
-				scale 0.6 10
+				scale 1 10
 			}
 		}
 	}

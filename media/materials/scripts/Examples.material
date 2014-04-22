@@ -1,3 +1,18 @@
+material Examples/TerrainTest
+{
+	technique
+	{
+		pass
+		{
+			
+			texture_unit
+			{
+				texture dirt01.jpg
+			}
+		}
+	}
+}
+
 material Examples/SphereMappedRustySteel
 {
 	technique

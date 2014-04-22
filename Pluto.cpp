@@ -42,8 +42,8 @@ void Pluto::createCamera(void)
 
 void Pluto::createScene(void)
 {
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2));
-	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.6, 0.6, 0.6));
+	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	mPaused =true;
 
 	game = new Game(mSceneMgr);

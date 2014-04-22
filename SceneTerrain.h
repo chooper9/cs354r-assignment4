@@ -8,6 +8,7 @@
 // Terrain stuff
 #include <Terrain/OgreTerrain.h>
 #include <Terrain/OgreTerrainGroup.h>
+#include "TerrainMaterial.h"
 // Terrain stuff end
 
 class SceneTerrain
@@ -16,6 +17,7 @@ private:
 	//Terrain stuff
     Ogre::TerrainGlobalOptions* mTerrainGlobals;
     Ogre::TerrainGroup* mTerrainGroup;
+    TerrainMaterial* terrainMaterial;
     bool mTerrainsImported;
 
     void defineTerrain(long x, long y);

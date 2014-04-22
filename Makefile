@@ -59,7 +59,8 @@ am_OgreApp_OBJECTS = OgreApp-PhysicsObject.$(OBJEXT) \
 	OgreApp-Scene.$(OBJEXT) OgreApp-ScenePlanet.$(OBJEXT) \
 	OgreApp-SceneSpace.$(OBJEXT) OgreApp-Pluto.$(OBJEXT) \
 	OgreApp-Game.$(OBJEXT) OgreApp-Sound.$(OBJEXT) \
-	OgreApp-SceneTerrain.$(OBJEXT)
+	OgreApp-SceneTerrain.$(OBJEXT) \
+	OgreApp-TerrainMaterial.$(OBJEXT)
 OgreApp_OBJECTS = $(am_OgreApp_OBJECTS)
 am__DEPENDENCIES_1 =
 OgreApp_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
@@ -245,9 +246,9 @@ top_build_prefix =
 top_builddir = .
 top_srcdir = .
 ACLOCAL_AMFLAGS = -I m4
-noinst_HEADERS = PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Shuriken.h Player.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h SceneTerrain.h
+noinst_HEADERS = PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Shuriken.h Player.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h SceneTerrain.h TerrainMaterial.h
 OgreApp_CPPFLAGS = -I$(top_srcdir)
-OgreApp_SOURCES = PhysicsObject.cpp PhysicsEngine.cpp Shuriken.cpp Player.cpp BaseApplication.cpp Scene.cpp ScenePlanet.cpp SceneSpace.cpp Pluto.cpp Game.cpp Sound.cpp SceneTerrain.cpp
+OgreApp_SOURCES = PhysicsObject.cpp PhysicsEngine.cpp Shuriken.cpp Player.cpp BaseApplication.cpp Scene.cpp ScenePlanet.cpp SceneSpace.cpp Pluto.cpp Game.cpp Sound.cpp SceneTerrain.cpp TerrainMaterial.cpp
 OgreApp_CXXFLAGS = $(OGRE_CFLAGS) $(OIS_CFLAGS) $(bullet_CFLAGS) $(CEGUI_CFLAGS) $(CEGUI_OGRE_CFLAGS) $(SDL_mixer_CFLAGS) $(SDL_net_CFLAGS)
 OgreApp_LDADD = $(OGRE_LIBS) $(OIS_LIBS) $(bullet_LIBS) $(CEGUI_LIBS) $(CEGUI_OGRE_LIBS) $(SDL_mixer_LIBS) $(SDL_net_LIBS)
 EXTRA_DIST = buildit makeit
@@ -371,6 +372,7 @@ include ./$(DEPDIR)/OgreApp-SceneSpace.Po
 include ./$(DEPDIR)/OgreApp-SceneTerrain.Po
 include ./$(DEPDIR)/OgreApp-Shuriken.Po
 include ./$(DEPDIR)/OgreApp-Sound.Po
+include ./$(DEPDIR)/OgreApp-TerrainMaterial.Po
 
 .cpp.o:
 	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -560,6 +562,20 @@ OgreApp-SceneTerrain.obj: SceneTerrain.cpp
 #	source='SceneTerrain.cpp' object='OgreApp-SceneTerrain.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-SceneTerrain.obj `if test -f 'SceneTerrain.cpp'; then $(CYGPATH_W) 'SceneTerrain.cpp'; else $(CYGPATH_W) '$(srcdir)/SceneTerrain.cpp'; fi`
+
+OgreApp-TerrainMaterial.o: TerrainMaterial.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-TerrainMaterial.o -MD -MP -MF $(DEPDIR)/OgreApp-TerrainMaterial.Tpo -c -o OgreApp-TerrainMaterial.o `test -f 'TerrainMaterial.cpp' || echo '$(srcdir)/'`TerrainMaterial.cpp
+	$(am__mv) $(DEPDIR)/OgreApp-TerrainMaterial.Tpo $(DEPDIR)/OgreApp-TerrainMaterial.Po
+#	source='TerrainMaterial.cpp' object='OgreApp-TerrainMaterial.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-TerrainMaterial.o `test -f 'TerrainMaterial.cpp' || echo '$(srcdir)/'`TerrainMaterial.cpp
+
+OgreApp-TerrainMaterial.obj: TerrainMaterial.cpp
+	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -MT OgreApp-TerrainMaterial.obj -MD -MP -MF $(DEPDIR)/OgreApp-TerrainMaterial.Tpo -c -o OgreApp-TerrainMaterial.obj `if test -f 'TerrainMaterial.cpp'; then $(CYGPATH_W) 'TerrainMaterial.cpp'; else $(CYGPATH_W) '$(srcdir)/TerrainMaterial.cpp'; fi`
+	$(am__mv) $(DEPDIR)/OgreApp-TerrainMaterial.Tpo $(DEPDIR)/OgreApp-TerrainMaterial.Po
+#	source='TerrainMaterial.cpp' object='OgreApp-TerrainMaterial.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(OgreApp_CPPFLAGS) $(CPPFLAGS) $(OgreApp_CXXFLAGS) $(CXXFLAGS) -c -o OgreApp-TerrainMaterial.obj `if test -f 'TerrainMaterial.cpp'; then $(CYGPATH_W) 'TerrainMaterial.cpp'; else $(CYGPATH_W) '$(srcdir)/TerrainMaterial.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
