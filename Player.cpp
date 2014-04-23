@@ -352,7 +352,7 @@ void Player::reactTo(Player* enemy) {
 	if (yaw > 0) playerState.degreeYaw = 1;
 	else if (yaw < 0) playerState.degreeYaw = -1;
 	
-	playerState.movingForward = dist > 60 && dist < 500;
+	playerState.movingForward = (dist > 60 && dist < 500) || dist > 2000;
 	playerState.movingBackward = dist < 20;
 }
 

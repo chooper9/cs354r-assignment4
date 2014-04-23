@@ -30,7 +30,7 @@ public:
 	SceneTerrain(char* t,  Ogre::SceneManager* mSceneMgr);
 	virtual ~SceneTerrain(void);
 	Ogre::Real getHeightAtWorldPosition(const Ogre::Vector3& pos) {
-		return mTerrainGroup->getHeightAtWorldPosition(pos);
+		return mTerrainGroup->getHeightAtWorldPosition(pos) - 490;
 	}
 };
 

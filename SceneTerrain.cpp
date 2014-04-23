@@ -31,6 +31,7 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
     terrainMaterialGenerator.bind( terrainMaterial );  
                
     mTerrainGlobals->setDefaultMaterialGenerator( terrainMaterialGenerator );
+	mTerrainGlobals->setCastsDynamicShadows (true);
 
     terrainMaterial->setMaterialByName("PlutoTerrainTexture");
 
