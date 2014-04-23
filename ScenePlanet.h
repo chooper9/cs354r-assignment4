@@ -20,7 +20,6 @@ private:
 
 	enum CameraMode cameraMode;
 	void runAI(const Ogre::FrameEvent& evt);
-	SceneTerrain* terrain;
 
 public:
 	ScenePlanet(Ogre::SceneManager* mSceneMgr);

@@ -30,11 +30,8 @@ Pluto::~Pluto(void)
 void Pluto::createCamera(void)
 {
 	mCamera = mSceneMgr->createCamera("MainCam");
-	// mCamera->lookAt(Ogre::Vector3(0,0,0));
-	// mCamera->setNearClipDistance(1);
-	mCamera->setPosition(Ogre::Vector3(1683, 50, 2116));
-    mCamera->lookAt(Ogre::Vector3(1963, 50, 1660));
-    mCamera->setNearClipDistance(0.1);
+	 mCamera->lookAt(Ogre::Vector3(0,0,0));
+	 mCamera->setNearClipDistance(1);
 	mCamera->setFarClipDistance(50000);
 	if(mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
 		mCamera->setFarClipDistance(0);

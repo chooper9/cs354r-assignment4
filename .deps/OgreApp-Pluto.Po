@@ -873,21 +873,7 @@ OgreApp-Pluto.o: Pluto.cpp Pluto.h BaseApplication.h \
  /usr/local/include/bullet/BulletDynamics/Vehicle/btVehicleRaycaster.h \
  /usr/local/include/bullet/BulletDynamics/Vehicle/btWheelInfo.h \
  /usr/local/include/bullet/BulletDynamics/Dynamics/btActionInterface.h \
- /usr/local/include/bullet/BulletDynamics/Dynamics/btRigidBody.h Game.h \
- ScenePlanet.h Scene.h Player.h Shuriken.h SceneTerrain.h \
- /usr/include/OGRE/Terrain/OgreTerrain.h \
- /usr/include/OGRE/Terrain/OgreTerrainPrerequisites.h \
- /usr/include/OGRE/OgrePrerequisites.h /usr/include/OGRE/OgreCommon.h \
- /usr/include/OGRE/OgreVector3.h /usr/include/OGRE/OgreAxisAlignedBox.h \
- /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h \
- /usr/include/OGRE/OgrePixelFormat.h /usr/include/OGRE/OgreMaterial.h \
- /usr/include/OGRE/OgreTexture.h \
- /usr/include/OGRE/Terrain/OgreTerrainLayerBlendMap.h \
- /usr/include/OGRE/OgreDataStream.h /usr/include/OGRE/OgreWorkQueue.h \
- /usr/include/OGRE/Terrain/OgreTerrainGroup.h \
- /usr/include/OGRE/Terrain/OgreTerrain.h \
- /usr/include/OGRE/OgreIteratorWrappers.h TerrainMaterial.h \
- /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h SceneSpace.h \
+ /usr/local/include/bullet/BulletDynamics/Dynamics/btRigidBody.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUI.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUIAffector.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUIString.h \
@@ -1122,7 +1108,23 @@ OgreApp-Pluto.o: Pluto.cpp Pluto.h BaseApplication.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIRenderer.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUISize.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h \
- /usr/include/OGRE/OgreMath.h /usr/include/OGRE/OgreSphere.h
+ Game.h ScenePlanet.h Scene.h /usr/include/OGRE/OgreBillboardSet.h \
+ /usr/include/OGRE/OgreBillboard.h SceneTerrain.h \
+ /usr/include/OGRE/Terrain/OgreTerrain.h \
+ /usr/include/OGRE/Terrain/OgreTerrainPrerequisites.h \
+ /usr/include/OGRE/OgrePrerequisites.h /usr/include/OGRE/OgreCommon.h \
+ /usr/include/OGRE/OgreVector3.h /usr/include/OGRE/OgreAxisAlignedBox.h \
+ /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h \
+ /usr/include/OGRE/OgrePixelFormat.h /usr/include/OGRE/OgreMaterial.h \
+ /usr/include/OGRE/OgreTexture.h \
+ /usr/include/OGRE/Terrain/OgreTerrainLayerBlendMap.h \
+ /usr/include/OGRE/OgreDataStream.h /usr/include/OGRE/OgreWorkQueue.h \
+ /usr/include/OGRE/Terrain/OgreTerrainGroup.h \
+ /usr/include/OGRE/Terrain/OgreTerrain.h \
+ /usr/include/OGRE/OgreIteratorWrappers.h TerrainMaterial.h \
+ /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h Player.h \
+ Shuriken.h SceneSpace.h Planet.h PlutoGui.h /usr/include/OGRE/OgreMath.h \
+ /usr/include/OGRE/OgreSphere.h
 
 Pluto.h:
 
@@ -3200,56 +3202,6 @@ PhysicsObject.h:
 
 /usr/local/include/bullet/BulletDynamics/Dynamics/btRigidBody.h:
 
-Game.h:
-
-ScenePlanet.h:
-
-Scene.h:
-
-Player.h:
-
-Shuriken.h:
-
-SceneTerrain.h:
-
-/usr/include/OGRE/Terrain/OgreTerrain.h:
-
-/usr/include/OGRE/Terrain/OgreTerrainPrerequisites.h:
-
-/usr/include/OGRE/OgrePrerequisites.h:
-
-/usr/include/OGRE/OgreCommon.h:
-
-/usr/include/OGRE/OgreVector3.h:
-
-/usr/include/OGRE/OgreAxisAlignedBox.h:
-
-/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
-
-/usr/include/OGRE/OgrePixelFormat.h:
-
-/usr/include/OGRE/OgreMaterial.h:
-
-/usr/include/OGRE/OgreTexture.h:
-
-/usr/include/OGRE/Terrain/OgreTerrainLayerBlendMap.h:
-
-/usr/include/OGRE/OgreDataStream.h:
-
-/usr/include/OGRE/OgreWorkQueue.h:
-
-/usr/include/OGRE/Terrain/OgreTerrainGroup.h:
-
-/usr/include/OGRE/Terrain/OgreTerrain.h:
-
-/usr/include/OGRE/OgreIteratorWrappers.h:
-
-TerrainMaterial.h:
-
-/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
-
-SceneSpace.h:
-
 /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUI.h:
 
 /lusr/opt/cegui-0.7.6/include/CEGUI/CEGUIAffector.h:
@@ -3717,6 +3669,64 @@ SceneSpace.h:
 /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUISize.h:
 
 /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h:
+
+Game.h:
+
+ScenePlanet.h:
+
+Scene.h:
+
+/usr/include/OGRE/OgreBillboardSet.h:
+
+/usr/include/OGRE/OgreBillboard.h:
+
+SceneTerrain.h:
+
+/usr/include/OGRE/Terrain/OgreTerrain.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainPrerequisites.h:
+
+/usr/include/OGRE/OgrePrerequisites.h:
+
+/usr/include/OGRE/OgreCommon.h:
+
+/usr/include/OGRE/OgreVector3.h:
+
+/usr/include/OGRE/OgreAxisAlignedBox.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
+
+/usr/include/OGRE/OgrePixelFormat.h:
+
+/usr/include/OGRE/OgreMaterial.h:
+
+/usr/include/OGRE/OgreTexture.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainLayerBlendMap.h:
+
+/usr/include/OGRE/OgreDataStream.h:
+
+/usr/include/OGRE/OgreWorkQueue.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainGroup.h:
+
+/usr/include/OGRE/Terrain/OgreTerrain.h:
+
+/usr/include/OGRE/OgreIteratorWrappers.h:
+
+TerrainMaterial.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
+
+Player.h:
+
+Shuriken.h:
+
+SceneSpace.h:
+
+Planet.h:
+
+PlutoGui.h:
 
 /usr/include/OGRE/OgreMath.h:
 
