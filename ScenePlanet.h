@@ -4,6 +4,7 @@
 
 #include "GameResource.h"
 #include "Scene.h"
+#include "SceneTerrain.h"
 #include "Player.h"
 #include "Shuriken.h"
 class ScenePlanet : public Scene
@@ -12,6 +13,9 @@ private:
 	Player* pluto;
 	std::vector<Player*> enemies;
 	Ogre::BillboardSet* enemyHPset;
+
+	SceneTerrain* terrain;
+
 	enum CameraMode cameraMode;
 	void runAI(const Ogre::FrameEvent& evt);
 public:

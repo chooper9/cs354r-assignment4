@@ -4,6 +4,7 @@
 Shuriken::Shuriken(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, const Ogre::Vector3& pos) :  
 	graphicsEngine(mSceneMgr),
 	positionNode(0),
+	active(true),
 	physicsEngine(bulletEngine),
 	colliding(false),
 	shooting(false)

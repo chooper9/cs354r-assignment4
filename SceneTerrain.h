@@ -21,7 +21,6 @@ private:
     bool mTerrainsImported;
 
     void defineTerrain(long x, long y);
-    void initBlendMaps(Ogre::Terrain* terrain);
     void configureTerrainDefaults(Ogre::Light* light);
     std::string land;
     Ogre::SceneManager* mySceneMgr;
@@ -30,6 +29,9 @@ private:
 public:
 	SceneTerrain(char* t,  Ogre::SceneManager* mSceneMgr);
 	virtual ~SceneTerrain(void);
+	Ogre::Real getHeightAtWorldPosition(const Ogre::Vector3& pos) {
+		return mTerrainGroup->getHeightAtWorldPosition(pos);
+	}
 };
 
 #endif // #ifndef __SceneTerrain_h_

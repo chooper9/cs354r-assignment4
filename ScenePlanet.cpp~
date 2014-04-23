@@ -9,6 +9,7 @@ ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr
 		"planetSurface", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
         	plane, LENGTH_ScenePlanet, WIDTH_ScenePlanet,1,1,true,1,1,1, Ogre::Vector3::UNIT_Z
 	);
+	terrain = new SceneTerrain("terrain.png", graphicsEngine);
 	std::cout << "========= Debug: ScenePlanet Created =========" << std::endl;
 }
 
@@ -32,7 +33,7 @@ bool ScenePlanet::setupScene(int level) {
 	ground->setToStaticPlane(btVector3(0,1,0), 0);
 	physicsEngine->addObject(ground);
 
-	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true);
+	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
 	enemyHPset = graphicsEngine->createBillboardSet("EnemyHPSet");
 	enemyHPset->setPoolSize(level*10);
 	enemyHPset->setMaterialName("Pluto/EnemyHP");
@@ -43,7 +44,7 @@ bool ScenePlanet::setupScene(int level) {
 	enemies.clear();
 	for(int i = 0; i < level*10; i++) {
 		enemies.push_back(new Player(
-			graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(i*40 - level*200, 0, -100)
+			graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -100)
 		));
 		enemies[i]->setBillboard(enemyHPset->createBillboard(Ogre::Vector3(i*40 - level*200, 80, -100)));
 	}

@@ -1,18 +1,20 @@
 #include "Player.h"
 #include <iostream>
 
-Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, const Ogre::Vector3& pos) :  
+Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, SceneTerrain* terrainOn, const Ogre::Vector3& pos) :  
 	graphicsEngine(mSceneMgr),
 	positionNode(0),
 	visible(true),
+	terrain(terrainOn),
 	isPerformingShurikenAOE(false),
 	physicsEngine(bulletEngine),
+	hpbar(NULL),
 	attackEffectChecked(true)
 {
 	shurikens.clear();
 	int height = isPluto ? HEIGHT_PLUTO : HEIGHT_NINJA;
 	playerState.defaultHP = isPluto ? HP_PLUTO : HP_NINJA;
-	positionNode = parentNode->createChildSceneNode(pos);
+	positionNode = parentNode->createChildSceneNode();
 	isAI = !isPluto;
 	playerEnt = mSceneMgr->createEntity("ninja.mesh" );
 	playerEnt->setCastShadows(true);
@@ -47,7 +49,7 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 		btVector3(10,height*0.8,5),
 		100,
 		btQuaternion(0, 0, 0, 1),
-		btVector3(pos.x, pos.y, pos.z)
+		btVector3(0, 0, 0)
 	);
 	physicsObject.toggleRigidBodyAndKinematic(); // change to Kinematic
 
@@ -57,6 +59,8 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 
 	physicsEngine->addObject(&physicsObject);
 	resetState();
+	positionNode->setPosition(pos.x, terrain->getHeightAtWorldPosition(pos), pos.z);
+	setTransform(positionNode->getPosition(), positionNode->getOrientation());
 }
 
 //-------------------------------------------------------------------------------------
@@ -110,8 +114,13 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 	std::vector<Shuriken*>::iterator it = shurikens.begin();
 	while (it != shurikens.end()) {
 		Shuriken* shuriken = (*it);
-		if (shuriken->getSceneNode()->getPosition().y <= SIZE_REGULAR_SHURIKEN) {
-			shuriken->getPhysicsObject().deactivate();
+		if (!shuriken->isActive()) {			
+			it++;
+			continue;
+		}
+		Ogre::Vector3 shurikenPos = shuriken->getSceneNode()->getPosition();
+		if (shurikenPos.y <= terrain->getHeightAtWorldPosition(shurikenPos)) {
+			shuriken->deactivate();
 			it++;
 			continue;
 		}
@@ -261,6 +270,9 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 			if (isCollidingWith(pluto, pushedPosition))
 				positionNode->setPosition(pushedPosition);
 		}
+		Ogre::Vector3 newPos = positionNode->getPosition();
+		newPos.y = terrain->getHeightAtWorldPosition(newPos);
+		positionNode->setPosition(newPos);
 	}
 	
 
@@ -284,7 +296,7 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 void Player::checkAttackEffect(Player* enemy) {
 	if (!attackEffectChecked && playerEnt->getAnimationState("Attack3")->getTimePosition() > 0.3) {
 		attackEffectChecked = true;
-		if (enemy->playerEnt->getAnimationState("Block")->getTimePosition() < 0.15) {
+		if (enemy->playerEnt->getAnimationState("Block")->getTimePosition() < 0.24) {
 			enemy->hitBy(ATTACK_BLADE);
 		} else {
 			std::cout <<"  play sound - blocked" << std::endl;
@@ -355,7 +367,7 @@ void Player::setTransform(const Ogre::Vector3& pos, const Ogre::Quaternion& q) {
 	trans.setOrigin(btVector3(pos.x, pos.y, pos.z));
 	trans.setRotation(btQuaternion(q.x, q.y, q.z, q.w));
 	physicsObject.setWorldTransform(trans);
-	if(isAI)
+	if(isAI && hpbar)
 	  hpbar->setPosition(pos.x, pos.y+80, pos.z);
 }
 //-------------------------------------------------------------------------------------

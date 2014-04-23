@@ -1099,7 +1099,22 @@ OgreApp-ScenePlanet.o: ScenePlanet.cpp ScenePlanet.h GameResource.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUISize.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h \
  Scene.h /usr/include/OGRE/OgreBillboardSet.h \
- /usr/include/OGRE/OgreBillboard.h Player.h Shuriken.h
+ /usr/include/OGRE/OgreBillboard.h SceneTerrain.h \
+ /usr/include/OGRE/Terrain/OgreTerrain.h \
+ /usr/include/OGRE/Terrain/OgreTerrainPrerequisites.h \
+ /usr/include/OGRE/OgrePrerequisites.h /usr/include/OGRE/OgreCommon.h \
+ /usr/include/OGRE/OgreVector3.h /usr/include/OGRE/OgreAxisAlignedBox.h \
+ /usr/include/OGRE/OgreSceneManager.h \
+ /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h \
+ /usr/include/OGRE/OgrePixelFormat.h /usr/include/OGRE/OgreMaterial.h \
+ /usr/include/OGRE/OgreTexture.h \
+ /usr/include/OGRE/Terrain/OgreTerrainLayerBlendMap.h \
+ /usr/include/OGRE/OgreDataStream.h /usr/include/OGRE/OgreWorkQueue.h \
+ /usr/include/OGRE/Terrain/OgreTerrainGroup.h \
+ /usr/include/OGRE/Terrain/OgreTerrain.h \
+ /usr/include/OGRE/OgreIteratorWrappers.h TerrainMaterial.h \
+ /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h Player.h \
+ Shuriken.h
 
 ScenePlanet.h:
 
@@ -3616,6 +3631,46 @@ Scene.h:
 /usr/include/OGRE/OgreBillboardSet.h:
 
 /usr/include/OGRE/OgreBillboard.h:
+
+SceneTerrain.h:
+
+/usr/include/OGRE/Terrain/OgreTerrain.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainPrerequisites.h:
+
+/usr/include/OGRE/OgrePrerequisites.h:
+
+/usr/include/OGRE/OgreCommon.h:
+
+/usr/include/OGRE/OgreVector3.h:
+
+/usr/include/OGRE/OgreAxisAlignedBox.h:
+
+/usr/include/OGRE/OgreSceneManager.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
+
+/usr/include/OGRE/OgrePixelFormat.h:
+
+/usr/include/OGRE/OgreMaterial.h:
+
+/usr/include/OGRE/OgreTexture.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainLayerBlendMap.h:
+
+/usr/include/OGRE/OgreDataStream.h:
+
+/usr/include/OGRE/OgreWorkQueue.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainGroup.h:
+
+/usr/include/OGRE/Terrain/OgreTerrain.h:
+
+/usr/include/OGRE/OgreIteratorWrappers.h:
+
+TerrainMaterial.h:
+
+/usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h:
 
 Player.h:
 
