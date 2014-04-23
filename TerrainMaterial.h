@@ -9,7 +9,6 @@
     public:
 		
 		TerrainMaterial(Ogre::String materialName);
-		~TerrainMaterial(void);
 		
 		void setMaterialByName(const Ogre::String materialname); 
         

@@ -1,4 +1,5 @@
 ACLOCAL_AMFLAGS= -I m4
+
 noinst_HEADERS= PhysicsObject.h PhysicsEngine.h Sound.h GameResource.h Shuriken.h Player.h Planet.h Scene.h ScenePlanet.h SceneSpace.h Game.h BaseApplication.h Pluto.h PlutoGui.h SceneTerrain.h TerrainMaterial.h
 
 bin_PROGRAMS= OgreApp

@@ -1,0 +1,41 @@
+vertex_program PlutoTerrainTexture_VS glsl
+{
+	source PTT_GLSL_VS.glsl
+	default_params
+	{
+		param_named inCol float4 1 1 1 1
+	}
+}
+
+fragment_program PlutoTerrainTexture_PS glsl
+{
+	source PTT_GLSL_PS.glsl
+}
+
+material PlutoTerrainTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				// texture terrain_texture.jpg 2d
+				texture terr_dirt-grass.jpg 2d
+			}
+		}
+	}
+}

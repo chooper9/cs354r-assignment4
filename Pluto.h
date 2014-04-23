@@ -12,6 +12,7 @@
 
 class Pluto : public BaseApplication
 {
+
 public:
     Pluto(void);
     virtual ~Pluto(void);

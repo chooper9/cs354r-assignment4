@@ -54,10 +54,9 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
 //-------------------------------------------------------------------------------------
 SceneTerrain::~SceneTerrain(void)
 {
-	//OGRE_DELETE terrainMaterial;
+	OGRE_DELETE terrainMaterial;
 	OGRE_DELETE mTerrainGroup;
 	OGRE_DELETE mTerrainGlobals;
-	//OGRE_DELETE terrainMaterial;
 	mySceneMgr->destroyLight("tstLight");
 	std::cout << "dsad\n\n\n"  << std::endl;
 }
@@ -88,6 +87,7 @@ void SceneTerrain::defineTerrain(long x, long y)
     }
 }
 //-------------------------------------------------------------------------------------
+
 void SceneTerrain::configureTerrainDefaults(Ogre::Light* light)
 {
     mTerrainGlobals->setMaxPixelError(8);

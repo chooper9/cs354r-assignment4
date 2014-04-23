@@ -9,7 +9,8 @@ ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr
 		"planetSurface", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
         	plane, LENGTH_ScenePlanet, WIDTH_ScenePlanet,1,1,true,1,1,1, Ogre::Vector3::UNIT_Z
 	);
-	terrain = new SceneTerrain("terrain.png", graphicsEngine);
+
+	terrain = new SceneTerrain("terrain.png", mSceneMgr);
 	std::cout << "========= Debug: ScenePlanet Created =========" << std::endl;
 }
 
@@ -20,18 +21,16 @@ ScenePlanet::~ScenePlanet(void) {
 	std::cout << "========= Debug: ScenePlanet Deleted =========" << std::endl;
 }
 
-//-------------------------------------------------------------------------------------
-
 bool ScenePlanet::setupScene(int level) {
 	if (!Scene::setupScene(level)) return false;
 	Ogre::Entity* entSide = graphicsEngine->createEntity("planetSurface");
 	entSide->setMaterialName("Examples/KAMEN");
 	entSide->setCastShadows(false);
-	sceneRootNode->attachObject(entSide);
-
-	PhysicsObject* ground = new PhysicsObject();
-	ground->setToStaticPlane(btVector3(0,1,0), 0);
-	physicsEngine->addObject(ground);
+	//sceneRootNode->attachObject(entSide);
+	sceneRootNode->translate(Ogre::Vector3(0, 500, 0));
+	// PhysicsObject* ground = new PhysicsObject();
+	// ground->setToStaticPlane(btVector3(0,1,0), 0);
+	// physicsEngine->addObject(ground);
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
 	enemyHPset = graphicsEngine->createBillboardSet("EnemyHPSet");

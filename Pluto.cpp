@@ -27,12 +27,17 @@ Pluto::~Pluto(void)
 }
 
 //-------------------------------------------------------------------------------------
-
 void Pluto::createCamera(void)
 {
 	mCamera = mSceneMgr->createCamera("MainCam");
-	mCamera->lookAt(Ogre::Vector3(0,0,0));
-	mCamera->setNearClipDistance(1);
+	// mCamera->lookAt(Ogre::Vector3(0,0,0));
+	// mCamera->setNearClipDistance(1);
+	mCamera->setPosition(Ogre::Vector3(1683, 50, 2116));
+    mCamera->lookAt(Ogre::Vector3(1963, 50, 1660));
+    mCamera->setNearClipDistance(0.1);
+	mCamera->setFarClipDistance(50000);
+	if(mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
+		mCamera->setFarClipDistance(0);
 }
 //-------------------------------------------------------------------------------------
 
@@ -40,14 +45,17 @@ void Pluto::createScene(void)
 {
 	setup_PlutoGui();
 
-	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.8, 0.8, 0.8));
-	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.6, 0.6, 0.6));
+	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+
 	mPaused =true;
 
 	game = new Game(mSceneMgr);
 
 	soundHandler = new Sound();
 	soundHandler->start_ambient();
+
+
 }
 
 //-------------------------------------------------------------------------------------
