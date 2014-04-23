@@ -4,13 +4,9 @@ ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr
 	cameraMode = CAM_THIRD_PERSON;
 	enemies.clear();
 	pluto = NULL;
-	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
-	Ogre::MeshManager::getSingleton().createPlane(
-		"planetSurface", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-        	plane, LENGTH_ScenePlanet, WIDTH_ScenePlanet,1,1,true,1,1,1, Ogre::Vector3::UNIT_Z
-	);
 
-	terrain = new SceneTerrain("terrain.png", mSceneMgr);
+	terrain = new SceneTerrain("terrain.png", graphicsEngine);
+
 	std::cout << "========= Debug: ScenePlanet Created =========" << std::endl;
 }
 
@@ -23,14 +19,8 @@ ScenePlanet::~ScenePlanet(void) {
 
 bool ScenePlanet::setupScene(int level) {
 	if (!Scene::setupScene(level)) return false;
-	Ogre::Entity* entSide = graphicsEngine->createEntity("planetSurface");
-	entSide->setMaterialName("Examples/KAMEN");
-	entSide->setCastShadows(false);
-	//sceneRootNode->attachObject(entSide);
-	sceneRootNode->translate(Ogre::Vector3(0, 500, 0));
-	// PhysicsObject* ground = new PhysicsObject();
-	// ground->setToStaticPlane(btVector3(0,1,0), 0);
-	// physicsEngine->addObject(ground);
+
+	terrain->generateTerrains();
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
 	enemyHPset = graphicsEngine->createBillboardSet("EnemyHPSet");
@@ -38,6 +28,7 @@ bool ScenePlanet::setupScene(int level) {
 	enemyHPset->setMaterialName("Pluto/EnemyHP");
 	enemyHPset->setDefaultDimensions(8,2);
 	enemyHPset->setBounds(Ogre::AxisAlignedBox(-1000,-1000,-1000,1000,1000,1000), 1000);
+
 	Ogre::SceneNode* hpBBSnode = sceneRootNode->createChildSceneNode();
 	hpBBSnode->attachObject(enemyHPset);
 	enemies.clear();
@@ -60,6 +51,7 @@ bool ScenePlanet::destroyScene(void) {
 	enemies.clear();
 	if (graphicsEngine->hasBillboardSet("EnemyHPSet"))
 		graphicsEngine->destroyBillboardSet (enemyHPset);
+	terrain->removeTerrains();
 	if (!Scene::destroyScene()) return false;
 }
 
@@ -69,7 +61,7 @@ bool ScenePlanet::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 	if(!Scene::addCamera(cam)) return false;
 	Ogre::SceneNode* camNode = pluto->getSceneNode()->createChildSceneNode(
 		camMode == CAM_THIRD_PERSON ? 
-			Ogre::Vector3(0, 100, 100) : Ogre::Vector3(0, HEIGHT_NINJA*0.8, -5)
+			Ogre::Vector3(0, 100, 70) : Ogre::Vector3(0, HEIGHT_NINJA*0.8, -5)
 	);
 	if (camMode == CAM_THIRD_PERSON)
 		camNode->pitch(Ogre::Degree(-20));
@@ -149,17 +141,22 @@ void ScenePlanet::handleKeyReleased(const OIS::KeyCode key) {
 //-------------------------------------------------------------------------------------
 
 void ScenePlanet::handleMouseMoved( int dx, int dy ) {
-	if (isSceneSetup) pluto->handleMouseMoved(dx, dy);
+	if (!isSceneSetup) return;
+	pluto->handleMouseMoved(dx, dy);
+	if (camera && camera->getParentSceneNode())
+		camera->getParentSceneNode()->pitch(Ogre::Degree(-dy*0.01), Ogre::Node::TS_LOCAL);
 }
 
 //-------------------------------------------------------------------------------------
 
 void ScenePlanet::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
-	if (isSceneSetup) pluto->handleMousePressed(x, y, id);
+	if (!isSceneSetup) return;
+	pluto->handleMousePressed(x, y, id);
 }
 
 //-------------------------------------------------------------------------------------
 
 void ScenePlanet::handleMouseReleased( int x, int y, OIS::MouseButtonID id ) {
-	if (isSceneSetup) pluto->handleMouseReleased(x, y , id);
+	if (!isSceneSetup) return;
+	pluto->handleMouseReleased(x, y , id);
 }

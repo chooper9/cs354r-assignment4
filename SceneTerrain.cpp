@@ -1,6 +1,5 @@
 #include "SceneTerrain.h"
 
-
 //-------------------------------------------------------------------------------------
 SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
 {
@@ -22,30 +21,8 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
     mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(mSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 12000.0f);
     mTerrainGroup->setFilenameConvention(Ogre::String("PlutoPissedTerrain"), Ogre::String("dat"));
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
-
-    // Init custom materialgenerator
-    Ogre::TerrainMaterialGeneratorPtr terrainMaterialGenerator;
-
-    // Set Ogre Material  with the name "TerrainMaterial" in constructor
-    terrainMaterial = OGRE_NEW TerrainMaterial("TerrainMaterial");         
-    terrainMaterialGenerator.bind( terrainMaterial );  
-               
-    mTerrainGlobals->setDefaultMaterialGenerator( terrainMaterialGenerator );
-	mTerrainGlobals->setCastsDynamicShadows (true);
-
-    terrainMaterial->setMaterialByName("PlutoTerrainTexture");
-
-    configureTerrainDefaults(light);
- 
-    for (long x = 0; x <= 0; ++x)
-        for (long y = 0; y <= 0; ++y)
-            defineTerrain(x, y);
- 
-    // sync load since we want everything in place when we start
-    mTerrainGroup->loadAllTerrains(true);
-
-    mTerrainGroup->freeTemporaryResources();
-
+	iii = 0;
+    
 	// may need to put these...somewhere after Terrain is generated
 	//terrainMaterial->setMaterialByName("Examples/TerrainTest");
 	//terrainMaterial->generate(mTerrainGroup->getTerrain(0,0));
@@ -55,7 +32,6 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
 //-------------------------------------------------------------------------------------
 SceneTerrain::~SceneTerrain(void)
 {
-	OGRE_DELETE terrainMaterial;
 	OGRE_DELETE mTerrainGroup;
 	OGRE_DELETE mTerrainGlobals;
 	mySceneMgr->destroyLight("tstLight");
@@ -77,10 +53,12 @@ void SceneTerrain::defineTerrain(long x, long y)
 	Ogre::String filename = mTerrainGroup->generateFilename(x, y);
     if (Ogre::ResourceGroupManager::getSingleton().resourceExists(mTerrainGroup->getResourceGroup(), filename))
     {
+	std::cout << "========= Debug: define1\n\n\n\n Created1 =========" << std::endl;
         mTerrainGroup->defineTerrain(x, y);
     }
     else
     {
+	std::cout << "========= Debug: define2\n\n\n\n Created1 =========" << std::endl;
         Ogre::Image img;
         getTerrainImage(x % 2 != 0, y % 2 != 0, img);
         mTerrainGroup->defineTerrain(x, y, &img);
@@ -101,7 +79,7 @@ void SceneTerrain::configureTerrainDefaults(Ogre::Light* light)
     Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
     defaultimp.terrainSize = 513;
     defaultimp.worldSize = 12000.0f;
-    defaultimp.inputScale = 600; // due terrain.png is 8 bpp
+    defaultimp.inputScale = 60; // due terrain.png is 8 bpp
     defaultimp.minBatchSize = 33;
     defaultimp.maxBatchSize = 65;
 

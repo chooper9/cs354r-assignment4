@@ -2,6 +2,9 @@
 
 Game::Game(Ogre::SceneManager* mSceneMgr) {
 	currentLevel= 0;
+
+	debugging = false;
+	paused = false;
 	graphicsEngine = mSceneMgr;
 	mainCam = graphicsEngine->getCamera("MainCam");
 	currentGameScene = SCENE_NONE;
@@ -58,6 +61,7 @@ void Game::exitScene(void) {
 		mainCam->getParentSceneNode()->detachObject(mainCam);
 	currentScene = NULL;
 	currentGameScene = SCENE_NONE;
+	debugging = false;
 }
 
 //-------------------------------------------------------------------------------------
@@ -80,6 +84,7 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	case SCENE_PLANET: 
 		switch(scenePlanet->getResult()){
 		case PLUTO_WIN:
+			if (debugging) return;
 			exitScene();
 			sceneSpace->finishLevel(currentLevel);
 			sceneSpace->showScene();
@@ -102,6 +107,7 @@ void Game::handleKeyPressed(const OIS::KeyCode key) {
 		case SCENE_SPACE: 
 			exitScene();
 			enterScene(SCENE_PLANET);
+			debugging = true;
 			break;
 		case SCENE_PLANET:
 			exitScene(); break;
@@ -121,23 +127,27 @@ void Game::handleKeyPressed(const OIS::KeyCode key) {
 //-------------------------------------------------------------------------------------
 
 void Game::handleKeyReleased(const OIS::KeyCode key) {
+	if (paused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleKeyReleased(key);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMouseMoved( int dx, int dy ) {
+	if (paused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMouseMoved(dx, dy);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
+	if (paused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMousePressed(x, y, id);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMouseReleased( int x, int y, OIS::MouseButtonID id ) {
+	if (paused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMouseReleased(x, y, id);
 }

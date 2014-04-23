@@ -11,6 +11,9 @@ class Game
 {
 private:
 	int currentLevel;
+	bool debugging;
+	bool paused;
+
 	Ogre::SceneManager* graphicsEngine;
 	Ogre::Camera* mainCam;
 	enum GameScene currentGameScene;

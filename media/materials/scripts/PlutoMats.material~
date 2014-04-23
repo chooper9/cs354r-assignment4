@@ -33,8 +33,115 @@ material PlutoTerrainTexture
 
 			texture_unit
 			{
-				// texture terrain_texture.jpg 2d
-				texture terr_dirt-grass.jpg 2d
+				texture terrain_texture.jpg 2d
+			}
+		}
+	}
+}
+
+material PlutoTerrainTexture1
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_texture1.jpg 2d
+			}
+		}
+	}
+}
+
+material PlutoTerrainTexture2
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_texture2.jpg 2d
+			}
+		}
+	}
+}
+
+material PlutoTerrainTexture3
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_texture3.jpg 2d
+			}
+		}
+	}
+}
+
+material PlutoTerrainTexture4
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_texture4.jpg 2d
 			}
 		}
 	}
