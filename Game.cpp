@@ -1,6 +1,7 @@
 #include "Game.h"
 
 Game::Game(Ogre::SceneManager* mSceneMgr) {
+	gamePaused = false;
 	currentLevel= 0;
 	graphicsEngine = mSceneMgr;
 	mainCam = graphicsEngine->getCamera("MainCam");
@@ -63,6 +64,7 @@ void Game::exitScene(void) {
 //-------------------------------------------------------------------------------------
 
 void Game::runNextFrame(const Ogre::FrameEvent& evt) {
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->runNextFrame(evt);
 	int lv;
 	switch(currentGameScene) {
@@ -96,6 +98,7 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 //-------------------------------------------------------------------------------------
 
 void Game::handleKeyPressed(const OIS::KeyCode key) {
+	if(gamePaused) return;
 	switch (key) {
 	case OIS::KC_B:
 		switch (currentGameScene) {
@@ -112,6 +115,7 @@ void Game::handleKeyPressed(const OIS::KeyCode key) {
 	case OIS::KC_RETURN:
 		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PauseRoot")->setVisible(true);
 		CEGUI::MouseCursor::getSingleton().show();
+		gamePaused = true;
 		break;
 	default:break;
 	}

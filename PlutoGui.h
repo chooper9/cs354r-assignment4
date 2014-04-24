@@ -58,6 +58,7 @@ void Pluto::setup_PlutoGui() {
 bool Pluto::resumeGame(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/PauseRoot")->setVisible(false);
 	CEGUI::MouseCursor::getSingleton().hide();
+	game->unPause();
 	return true;
 }
 
@@ -68,16 +69,21 @@ bool Pluto::quitGame(const CEGUI::EventArgs &e) {
 
 bool Pluto::showOptions(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
+	CEGUI::AnimationManager &anmgr = CEGUI::AnimationManager::getSingleton();
+	static CEGUI::AnimationInstance* animIn1 = anmgr.instantiateAnimation(anmgr.getAnimation("Slide_in"));
+	animIn1->setTargetWindow(wmgr.getWindow("Pluto/PauseRoot/OptionsRoot"));
+	static CEGUI::AnimationInstance* animIn2 = anmgr.instantiateAnimation(anmgr.getAnimation("Slide_out"));
+	animIn2->setTargetWindow(wmgr.getWindow("Pluto/PauseRoot/OptionsRoot"));
 	if(wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu")->isDisabled()) {
 		wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu")->enable();
 		wmgr.getWindow("Pluto/PauseRoot/Menu/Resume")->disable();
 		wmgr.getWindow("Pluto/PauseRoot/Menu/Quit")->disable();
-		CEGUI::AnimationManager::getSingleton().getAnimationInstanceAtIdx(2)->start();
+		animIn1->start();
 	} else {
 		wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu")->disable();
 		wmgr.getWindow("Pluto/PauseRoot/Menu/Resume")->enable();
 		wmgr.getWindow("Pluto/PauseRoot/Menu/Quit")->enable();
-		CEGUI::AnimationManager::getSingleton().getAnimationInstanceAtIdx(0)->start();
+		animIn2->start();
 	}
 	return true;
 }
@@ -85,14 +91,19 @@ bool Pluto::showOptions(const CEGUI::EventArgs &e) {
 // enable/disable other options
 bool Pluto::showSoundOptions(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager &wmgr = CEGUI::WindowManager::getSingleton();
+	CEGUI::AnimationManager &anmgr = CEGUI::AnimationManager::getSingleton();
+	static CEGUI::AnimationInstance* animIn1 = anmgr.instantiateAnimation(anmgr.getAnimation("Slide_in"));
+	animIn1->setTargetWindow(wmgr.getWindow("Pluto/OptionsRoot/SoundOptions"));
+	static CEGUI::AnimationInstance* animIn2 = anmgr.instantiateAnimation(anmgr.getAnimation("Slide_out"));
+	animIn2->setTargetWindow(wmgr.getWindow("Pluto/OptionsRoot/SoundOptions"));
 	if(wmgr.getWindow("Pluto/OptionsRoot/SoundOptions")->isDisabled()) {
 		wmgr.getWindow("Pluto/OptionsRoot/SoundOptions")->enable();
 		wmgr.getWindow("Pluto/PauseRoot/Menu/Options")->disable();
-		CEGUI::AnimationManager::getSingleton().getAnimationInstanceAtIdx(3)->start();
+		animIn1->start();
 	} else {
 		wmgr.getWindow("Pluto/OptionsRoot/SoundOptions")->disable();
 		wmgr.getWindow("Pluto/PauseRoot/Menu/Options")->enable();
-		CEGUI::AnimationManager::getSingleton().getAnimationInstanceAtIdx(1)->start();
+		animIn2->start();
 	}
 	return true;
 }

@@ -10,6 +10,7 @@
 class Game
 {
 private:
+	bool gamePaused;
 	int currentLevel;
 	Ogre::SceneManager* graphicsEngine;
 	Ogre::Camera* mainCam;
@@ -20,6 +21,7 @@ private:
 public:
 	Game(Ogre::SceneManager* mSceneMgr);
 	~Game(void);
+	void unPause() { gamePaused = false; }
 	void enterScene(enum GameScene newGameScene);
 	void exitScene(void);
 	void runNextFrame(const Ogre::FrameEvent& evt);

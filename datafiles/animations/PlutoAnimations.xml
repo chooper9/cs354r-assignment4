@@ -28,8 +28,8 @@
 
 	<AnimationDefinition name="Slide_out" duration="0.3" replayMode="once">
 		<Affector property="UnifiedXPosition" interpolator="UDim" applicationMethod="relative">
-			<KeyFrame position="0" value="{0.2,0}" />
-			<KeyFrame position="0.3" value="{0,0}" progression="linear" />
+			<KeyFrame position="0" value="{0,0}" />
+			<KeyFrame position="0.3" value="{-0.2,0}" progression="linear" />
 		</Affector>
 	</AnimationDefinition>
 

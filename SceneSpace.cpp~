@@ -1,7 +1,7 @@
 #include "SceneSpace.h"
 
 SceneSpace::SceneSpace(Ogre::SceneManager* mSceneMgr) : Scene(mSceneMgr) {
-	mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox", 50000);
+	graphicsEngine->setSkyBox(true, "Examples/SpaceSkyBox", 50000);
 	enemies.clear();
 	pluto = NULL;
         std::cout << "========= Debug: SceneSpace Created =========" << std::endl;
@@ -20,6 +20,7 @@ SceneSpace::~SceneSpace(void) {
 bool SceneSpace::setupScene(int level) {
 	if (!Scene::setupScene(level)) return false;
 	
+	graphicsEngine->setSkyBoxEnabled(true);
 	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, Ogre::Vector3(0,100, 0));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, 0, -20000)));
@@ -33,6 +34,7 @@ bool SceneSpace::setupScene(int level) {
 
 bool SceneSpace::destroyScene(void) {
 	detachCamera(camera);
+	graphicsEngine->setSkyBoxEnabled(false);
 	if (pluto) delete pluto;
 	pluto = NULL;
 	for (std::vector<Planet*>::iterator it = enemies.begin(); it != enemies.end(); it++)
