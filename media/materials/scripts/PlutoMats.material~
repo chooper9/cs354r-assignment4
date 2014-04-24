@@ -114,7 +114,7 @@ material UranusTerrainTexture
 
 			texture_unit
 			{
-				texture terrain_texture.jpg 2d
+				texture terrain_uranus_texture.jpg 2d
 			}
 		}
 	}
@@ -140,7 +140,7 @@ material SaturnTerrainTexture
 
 			texture_unit
 			{
-				texture terrain_texture.jpg 2d
+				texture terrain_saturn_texture.jpg 2d
 			}
 		}
 	}
@@ -166,7 +166,7 @@ material JupiterTerrainTexture
 
 			texture_unit
 			{
-				texture terrain_texture.jpg 2d
+				texture terrain_jupiter_texture.jpg 2d
 			}
 		}
 	}
@@ -192,7 +192,7 @@ material EarthTerrainTexture
 
 			texture_unit
 			{
-				texture terrain_earth_texture.png 2d
+				texture terrain_earth_texture.jpg 2d
 			}
 		}
 	}

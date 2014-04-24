@@ -19,6 +19,14 @@ public:
 	Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, const Ogre::Vector3& pos = Ogre::Vector3::ZERO);
 	~Planet(void);
 	void resetState(void);
+	void stopMoving(void) {
+		planetState.movingLeft = false;
+		planetState.movingRight = false;
+		planetState.movingForward = false;
+		planetState.movingBackward = false;
+		planetState.movingUpward = false;
+		planetState.movingDownward = false;
+	}
 	void runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vector<Planet*>& enemies);
 	bool isDestroyed(void) { return destroyed; }
 	void setDestroyed(bool d) { destroyed = d; positionNode->scale(0.1, 0.1, 0.1); }

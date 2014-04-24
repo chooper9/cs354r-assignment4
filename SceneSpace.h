@@ -20,6 +20,10 @@ public:
 	SceneSpaceResult getResult(enum GameLevel* level);
 	virtual bool setupScene(enum GameLevel level);
 	virtual bool destroyScene(void);
+	virtual void hideScene(void) { 
+		Scene::hideScene();
+		if(pluto) pluto->stopMoving();
+	}
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);
 	virtual bool runNextFrame(const Ogre::FrameEvent& evt);
 	virtual void handleKeyPressed(const OIS::KeyCode key);

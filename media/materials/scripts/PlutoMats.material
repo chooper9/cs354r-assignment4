@@ -88,7 +88,7 @@ material NeptuneTerrainTexture
 
 			texture_unit
 			{
-				texture terrain_neptune_texture.png 2d
+				texture terrain_neptune_texture.jpg 2d
 			}
 		}
 	}
@@ -140,7 +140,7 @@ material SaturnTerrainTexture
 
 			texture_unit
 			{
-				texture terrain_saturn_texture.jepg 2d
+				texture terrain_saturn_texture.jpg 2d
 			}
 		}
 	}
@@ -192,7 +192,7 @@ material EarthTerrainTexture
 
 			texture_unit
 			{
-				texture terrain_earth_texture.png 2d
+				texture terrain_earth_texture.jpg 2d
 			}
 		}
 	}

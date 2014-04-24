@@ -16,10 +16,10 @@ protected:
 public:
 	Scene(Ogre::SceneManager* mSceneMgr);
 	~Scene(void);
-	void showScene(void) { 
+	virtual void showScene(void) { 
 		if (!isSceneSetup) return; addCamera(camera); sceneRootNode->setVisible(true);
 	}
-	void hideScene(void) { 
+	virtual void hideScene(void) { 
 		if (!isSceneSetup) return; sceneRootNode->setVisible(false);
 	}
 	virtual bool setupScene(enum GameLevel level);
