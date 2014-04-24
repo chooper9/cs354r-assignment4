@@ -49,6 +49,8 @@ typedef struct PlanetState {
 	bool movingRight;
 	bool movingForward;
 	bool movingBackward;
+	bool movingUpward;
+	bool movingDownward;
 } PlanetState;
 
 // ======================== Shuriken Constants ======================== 
@@ -76,7 +78,7 @@ enum SceneSpaceResult { PLUTO_TRAVELLING, PLUTO_HIT_PLANET, PLUTO_HIT_OBSTACLE }
 // ============================ Game Constants ==========================
 enum CameraMode { CAM_THIRD_PERSON, CAM_FIRST_PERSON };
 enum GameScene { SCENE_NONE, SCENE_SPACE, SCENE_PLANET };
-enum GameLevels { LV_NEPTUNE,LV_URANUS, LV_SATURN, LV_JUPITER, LV_MARS, LV_EARTH };
+enum GameLevel { LV_NEPTUNE = 0,LV_URANUS = 1, LV_SATURN = 2, LV_JUPITER = 3, LV_MARS = 4, LV_EARTH = 5};
 
 
 // =================== Global Variables and Functions ===================

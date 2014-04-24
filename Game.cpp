@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game(Ogre::SceneManager* mSceneMgr) {
-	currentLevel= 0;
+	currentLevel= LV_NEPTUNE;
 
 	debugging = false;
 	paused = false;
@@ -27,12 +27,12 @@ Game::~Game(void) {
 void Game::enterScene(enum GameScene newGameScene) {
 	switch (newGameScene) {
 	case SCENE_SPACE: 
-		sceneSpace->setupScene(0);
+		sceneSpace->setupScene(currentLevel);
 		sceneSpace->addCamera(mainCam);
 		currentScene = sceneSpace;
 		break;
 	case SCENE_PLANET:
-		scenePlanet->setupScene(currentLevel+1);
+		scenePlanet->setupScene(currentLevel);
 		scenePlanet->addCamera(mainCam);
 		currentScene = scenePlanet;
 		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot")->setVisible(true);
@@ -68,7 +68,7 @@ void Game::exitScene(void) {
 
 void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	if(currentGameScene != SCENE_NONE) currentScene->runNextFrame(evt);
-	int lv;
+	enum GameLevel lv;
 	switch(currentGameScene) {
 	case SCENE_SPACE:
 		switch(sceneSpace->getResult(&lv)){

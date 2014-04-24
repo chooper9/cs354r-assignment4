@@ -22,7 +22,7 @@ public:
 	void hideScene(void) { 
 		if (!isSceneSetup) return; sceneRootNode->setVisible(false);
 	}
-	virtual bool setupScene(int level);
+	virtual bool setupScene(enum GameLevel level);
 	virtual bool destroyScene(void);
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);
 	virtual bool runNextFrame(const Ogre::FrameEvent& evt);

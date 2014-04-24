@@ -330,7 +330,7 @@ void Player::reactTo(Player* enemy) {
 
 
 	if (dist < 90) {
-		if (enemy->playerState.action == ATTACK) {
+		if (enemy->playerState.action == ATTACK && playerState.action != ATTACK) {
 			block();
 			playerState.movingForward = false;
 			playerState.movingBackward = false;

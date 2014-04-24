@@ -17,6 +17,7 @@ private:
 	Ogre::BillboardSet* enemyHPset;
 
 	SceneTerrain* terrain;
+	enum GameLevel currentLevel;
 
 	enum CameraMode cameraMode;
 	void runAI(const Ogre::FrameEvent& evt);
@@ -25,7 +26,7 @@ public:
 	ScenePlanet(Ogre::SceneManager* mSceneMgr);
 	~ScenePlanet(void);
 	ScenePlanetResult getResult(void);
-	virtual bool setupScene(int level);
+	virtual bool setupScene(enum GameLevel level);
 	virtual bool destroyScene(void);
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);
 	virtual bool runNextFrame(const Ogre::FrameEvent& evt);

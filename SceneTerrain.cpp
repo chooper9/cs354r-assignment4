@@ -1,7 +1,8 @@
 #include "SceneTerrain.h"
 
+
 //-------------------------------------------------------------------------------------
-SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
+SceneTerrain::SceneTerrain(char* t, Ogre::String meterialName, Ogre::SceneManager* mSceneMgr)
 {
 	land = std::string(t);
 	mySceneMgr = mSceneMgr;
@@ -10,7 +11,7 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
     Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(7);
 	Ogre::Vector3 lightdir(0.55, -0.3, 0.75);
 	lightdir.normalise();
-	Ogre::Light* light = mSceneMgr->createLight("tstLight");
+	Ogre::Light* light = mSceneMgr->createLight();
 	light->setType(Ogre::Light::LT_DIRECTIONAL);
 	light->setDirection(lightdir);
     light->setDiffuseColour(Ogre::ColourValue::White);
@@ -21,8 +22,33 @@ SceneTerrain::SceneTerrain(char* t, Ogre::SceneManager* mSceneMgr)
     mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(mSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 12000.0f);
     mTerrainGroup->setFilenameConvention(Ogre::String("PlutoPissedTerrain"), Ogre::String("dat"));
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
-	iii = 0;
-    
+
+    // Init custom materialgenerator
+    Ogre::TerrainMaterialGeneratorPtr terrainMaterialGenerator;
+
+    // Set Ogre Material  with the name "TerrainMaterial" in constructor
+    terrainMaterial = OGRE_NEW TerrainMaterial(meterialName);         
+    terrainMaterialGenerator.bind( terrainMaterial );  
+               
+    mTerrainGlobals->setDefaultMaterialGenerator( terrainMaterialGenerator );
+
+    configureTerrainDefaults(light);
+
+
+    Ogre::Image img;
+    img.load("terrain.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    mTerrainGroup->defineTerrain(0, 0, &img);
+
+ /*
+    for (long x = 0; x <= 0; ++x)
+        for (long y = 0; y <= 0; ++y)
+            defineTerrain(x, y);
+*/ 
+    // sync load since we want everything in place when we start
+    mTerrainGroup->loadAllTerrains(true);
+
+    mTerrainGroup->freeTemporaryResources();
+
 	// may need to put these...somewhere after Terrain is generated
 	//terrainMaterial->setMaterialByName("Examples/TerrainTest");
 	//terrainMaterial->generate(mTerrainGroup->getTerrain(0,0));
@@ -34,36 +60,19 @@ SceneTerrain::~SceneTerrain(void)
 {
 	OGRE_DELETE mTerrainGroup;
 	OGRE_DELETE mTerrainGlobals;
-	mySceneMgr->destroyLight("tstLight");
-	std::cout << "dsad\n\n\n"  << std::endl;
 }
 
-//-----------------------------------------------------------------------
-void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
-{
-	img.load("terrain.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    if (flipX)
-        img.flipAroundY();
-    if (flipY)
-        img.flipAroundX();
-}
 //-------------------------------------------------------------------------------------
-void SceneTerrain::defineTerrain(long x, long y)
-{
-	Ogre::String filename = mTerrainGroup->generateFilename(x, y);
-    if (Ogre::ResourceGroupManager::getSingleton().resourceExists(mTerrainGroup->getResourceGroup(), filename))
-    {
-	std::cout << "========= Debug: define1\n\n\n\n Created1 =========" << std::endl;
-        mTerrainGroup->defineTerrain(x, y);
-    }
-    else
-    {
-	std::cout << "========= Debug: define2\n\n\n\n Created1 =========" << std::endl;
-        Ogre::Image img;
-        getTerrainImage(x % 2 != 0, y % 2 != 0, img);
-        mTerrainGroup->defineTerrain(x, y, &img);
-        mTerrainsImported = true;
-    }
+
+void SceneTerrain::setMaterial(Ogre::String meterialName, int scale) {
+	terrainMaterial->setMaterialByName(meterialName);
+	
+    	Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
+	defaultimp.inputScale = scale; // due terrain.png is 8 bpp
+	Ogre::Image img;
+	img.load("terrain.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+	mTerrainGroup->defineTerrain(0, 0, &img);
+	mTerrainGroup->loadAllTerrains(true);
 }
 //-------------------------------------------------------------------------------------
 
@@ -79,7 +88,7 @@ void SceneTerrain::configureTerrainDefaults(Ogre::Light* light)
     Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
     defaultimp.terrainSize = 513;
     defaultimp.worldSize = 12000.0f;
-    defaultimp.inputScale = 60; // due terrain.png is 8 bpp
+    defaultimp.inputScale = 600; // due terrain.png is 8 bpp
     defaultimp.minBatchSize = 33;
     defaultimp.maxBatchSize = 65;
 
@@ -99,3 +108,4 @@ void SceneTerrain::configureTerrainDefaults(Ogre::Light* light)
 }
 
 //-------------------------------------------------------------------------------------
+

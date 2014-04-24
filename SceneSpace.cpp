@@ -17,7 +17,7 @@ SceneSpace::~SceneSpace(void) {
 
 //-------------------------------------------------------------------------------------
 
-bool SceneSpace::setupScene(int level) {
+bool SceneSpace::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
 	
 	enemies.clear();
@@ -46,9 +46,9 @@ bool SceneSpace::destroyScene(void) {
 bool SceneSpace::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 	if(!Scene::addCamera(cam)) return false;
 	Ogre::SceneNode* camNode = pluto->getSceneNode()->createChildSceneNode(
-		Ogre::Vector3(0, 400, 800)
+		Ogre::Vector3(0, 300, 800)
 	);
-	camNode->pitch(Ogre::Degree(-20));
+	camNode->pitch(Ogre::Degree(-10));
         camNode->attachObject(cam);
 	return true;
 }
@@ -75,11 +75,11 @@ bool SceneSpace::runNextFrame(const Ogre::FrameEvent& evt) {
 
 //-------------------------------------------------------------------------------------
 
-SceneSpaceResult SceneSpace::getResult(int* level) {
+SceneSpaceResult SceneSpace::getResult(enum GameLevel* level) {
 	int lv = 0;
 	for (std::vector<Planet*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
 		if (pluto->isCollidingWith(*it)) {
-			*level = lv;
+			*level = static_cast<GameLevel>(lv);
 			return PLUTO_HIT_PLANET;
 		}
 		lv++;

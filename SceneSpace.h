@@ -14,11 +14,11 @@ private:
 public:
 	SceneSpace(Ogre::SceneManager* mSceneMgr);
 	~SceneSpace(void);
-	void finishLevel(int level) {
+	void finishLevel(enum GameLevel level) {
 		enemies.at(level)->setDestroyed(true);
 	}
-	SceneSpaceResult getResult(int* level);
-	virtual bool setupScene(int level);
+	SceneSpaceResult getResult(enum GameLevel* level);
+	virtual bool setupScene(enum GameLevel level);
 	virtual bool destroyScene(void);
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);
 	virtual bool runNextFrame(const Ogre::FrameEvent& evt);

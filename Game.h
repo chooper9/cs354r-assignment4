@@ -10,7 +10,7 @@
 class Game
 {
 private:
-	int currentLevel;
+	enum GameLevel currentLevel;
 	bool debugging;
 	bool paused;
 

@@ -17,7 +17,7 @@ Scene::~Scene(void) {
 
 //-------------------------------------------------------------------------------------
 
-bool Scene::setupScene(int level) {
+bool Scene::setupScene(enum GameLevel level) {
 	if(isSceneSetup) return false;
 	physicsEngine = new PhysicsEngine();
 	sceneRootNode = graphicsEngine->getRootSceneNode()->createChildSceneNode();
