@@ -10,8 +10,10 @@
 class Game
 {
 private:
+	enum GameLevel currentLevel;
+	bool debugging;
 	bool gamePaused;
-	int currentLevel;
+
 	Ogre::SceneManager* graphicsEngine;
 	Ogre::Camera* mainCam;
 	enum GameScene currentGameScene;

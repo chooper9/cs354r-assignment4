@@ -38,3 +38,189 @@ material PlutoTerrainTexture
 		}
 	}
 }
+
+material MarsTerrainTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_mars_texture.jpg 2d
+			}
+		}
+	}
+}
+
+
+material NeptuneTerrainTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_neptune_texture.jpg 2d
+			}
+		}
+	}
+}
+material UranusTerrainTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_uranus_texture.jpg 2d
+			}
+		}
+	}
+}
+material SaturnTerrainTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_saturn_texture.jpg 2d
+			}
+		}
+	}
+}
+material JupiterTerrainTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_jupiter_texture.jpg 2d
+			}
+		}
+	}
+}
+material EarthTerrainTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture terrain_earth_texture.jpg 2d
+			}
+		}
+	}
+}
+
+material PlutoTerrainTennisCourtTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture tenniscourt.jpg 2d
+			}
+		}
+	}
+}

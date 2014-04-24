@@ -3,6 +3,7 @@
 
 #include "GameResource.h"
 #include "Shuriken.h"
+#include "SceneTerrain.h"
 #include <OgreBillboardSet.h>
 #include <OgreBillboard.h>
 #include <stdio.h>
@@ -15,6 +16,7 @@ private:
 	Ogre::Vector3 orient;
 	bool visible;
 	bool isAI;
+	SceneTerrain* terrain;
 	void checkAttackEffect(Player* enemy);
 	char shuriken_buf[10];
 protected:
@@ -26,7 +28,7 @@ protected:
 	PhysicsEngine* physicsEngine;
 	PlayerState playerState;
 public:
-	Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, const Ogre::Vector3& pos=Ogre::Vector3::ZERO);
+	Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, SceneTerrain* terrainOn, const Ogre::Vector3& pos=Ogre::Vector3::ZERO);
 	~Player(void);
 	void toggleVisible(void);
 	void resetState(void);

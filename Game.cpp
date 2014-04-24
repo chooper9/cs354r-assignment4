@@ -1,8 +1,9 @@
 #include "Game.h"
 
 Game::Game(Ogre::SceneManager* mSceneMgr) {
+	currentLevel= LV_NEPTUNE;
+	debugging = false;
 	gamePaused = false;
-	currentLevel= 0;
 	graphicsEngine = mSceneMgr;
 	mainCam = graphicsEngine->getCamera("MainCam");
 	currentGameScene = SCENE_NONE;
@@ -25,12 +26,12 @@ Game::~Game(void) {
 void Game::enterScene(enum GameScene newGameScene) {
 	switch (newGameScene) {
 	case SCENE_SPACE: 
-		sceneSpace->setupScene(0);
+		sceneSpace->setupScene(currentLevel);
 		sceneSpace->addCamera(mainCam);
 		currentScene = sceneSpace;
 		break;
 	case SCENE_PLANET:
-		scenePlanet->setupScene(currentLevel+1);
+		scenePlanet->setupScene(currentLevel);
 		scenePlanet->addCamera(mainCam);
 		currentScene = scenePlanet;
 		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot")->setVisible(true);
@@ -59,6 +60,7 @@ void Game::exitScene(void) {
 		mainCam->getParentSceneNode()->detachObject(mainCam);
 	currentScene = NULL;
 	currentGameScene = SCENE_NONE;
+	debugging = false;
 }
 
 //-------------------------------------------------------------------------------------
@@ -66,7 +68,7 @@ void Game::exitScene(void) {
 void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->runNextFrame(evt);
-	int lv;
+	enum GameLevel lv;
 	switch(currentGameScene) {
 	case SCENE_SPACE:
 		switch(sceneSpace->getResult(&lv)){
@@ -82,6 +84,7 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	case SCENE_PLANET: 
 		switch(scenePlanet->getResult()){
 		case PLUTO_WIN:
+			if (debugging) return;
 			exitScene();
 			sceneSpace->finishLevel(currentLevel);
 			sceneSpace->showScene();
@@ -105,6 +108,7 @@ void Game::handleKeyPressed(const OIS::KeyCode key) {
 		case SCENE_SPACE: 
 			exitScene();
 			enterScene(SCENE_PLANET);
+			debugging = true;
 			break;
 		case SCENE_PLANET:
 			exitScene(); break;
@@ -125,23 +129,27 @@ void Game::handleKeyPressed(const OIS::KeyCode key) {
 //-------------------------------------------------------------------------------------
 
 void Game::handleKeyReleased(const OIS::KeyCode key) {
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleKeyReleased(key);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMouseMoved( int dx, int dy ) {
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMouseMoved(dx, dy);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMousePressed(x, y, id);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMouseReleased( int x, int y, OIS::MouseButtonID id ) {
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMouseReleased(x, y, id);
 }

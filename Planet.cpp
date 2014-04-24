@@ -53,6 +53,8 @@ void Planet::resetState(void) {
 	planetState.movingRight = false;
 	planetState.movingForward = false;
 	planetState.movingBackward = false;
+	planetState.movingUpward = false;
+	planetState.movingDownward = false;
 	planetState.degreeYaw = 0;
 	planetState.degreePitch = 0;
 }
@@ -70,13 +72,17 @@ void Planet::runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vecto
 		direction.z -= planetState.step;
 	if (planetState.movingBackward)
 		direction.z += planetState.step;
+	if (planetState.movingUpward)
+		direction.y += planetState.step;
+	if (planetState.movingDownward)
+		direction.y -= planetState.step;
 
-	bool moved = direction.x != 0 || direction.z != 0;
+	bool moved = direction.x != 0 || direction.z != 0 || direction.y != 0;
 	
-	planetNode->yaw(Ogre::Degree(0.01), Ogre::Node::TS_LOCAL);
+	planetNode->yaw(Ogre::Degree(0.05), Ogre::Node::TS_LOCAL);
 
+	//positionNode->pitch(Ogre::Degree(planetState.degreePitch), Ogre::Node::TS_LOCAL);
 	positionNode->yaw(Ogre::Degree(planetState.degreeYaw), Ogre::Node::TS_LOCAL);
-	positionNode->pitch(Ogre::Degree(planetState.degreePitch), Ogre::Node::TS_LOCAL);
 	planetState.degreeYaw = 0;
 	planetState.degreePitch = 0;
 
@@ -130,14 +136,12 @@ void Planet::handleKeyPressed(const OIS::KeyCode key) {
 		planetState.movingBackward = true; break;
 	case OIS::KC_D: 
 		planetState.movingRight = true; break;
+	case OIS::KC_Q: 
+		planetState.movingUpward = true; break;
+	case OIS::KC_E: 
+		planetState.movingDownward = true; break;
 	case OIS::KC_LCONTROL: 
 		planetState.step = FLY_PLANET_FAST; break;
-	case OIS::KC_SPACE: 
-		
-		break;
-	case OIS::KC_E: 
-		
-		break;
 	}
 }
 
@@ -151,7 +155,12 @@ void Planet::handleKeyReleased(const OIS::KeyCode key) {
 		planetState.movingBackward = false; break;
 	case OIS::KC_D: 
 		planetState.movingRight = false; break;
-	case OIS::KC_LCONTROL: 
+	case OIS::KC_Q: 
+		planetState.movingUpward = false; break;
+	case OIS::KC_E: 
+		planetState.movingDownward = false; break;
+	case OIS::KC_LCONTROL:
+		planetState.step = FLY_PLANET; 
 		break;
 	}
 }

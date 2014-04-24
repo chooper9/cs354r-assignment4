@@ -4,11 +4,9 @@ ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr
 	cameraMode = CAM_THIRD_PERSON;
 	enemies.clear();
 	pluto = NULL;
-	Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
-	Ogre::MeshManager::getSingleton().createPlane(
-		"planetSurface", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-        	plane, LENGTH_ScenePlanet, WIDTH_ScenePlanet,1,1,true,1,1,1, Ogre::Vector3::UNIT_Z
-	);
+	terrain = OGRE_NEW SceneTerrain("terrain.png", "NeptuneTerrainTexture", graphicsEngine);
+	terrain->hideTerrain();
+	currentLevel = LV_NEPTUNE;
 	std::cout << "========= Debug: ScenePlanet Created =========" << std::endl;
 }
 
@@ -16,34 +14,65 @@ ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr
 
 ScenePlanet::~ScenePlanet(void) {
 	destroyScene();
+	OGRE_DELETE terrain;
 	std::cout << "========= Debug: ScenePlanet Deleted =========" << std::endl;
 }
 
-//-------------------------------------------------------------------------------------
-
-bool ScenePlanet::setupScene(int level) {
+bool ScenePlanet::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
-	Ogre::Entity* entSide = graphicsEngine->createEntity("planetSurface");
-	entSide->setMaterialName("Examples/KAMEN");
-	entSide->setCastShadows(false);
-	sceneRootNode->attachObject(entSide);
 
-	PhysicsObject* ground = new PhysicsObject();
-	ground->setToStaticPlane(btVector3(0,1,0), 0);
-	physicsEngine->addObject(ground);
+	int numEnemies = 0;
+	switch(level) {
+	case LV_NEPTUNE:
+		numEnemies = 10;
+		if (currentLevel != level)
+			terrain->setMaterial("NeptuneTerrainTexture", 10);
+		break;
+	case LV_URANUS:
+		numEnemies = 20;
+		if (currentLevel != level)
+			terrain->setMaterial("UranusTerrainTexture", 60);
+		break;
+	case LV_SATURN:
+		numEnemies = 30;
+		if (currentLevel != level)
+			terrain->setMaterial("SaturnTerrainTexture", 20);
+		break;
+	case LV_JUPITER:
+		numEnemies = 40;
+		if (currentLevel != level)
+			terrain->setMaterial("JupiterTerrainTexture", 30);
+		break;
+	case LV_MARS:
+		numEnemies = 50;
+		if (currentLevel != level)
+			terrain->setMaterial("MarsTerrainTexture", 600);
+		break;
+	case LV_EARTH:
+		numEnemies = 100;
+		if (currentLevel != level)
+			terrain->setMaterial("EarthTerrainTexture", 800);
+		break;
+	}
+	terrain->showTerrain();
+	currentLevel = level;
 
-	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true);
+
+	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
 	enemyHPset = graphicsEngine->createBillboardSet("EnemyHPSet");
 	enemyHPset->setPoolSize(level*10);
 	enemyHPset->setMaterialName("Pluto/EnemyHP");
 	enemyHPset->setDefaultDimensions(8,2);
 	enemyHPset->setBounds(Ogre::AxisAlignedBox(-1000,-1000,-1000,1000,1000,1000), 1000);
+
 	Ogre::SceneNode* hpBBSnode = sceneRootNode->createChildSceneNode();
 	hpBBSnode->attachObject(enemyHPset);
 	enemies.clear();
-	for(int i = 0; i < level*10; i++) {
+
+
+	for(int i = 0; i < numEnemies; i++) {
 		enemies.push_back(new Player(
-			graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(i*40 - level*200, 0, -100)
+			graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -100)
 		));
 		enemies[i]->setBillboard(enemyHPset->createBillboard(Ogre::Vector3(i*40 - level*200, 80, -100)));
 	}
@@ -60,6 +89,7 @@ bool ScenePlanet::destroyScene(void) {
 	enemies.clear();
 	if (graphicsEngine->hasBillboardSet("EnemyHPSet"))
 		graphicsEngine->destroyBillboardSet (enemyHPset);
+	terrain->hideTerrain();
 	if (!Scene::destroyScene()) return false;
 }
 
@@ -69,7 +99,7 @@ bool ScenePlanet::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 	if(!Scene::addCamera(cam)) return false;
 	Ogre::SceneNode* camNode = pluto->getSceneNode()->createChildSceneNode(
 		camMode == CAM_THIRD_PERSON ? 
-			Ogre::Vector3(0, 100, 100) : Ogre::Vector3(0, HEIGHT_NINJA*0.8, -5)
+			Ogre::Vector3(0, 100, 70) : Ogre::Vector3(0, HEIGHT_NINJA*0.8, -5)
 	);
 	if (camMode == CAM_THIRD_PERSON)
 		camNode->pitch(Ogre::Degree(-20));
@@ -136,6 +166,15 @@ void ScenePlanet::handleKeyPressed(const OIS::KeyCode key) {
 			cameraMode = CAM_FIRST_PERSON;
 		}
 		break;
+	case OIS::KC_P:
+		terrain->mTerrainGroup->unloadTerrain(0,0);
+		break;
+	case OIS::KC_O:
+		terrain->mTerrainGroup->loadTerrain(0,0, true);
+		break;
+	case OIS::KC_L:
+		terrain->setMaterial("NeptuneTerrainTexture");
+		break;
 	}
 }
 
@@ -149,17 +188,23 @@ void ScenePlanet::handleKeyReleased(const OIS::KeyCode key) {
 //-------------------------------------------------------------------------------------
 
 void ScenePlanet::handleMouseMoved( int dx, int dy ) {
-	if (isSceneSetup) pluto->handleMouseMoved(dx, dy);
+	if (!isSceneSetup) return;
+	pluto->handleMouseMoved(dx, dy);
+	if (camera && camera->getParentSceneNode()) {
+		camera->getParentSceneNode()->pitch(Ogre::Degree(-dy*0.01), Ogre::Node::TS_LOCAL);
+	}
 }
 
 //-------------------------------------------------------------------------------------
 
 void ScenePlanet::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
-	if (isSceneSetup) pluto->handleMousePressed(x, y, id);
+	if (!isSceneSetup) return;
+	pluto->handleMousePressed(x, y, id);
 }
 
 //-------------------------------------------------------------------------------------
 
 void ScenePlanet::handleMouseReleased( int x, int y, OIS::MouseButtonID id ) {
-	if (isSceneSetup) pluto->handleMouseReleased(x, y , id);
+	if (!isSceneSetup) return;
+	pluto->handleMouseReleased(x, y , id);
 }

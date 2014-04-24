@@ -46,7 +46,6 @@ BaseApplication::~BaseApplication(void)
     windowClosed(mWindow);
     delete mRoot;
 }
-
 //-------------------------------------------------------------------------------------
 bool BaseApplication::configure(void)
 {
