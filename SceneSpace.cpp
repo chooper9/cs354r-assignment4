@@ -21,13 +21,14 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
 	
 	enemies.clear();
-	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, Ogre::Vector3(0,100, 10000));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(0, 0, 5000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(100, 0, -5000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(6006, 0, -12000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(10000, 0, -18000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(12000, 0, -22000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, Ogre::Vector3(13000, 0, -28000)));
+	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, 0, Ogre::Vector3(0,100, 10000));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 0, Ogre::Vector3(0, 0, 5000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 1, Ogre::Vector3(-100, 0, -5000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 2, Ogre::Vector3(-2006, 0, -12000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(-10000, 0, -18000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(-20000, 0, -22000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(-27000, 0, -28000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(-50000, 0, -18000)));
 }
 
 //-------------------------------------------------------------------------------------

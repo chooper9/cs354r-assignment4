@@ -952,6 +952,63 @@ material Examples/Neptune
 	}
 }
 
+material Examples/Jupiter
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture Jupiter.jpg
+			}
+		}
+	}
+}
+
+material Examples/Uranus
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture uranus.jpg
+			}
+		}
+	}
+}
+
+material Examples/Saturn
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture saturn.jpg
+			}
+		}
+	}
+}
+
+material Examples/Sun
+{
+	technique
+	{
+		pass
+		{
+			ambient 6.0 6.0 6.0
+			texture_unit
+			{
+				texture sun.jpeg
+			}
+		}
+	}
+}
+
 material Examples/TennisCourt
 {
 	technique

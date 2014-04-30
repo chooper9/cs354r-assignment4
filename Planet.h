@@ -16,7 +16,7 @@ protected:
 	PhysicsEngine* physicsEngine;
 	PlanetState planetState;
 public:
-	Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, const Ogre::Vector3& pos = Ogre::Vector3::ZERO);
+	Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, int type, const Ogre::Vector3& pos = Ogre::Vector3::ZERO);
 	~Planet(void);
 	void resetState(void);
 	void stopMoving(void) {
