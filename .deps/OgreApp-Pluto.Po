@@ -1123,7 +1123,8 @@ OgreApp-Pluto.o: Pluto.cpp Pluto.h BaseApplication.h \
  /usr/include/OGRE/Terrain/OgreTerrain.h \
  /usr/include/OGRE/OgreIteratorWrappers.h TerrainMaterial.h \
  /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h Player.h \
- Shuriken.h SceneSpace.h Planet.h PlutoGui.h /usr/include/OGRE/OgreMath.h \
+ Shuriken.h SceneSpace.h Planet.h /usr/include/OGRE/OgreParticleSystem.h \
+ /usr/include/OGRE/OgreParticle.h PlutoGui.h /usr/include/OGRE/OgreMath.h \
  /usr/include/OGRE/OgreSphere.h
 
 Pluto.h:
@@ -3725,6 +3726,10 @@ Shuriken.h:
 SceneSpace.h:
 
 Planet.h:
+
+/usr/include/OGRE/OgreParticleSystem.h:
+
+/usr/include/OGRE/OgreParticle.h:
 
 PlutoGui.h:
 

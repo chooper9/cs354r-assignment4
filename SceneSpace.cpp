@@ -2,6 +2,9 @@
 
 SceneSpace::SceneSpace(Ogre::SceneManager* mSceneMgr) : Scene(mSceneMgr) {
 	graphicsEngine->setSkyBox(true, "Examples/SpaceSkyBox", 50000);
+
+	
+
 	enemies.clear();
 	pluto = NULL;
         std::cout << "========= Debug: SceneSpace Created =========" << std::endl;
@@ -19,6 +22,8 @@ SceneSpace::~SceneSpace(void) {
 
 bool SceneSpace::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
+
+	
 	
 	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, Ogre::Vector3(0,100, 10000));

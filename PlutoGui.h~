@@ -58,6 +58,7 @@ void Pluto::setup_PlutoGui() {
 bool Pluto::resumeGame(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/PauseRoot")->setVisible(false);
 	CEGUI::MouseCursor::getSingleton().hide();
+	game->unPause();
 	return true;
 }
 

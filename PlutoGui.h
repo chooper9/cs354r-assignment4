@@ -43,6 +43,7 @@ void Pluto::setup_PlutoGui() {
 	
 
 	// subscribe events
+	
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Quit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Resume")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::resumeGame, this));
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Options")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showOptions, this));
@@ -111,6 +112,7 @@ bool Pluto::showSoundOptions(const CEGUI::EventArgs &e) {
 bool Pluto::startGame(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/TitleRoot")->setVisible(false);
 	CEGUI::MouseCursor::getSingleton().hide();
+	game->enterScene(SCENE_SPACE);
 	return true;
 }
 

@@ -5,6 +5,8 @@
 #include "GameResource.h"
 #include "ScenePlanet.h"
 #include "SceneSpace.h"
+#include <OgreParticleSystem.h>
+#include <OgreParticle.h>
 
 
 class Game
@@ -15,6 +17,8 @@ private:
 	bool gamePaused;
 
 	Ogre::SceneManager* graphicsEngine;
+	Ogre::SceneNode* titleNode;
+	Ogre::ParticleSystem* titleParticles;
 	Ogre::Camera* mainCam;
 	enum GameScene currentGameScene;
 	ScenePlanet* scenePlanet;

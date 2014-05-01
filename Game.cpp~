@@ -10,6 +10,12 @@ Game::Game(Ogre::SceneManager* mSceneMgr) {
 	currentScene = NULL;
 	scenePlanet = new ScenePlanet(mSceneMgr);
 	sceneSpace = new SceneSpace(mSceneMgr);
+
+	titleParticles = mSceneMgr->createParticleSystem("TwinklingStars", "Pluto/Twinkle");
+	titleNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	titleNode->attachObject(titleParticles);
+	titleNode->setPosition(0,0,-1000);
+
 	std::cout << "========= Debug: Game Created =========" << std::endl;
 }
 
@@ -24,6 +30,7 @@ Game::~Game(void) {
 //-------------------------------------------------------------------------------------
 
 void Game::enterScene(enum GameScene newGameScene) {
+	titleNode->setVisible (false);
 	switch (newGameScene) {
 	case SCENE_SPACE: 
 		sceneSpace->setupScene(currentLevel);
@@ -37,6 +44,8 @@ void Game::enterScene(enum GameScene newGameScene) {
 		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot")->setVisible(true);
 		break;
 	default: 
+		
+	titleNode->setVisible (true);
 		currentScene = NULL;
 		break;
 	}
@@ -56,6 +65,7 @@ void Game::exitScene(void) {
 		break;
 	default: break;
 	}
+	titleNode->setVisible (true);
 	if (mainCam->getParentSceneNode() != NULL)
 		mainCam->getParentSceneNode()->detachObject(mainCam);
 	currentScene = NULL;
@@ -129,27 +139,27 @@ void Game::handleKeyPressed(const OIS::KeyCode key) {
 //-------------------------------------------------------------------------------------
 
 void Game::handleKeyReleased(const OIS::KeyCode key) {
-	if (paused) return;
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleKeyReleased(key);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMouseMoved( int dx, int dy ) {
-	if (paused) return;
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMouseMoved(dx, dy);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMousePressed( int x, int y, OIS::MouseButtonID id ) {
-	if (paused) return;
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMousePressed(x, y, id);
 }
 
 //-------------------------------------------------------------------------------------
 
 void Game::handleMouseReleased( int x, int y, OIS::MouseButtonID id ) {
-	if (paused) return;
+	if(gamePaused) return;
 	if(currentGameScene != SCENE_NONE) currentScene->handleMouseReleased(x, y, id);
 }

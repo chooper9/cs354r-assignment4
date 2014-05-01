@@ -28,6 +28,25 @@ material Pluto/EnemyHP
 	}
 }
 
+material Examples/Dirt
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture flare.png
+			}
+			texture_unit
+			{
+				texture Dirt.jpg
+			}
+
+		}
+	}
+}
+
 material Examples/SphereMappedRustySteel
 {
 	technique

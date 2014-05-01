@@ -4,6 +4,8 @@
 #include "GameResource.h"
 #include "Scene.h"
 #include "Planet.h"
+#include <OgreParticleSystem.h>
+#include <OgreParticle.h>
 
 class SceneSpace : public Scene
 {
@@ -22,7 +24,7 @@ public:
 	virtual bool destroyScene(void);
 	virtual void hideScene(void) { 
 		Scene::hideScene();
-		pluto
+		if(pluto) pluto->stopMoving();
 	}
 	virtual bool addCamera(Ogre::Camera* cam, enum CameraMode camMode=CAM_THIRD_PERSON);
 	virtual bool runNextFrame(const Ogre::FrameEvent& evt);

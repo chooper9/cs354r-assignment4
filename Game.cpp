@@ -10,6 +10,12 @@ Game::Game(Ogre::SceneManager* mSceneMgr) {
 	currentScene = NULL;
 	scenePlanet = new ScenePlanet(mSceneMgr);
 	sceneSpace = new SceneSpace(mSceneMgr);
+
+	titleParticles = mSceneMgr->createParticleSystem("TwinklingStars", "Pluto/Twinkle");
+	titleNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	titleNode->attachObject(titleParticles);
+	titleNode->setPosition(0,0,-1000);
+
 	std::cout << "========= Debug: Game Created =========" << std::endl;
 }
 
@@ -24,6 +30,7 @@ Game::~Game(void) {
 //-------------------------------------------------------------------------------------
 
 void Game::enterScene(enum GameScene newGameScene) {
+	titleNode->setVisible (false);
 	switch (newGameScene) {
 	case SCENE_SPACE: 
 		sceneSpace->setupScene(currentLevel);
@@ -37,6 +44,8 @@ void Game::enterScene(enum GameScene newGameScene) {
 		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot")->setVisible(true);
 		break;
 	default: 
+		
+	titleNode->setVisible (true);
 		currentScene = NULL;
 		break;
 	}
