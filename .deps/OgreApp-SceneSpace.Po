@@ -1098,6 +1098,7 @@ OgreApp-SceneSpace.o: SceneSpace.cpp SceneSpace.h GameResource.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIRenderer.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUISize.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h \
+ /usr/include/OGRE/OgreParticleSystem.h /usr/include/OGRE/OgreParticle.h \
  Scene.h /usr/include/OGRE/OgreBillboardSet.h \
  /usr/include/OGRE/OgreBillboard.h Planet.h
 
@@ -3610,6 +3611,10 @@ PhysicsObject.h:
 /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUISize.h:
 
 /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h:
+
+/usr/include/OGRE/OgreParticleSystem.h:
+
+/usr/include/OGRE/OgreParticle.h:
 
 Scene.h:
 

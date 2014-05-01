@@ -15,6 +15,7 @@ private:
 	Player* pluto;
 	std::vector<Player*> enemies;
 	Ogre::BillboardSet* enemyHPset;
+	Ogre::ParticleSystem* weather;
 
 	SceneTerrain* terrain;
 	enum GameLevel currentLevel;

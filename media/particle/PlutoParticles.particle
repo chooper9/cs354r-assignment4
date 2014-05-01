@@ -4,12 +4,12 @@ particle_system Pluto/Twinkle
 	particle_width 20
 	particle_height 20
 	cull_each false
-	quota 10
+	quota 20
 	billboard_type point
 
 	emitter Box
 	{
-		emission_rate 8
+		emission_rate 12
 		time_to_live 2
 		direction 0 0 1
 		velocity 0

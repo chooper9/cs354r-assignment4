@@ -14,6 +14,7 @@ material Examples/Ninja/Blue
 
 material Pluto/EnemyHP
 {
+	receive_shadows off
 	technique
 	{
 		pass
@@ -725,6 +726,26 @@ material Examples/Droplet
 		}
 	}
 }
+
+material Examples/Droplet_Red
+{
+	technique
+	{
+		pass
+		{
+			emissive 0.3 0.3 0.3
+			scene_blend colour_blend
+			depth_write off
+			diffuse vertexcolour
+
+			texture_unit
+			{
+				texture basic_droplet_red.png
+			}
+		}
+	}
+}
+
 material Examples/Hilite/Yellow
 {
 	technique

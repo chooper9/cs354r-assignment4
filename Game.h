@@ -5,8 +5,6 @@
 #include "GameResource.h"
 #include "ScenePlanet.h"
 #include "SceneSpace.h"
-#include <OgreParticleSystem.h>
-#include <OgreParticle.h>
 
 
 class Game

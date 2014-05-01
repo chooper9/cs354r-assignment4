@@ -4,6 +4,7 @@ ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr
 	cameraMode = CAM_THIRD_PERSON;
 	enemies.clear();
 	pluto = NULL;
+	weather = NULL;
 	terrain = OGRE_NEW SceneTerrain("terrain.png", "NeptuneTerrainTexture", graphicsEngine);
 	terrain->hideTerrain();
 	currentLevel = LV_NEPTUNE;
@@ -25,15 +26,18 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 	switch(level) {
 	case LV_NEPTUNE:
 		numEnemies = 10;
+		weather = graphicsEngine->createParticleSystem("Heavy Snow", "Examples/Snow");
 		if (currentLevel != level)
 			terrain->setMaterial("NeptuneTerrainTexture", 10);
 		break;
 	case LV_URANUS:
+		weather = graphicsEngine->createParticleSystem("Heavy Rain", "Examples/Rain");
 		numEnemies = 20;
 		if (currentLevel != level)
 			terrain->setMaterial("UranusTerrainTexture", 60);
 		break;
 	case LV_SATURN:
+		// graphicsEngine->setFog(Ogre::FOG_LINEAR, Ogre::ColourValue(0.9, 0.9, 0.9), 0.0, 50, 500);
 		numEnemies = 30;
 		if (currentLevel != level)
 			terrain->setMaterial("SaturnTerrainTexture", 20);
@@ -45,6 +49,8 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		break;
 	case LV_MARS:
 		numEnemies = 50;
+		weather = graphicsEngine->createParticleSystem("Heavy Rain", "Examples/Rain");
+		weather->setMaterialName("Examples/Droplet_Red");
 		if (currentLevel != level)
 			terrain->setMaterial("MarsTerrainTexture", 600);
 		break;
@@ -59,9 +65,12 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
+	if(weather != NULL)
+		pluto->getSceneNode()->attachObject(weather);
 	enemyHPset = graphicsEngine->createBillboardSet("EnemyHPSet");
 	enemyHPset->setPoolSize(level*10);
 	enemyHPset->setMaterialName("Pluto/EnemyHP");
+	enemyHPset->setCastShadows(false);
 	enemyHPset->setDefaultDimensions(8,2);
 	enemyHPset->setBounds(Ogre::AxisAlignedBox(-1000,-1000,-1000,1000,1000,1000), 1000);
 
@@ -82,6 +91,11 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 
 bool ScenePlanet::destroyScene(void) {
 	detachCamera(camera);
+	if(weather != NULL && pluto) {
+		pluto->getSceneNode()->detachObject(weather);
+		graphicsEngine->destroyParticleSystem(weather);
+	}
+	weather = NULL;
 	if (pluto) delete pluto;
 	pluto = NULL;
 	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++)

@@ -14,6 +14,7 @@ material Examples/Ninja/Blue
 
 material Pluto/EnemyHP
 {
+	receive_shadows off
 	technique
 	{
 		pass
@@ -41,7 +42,6 @@ material Examples/Dirt
 			texture_unit
 			{
 				texture Dirt.jpg
-				alpha_op_ex source1 src_texture src_current
 			}
 
 		}
@@ -1009,6 +1009,48 @@ material Examples/Saturn
 			texture_unit
 			{
 				texture saturn.jpg
+			}
+		}
+	}
+}
+
+material Examples/Saturn
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture saturn.jpg
+			}
+		}
+	}
+}
+
+material Examples/Mars
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture mars.jpg
+			}
+		}
+	}
+}
+
+material Examples/Earth
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture earth.jpeg
 			}
 		}
 	}

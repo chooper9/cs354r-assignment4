@@ -1098,6 +1098,7 @@ OgreApp-Game.o: Game.cpp Game.h GameResource.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIRenderer.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUISize.h \
  /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h \
+ /usr/include/OGRE/OgreParticleSystem.h /usr/include/OGRE/OgreParticle.h \
  ScenePlanet.h Scene.h /usr/include/OGRE/OgreBillboardSet.h \
  /usr/include/OGRE/OgreBillboard.h SceneTerrain.h \
  /usr/include/OGRE/Terrain/OgreTerrain.h \
@@ -1114,8 +1115,7 @@ OgreApp-Game.o: Game.cpp Game.h GameResource.h \
  /usr/include/OGRE/Terrain/OgreTerrain.h \
  /usr/include/OGRE/OgreIteratorWrappers.h TerrainMaterial.h \
  /usr/include/OGRE/Terrain/OgreTerrainMaterialGenerator.h Player.h \
- Shuriken.h SceneSpace.h Planet.h /usr/include/OGRE/OgreParticleSystem.h \
- /usr/include/OGRE/OgreParticle.h
+ Shuriken.h SceneSpace.h Planet.h
 
 Game.h:
 
@@ -3627,6 +3627,10 @@ PhysicsObject.h:
 
 /lusr/opt/cegui-0.7.6/include/CEGUI/RendererModules/Ogre/../../CEGUIVector.h:
 
+/usr/include/OGRE/OgreParticleSystem.h:
+
+/usr/include/OGRE/OgreParticle.h:
+
 ScenePlanet.h:
 
 Scene.h:
@@ -3682,7 +3686,3 @@ Shuriken.h:
 SceneSpace.h:
 
 Planet.h:
-
-/usr/include/OGRE/OgreParticleSystem.h:
-
-/usr/include/OGRE/OgreParticle.h:

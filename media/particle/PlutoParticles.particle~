@@ -53,7 +53,7 @@ particle_system Pluto/SpaceRock
 		repeat_delay_max 12
 		emission_rate 1
 		time_to_live 8
-		direction 0 0 1
+		direction 0 0 -1
 		angle 30
 		velocity_min 80
 		velocity_max 200

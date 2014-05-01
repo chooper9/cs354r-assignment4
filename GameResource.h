@@ -12,6 +12,8 @@
 #include <OISMouse.h>
 #include <CEGUI.h>
 #include <RendererModules/Ogre/CEGUIOgreRenderer.h>
+#include <OgreParticleSystem.h>
+#include <OgreParticle.h>
 
 // ======================== Player Constants ======================== 
 enum PlayerAction { IDLE, KICK, KICKED, ATTACK, BLOCK, STOP_BLOCK, THROW_SHURIKEN, JUMP, DIE };
