@@ -1,7 +1,7 @@
 #include "Planet.h"
 #include <iostream>
 
-Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, const Ogre::Vector3& pos) :
+Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, PhysicsEngine* bulletEngine, bool isPluto, int type, const Ogre::Vector3& pos) :
 	graphicsEngine(mSceneMgr),
 	positionNode(0),
 	physicsEngine(bulletEngine)
@@ -15,9 +15,41 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	Ogre::Real ratio;
 	destroyed = false;
 	if (isAI) {
-		planetState.size = SIZE_PLANET;
-		planetEnt->setMaterialName("Examples/Neptune");
-		ratio = SIZE_PLANET/100;
+		if (type == 0) {
+			planetState.size = SIZE_PLANET1;
+			planetEnt->setMaterialName("Examples/Neptune");
+			ratio = SIZE_PLANET1/100;
+		}
+		else if (type == 1) {
+			planetState.size = SIZE_PLANET2;
+			planetEnt->setMaterialName("Examples/Uranus");
+			ratio = SIZE_PLANET1/100;
+		}
+		else if (type == 2) {
+			planetState.size = SIZE_PLANET3;
+			planetEnt->setMaterialName("Examples/Saturn");
+			ratio = SIZE_PLANET3/100;
+		}
+		else if (type == 3) {
+			planetState.size = SIZE_PLANET4;
+			planetEnt->setMaterialName("Examples/Jupiter");
+			ratio = SIZE_PLANET4/100;
+		}
+		else if (type == 4) {
+			planetState.size = SIZE_PLANET5;
+			planetEnt->setMaterialName("Examples/Mars");
+			ratio = SIZE_PLANET5/100;
+		}
+		else if (type == 5) {
+			planetState.size = SIZE_PLANET6;
+			planetEnt->setMaterialName("Examples/Earth");
+			ratio = SIZE_PLANET6/100;
+		}
+		else if (type == 6) {
+			planetState.size = SIZE_SUN;
+			planetEnt->setMaterialName("Examples/Sun");
+			ratio = SIZE_SUN/100;
+		}
 	} else {
 		planetState.size = SIZE_PLUTO;
 		planetEnt->setMaterialName("Examples/Pluto");
