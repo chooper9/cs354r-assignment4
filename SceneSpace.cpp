@@ -1,7 +1,7 @@
 #include "SceneSpace.h"
 
 SceneSpace::SceneSpace(Ogre::SceneManager* mSceneMgr) : Scene(mSceneMgr) {
-	graphicsEngine->setSkyBox(true, "Examples/SpaceSkyBox", 50000);
+	graphicsEngine->setSkyBox(true, "Examples/SpaceSkyBox2", 50000);
 
 	
 
@@ -30,10 +30,10 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 0, Ogre::Vector3(0, 0, 5000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 1, Ogre::Vector3(-100, 0, -5000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 2, Ogre::Vector3(-2006, 0, -12000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(-10000, 0, -18000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(-20000, 0, -22000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(-27000, 0, -28000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(-50000, 0, -18000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(-10000, 0, -30000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(-20000, 0, -35000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(-27000, 0, -38000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(-50000, 0, -40000)));
 }
 
 //-------------------------------------------------------------------------------------
