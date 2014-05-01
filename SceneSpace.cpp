@@ -1,7 +1,7 @@
 #include "SceneSpace.h"
 
 SceneSpace::SceneSpace(Ogre::SceneManager* mSceneMgr) : Scene(mSceneMgr) {
-	graphicsEngine->setSkyBox(true, "Examples/SpaceSkyBox", 50000);
+	graphicsEngine->setSkyBox(true, "Examples/SpaceSkyBox2", 50000);
 
 	sceneFinished = false;
 

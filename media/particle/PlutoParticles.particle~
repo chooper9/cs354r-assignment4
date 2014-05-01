@@ -1,16 +1,16 @@
 particle_system Pluto/Twinkle
 {
 	material Examples/FlarePointSprite
-	particle_width 20
-	particle_height 20
+	particle_width 40
+	particle_height 40
 	cull_each false
-	quota 10
+	quota 100
 	billboard_type point
 
 	emitter Box
 	{
-		emission_rate 8
-		time_to_live 2
+		emission_rate 30
+		time_to_live 1
 		direction 0 0 1
 		velocity 0
 		colour 0 0 0 0
@@ -29,7 +29,7 @@ particle_system Pluto/Twinkle
 		green2 -1
 		blue2 -1
 		alpha2 -1
-		state_change 1
+		state_change 0.5
 	}
 }
 

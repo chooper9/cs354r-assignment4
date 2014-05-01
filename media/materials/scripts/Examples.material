@@ -138,7 +138,7 @@ material Examples/SpaceSkyBox
 	}
 }
 
-material Examples/SceneSkyBox1
+material Examples/SpaceSkyBox2
 {
 	technique
 	{
@@ -149,7 +149,25 @@ material Examples/SceneSkyBox1
 
 			texture_unit
 			{
-				cubic_texture cubemap_fr.jpg cubemap_bk.jpg cubemap_lf.jpg cubemap_rt.jpg cubemap_up.jpg cubemap_dn.jpg separateUV
+				cubic_texture spacedust1.jpg spacedust1.jpg spacedust1.jpg spacedust1.jpg spacedust1.jpg spacedust1.jpg separateUV
+				tex_address_mode clamp
+			}
+		}
+	}
+}
+
+material Examples/SpaceSkyBox1
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			depth_write off
+
+			texture_unit
+			{
+				cubic_texture space.jpg space.jpg space.jpg space.jpg space.jpg space.jpg separateUV
 				tex_address_mode clamp
 			}
 		}
@@ -1082,7 +1100,9 @@ material Examples/Sun
 	{
 		pass
 		{
+			lighting off
 			ambient 6.0 6.0 6.0
+			emissive 0.75 0.75 0.75
 			texture_unit
 			{
 				texture sun.jpeg
