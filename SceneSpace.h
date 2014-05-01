@@ -11,12 +11,17 @@ class SceneSpace : public Scene
 private:
 	Planet* pluto;
 	std::vector<Planet*> enemies;
+	Planet* sun;
 	void runAI(const Ogre::FrameEvent& evt);
+	bool sceneFinished;
 public:
 	SceneSpace(Ogre::SceneManager* mSceneMgr);
 	~SceneSpace(void);
 	void finishLevel(enum GameLevel level) {
-		enemies.at(level)->setDestroyed(true);
+		if(level == LV_BOSS) sceneFinished = true;
+		else if(level == LV_SUN) {
+			pluto->setTransform(Ogre::Vector3(0,100, 10000));
+		}else enemies.at(level)->setDestroyed(true);
 	}
 	SceneSpaceResult getResult(enum GameLevel* level);
 	virtual bool setupScene(enum GameLevel level);

@@ -17,7 +17,7 @@
 
 // ======================== Player Constants ======================== 
 enum PlayerAction { IDLE, KICK, KICKED, ATTACK, BLOCK, STOP_BLOCK, THROW_SHURIKEN, JUMP, DIE };
-enum PlayerHp { HP_PLUTO = 100000, HP_NINJA = 100 };
+enum PlayerHp { HP_PLUTO = 100000, HP_NINJA = 100, HP_BOSS = 10000 };
 enum PlayerHeight { HEIGHT_PLUTO = 90, HEIGHT_NINJA = 80 };
 enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
 enum PlayerWeapon { WEAPON_BLADE, WEAPON_SHURIKEN }; 
@@ -29,6 +29,7 @@ typedef struct PlayerState {
 	enum PlayerHp defaultHP;
 	enum PlayerWeapon weapon;
 	int hp;	
+	bool allowShuriken;
 	int numShuriken;
 	Ogre::Real degreeYaw;
 	bool movingLeft;
@@ -80,7 +81,7 @@ enum SceneSpaceResult { PLUTO_TRAVELLING, PLUTO_HIT_PLANET, PLUTO_HIT_OBSTACLE }
 // ============================ Game Constants ==========================
 enum CameraMode { CAM_THIRD_PERSON, CAM_FIRST_PERSON };
 enum GameScene { SCENE_NONE, SCENE_SPACE, SCENE_PLANET };
-enum GameLevel { LV_NEPTUNE = 0,LV_URANUS = 1, LV_SATURN = 2, LV_JUPITER = 3, LV_MARS = 4, LV_EARTH = 5};
+enum GameLevel { LV_NEPTUNE = 0,LV_URANUS = 1, LV_SATURN = 2, LV_JUPITER = 3, LV_MARS = 4, LV_EARTH = 5, LV_SUN = 6, LV_BOSS = 7};
 
 
 // =================== Global Variables and Functions ===================

@@ -88,7 +88,7 @@ material NeptuneTerrainTexture
 
 			texture_unit
 			{
-				texture terrain_neptune_texture.png 2d
+				texture terrain_neptune_texture.jpg 2d
 			}
 		}
 	}
@@ -224,3 +224,31 @@ material PlutoTerrainTennisCourtTexture
 		}
 	}
 }
+
+material PlutoTerrainBossTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture tron.jpg 2d
+			}
+		}
+	}
+}
+

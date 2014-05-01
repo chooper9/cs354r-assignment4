@@ -65,7 +65,6 @@ void Game::exitScene(void) {
 		break;
 	default: break;
 	}
-	titleNode->setVisible (true);
 	if (mainCam->getParentSceneNode() != NULL)
 		mainCam->getParentSceneNode()->detachObject(mainCam);
 	currentScene = NULL;
@@ -83,9 +82,12 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	case SCENE_SPACE:
 		switch(sceneSpace->getResult(&lv)){
 		case PLUTO_HIT_PLANET:
-			currentLevel = lv;
-			sceneSpace->hideScene();
-			enterScene(SCENE_PLANET);
+			if(lv == LV_SUN) {;	
+			} else {
+				currentLevel = lv;
+				sceneSpace->hideScene();
+				enterScene(SCENE_PLANET);
+			}
 			break;
 		case PLUTO_HIT_OBSTACLE: break;
 		default: break;
