@@ -24,6 +24,8 @@ Sound::~Sound(void){
 
 void Sound::start_ambient(){
 	std::cout << "starting ambient sound track \n";
+	if(ambient_chunk != NULL)
+		Mix_FreeChunk(ambient_chunk);
 	ambient_chunk = NULL;
 	ambient_chunk = Mix_LoadWAV(ambient_sound);
 	if(ambient_chunk == NULL)
@@ -38,6 +40,8 @@ void Sound::play_sound(const char* current)
 //	std::cout << "in play_sound \n";
 	if (!sound_effects)
 		return;
+	if (sound_c != NULL)
+		Mix_FreeChunk(sound_c);
 	sound_c = NULL;
 	sound_c = Mix_LoadWAV(current);
 	if(sound_c == NULL){
