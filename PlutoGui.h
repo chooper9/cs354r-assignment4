@@ -48,6 +48,7 @@ void Pluto::setup_PlutoGui() {
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Resume")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::resumeGame, this));
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Options")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showOptions, this));
 	wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showSoundOptions, this));
+	wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds/BGMVolume")->subscribeEvent(CEGUI::Scrollbar::EventScrollPositionChanged, CEGUI::Event::Subscriber(&Pluto::options_set_BGMvolume, this));
 	wmgr.getWindow("Pluto/TitleRoot/StartGame")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::startGame, this));
 	wmgr.getWindow("Pluto/TitleRoot/Controls")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showControls, this));
 	wmgr.getWindow("Pluto/TitleRoot/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
@@ -106,6 +107,12 @@ bool Pluto::showSoundOptions(const CEGUI::EventArgs &e) {
 		wmgr.getWindow("Pluto/PauseRoot/Menu/Options")->enable();
 		animIn2->start();
 	}
+	return true;
+}
+
+bool Pluto::options_set_BGMvolume(const CEGUI::EventArgs &e) {
+	CEGUI::Scrollbar *vol = (CEGUI::Scrollbar*) CEGUI::WindowManager::getSingleton().getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds/BGMVolume");
+	soundHandler->set_ambient_volume(a_channel, (vol->getScrollPosition() * 128));
 	return true;
 }
 
