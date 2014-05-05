@@ -64,11 +64,12 @@ public:
 		playerState.hp = playerState.hp < 0 ? 0 : playerState.hp;
 		switch (n) {
 		case ATTACK_BLADE:
-			std::cout <<"  play sound - hit by blade" << std::endl; break;
+			soundHandler->play_sound(sword_hit); break;
 		case ATTACK_KICK:
-			std::cout <<"  play sound - kicked" << std::endl; break;
+			soundHandler->play_sound(hyah); break;
 		case ATTACK_SHURIKEN:
-			std::cout <<"  play sound - hit by shuriken" << std::endl; break;
+			//std::cout <<"  play sound - hit by shuriken" << std::endl; break;
+			soundHandler->play_sound(grunt);
 		}
 		if(isAI) {
 			hpbar->resetDimensions();

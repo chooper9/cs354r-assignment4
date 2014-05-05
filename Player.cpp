@@ -305,7 +305,8 @@ void Player::checkAttackEffect(Player* enemy) {
 		if (enemy->playerEnt->getAnimationState("Block")->getTimePosition() < 0.24) {
 			enemy->hitBy(ATTACK_BLADE);
 		} else {
-			std::cout <<"  play sound - blocked" << std::endl;
+			//std::cout <<"  play sound - blocked" << std::endl;
+			soundHandler->play_sound(sword_block);
 		}
 	} else if (!attackEffectChecked && playerEnt->getAnimationState("SideKick")->getTimePosition() > 0.3) {
 		enemy->hitBy(ATTACK_KICK);

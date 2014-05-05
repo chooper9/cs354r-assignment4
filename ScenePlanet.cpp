@@ -21,7 +21,7 @@ ScenePlanet::~ScenePlanet(void) {
 
 bool ScenePlanet::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
-
+	soundHandler->start_ambient(ambient_fire);
 	int numEnemies = 0;
 	switch(level) {
 	case LV_NEPTUNE:
