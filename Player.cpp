@@ -103,6 +103,7 @@ void Player::toggleVisible(void) {
 void Player::resetState(void) {
 	playerState.action = IDLE;
 	playerState.hp = playerState.defaultHP;
+	playerState.allowShuriken = false;
 	playerState.step = STEP_NINJA;
 	playerState.weapon = WEAPON_BLADE;
 	playerState.numShuriken = 10000000;
@@ -352,6 +353,10 @@ void Player::reactTo(Player* enemy) {
 		}
 	} else {
 		stopBlock();
+		if(dist < 200 && playerState.allowShuriken) {
+			if (Ogre::Math::UnitRandom() < 0.3)
+				throwShuriken();
+		}
 	}
 
 	if (yaw > 0) playerState.degreeYaw = 1;

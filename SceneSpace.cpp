@@ -1,9 +1,9 @@
 #include "SceneSpace.h"
 
 SceneSpace::SceneSpace(Ogre::SceneManager* mSceneMgr) : Scene(mSceneMgr) {
-	graphicsEngine->setSkyBox(true, "Examples/SpaceSkyBox", 50000);
+	graphicsEngine->setSkyBox(true, "Examples/SpaceSkyBox2", 50000);
 
-	
+	sceneFinished = false;
 
 	enemies.clear();
 	pluto = NULL;
@@ -33,7 +33,7 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(-10000, 0, -18000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(-20000, 0, -22000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(-27000, 0, -28000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(-50000, 0, -18000)));
+	sun = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(-50000, 0, -18000));
 }
 
 //-------------------------------------------------------------------------------------
@@ -42,6 +42,8 @@ bool SceneSpace::destroyScene(void) {
 	detachCamera(camera);
 	if (pluto) delete pluto;
 	pluto = NULL;
+	if (sun) delete sun;
+	sun = NULL;
 	for (std::vector<Planet*>::iterator it = enemies.begin(); it != enemies.end(); it++)
 		delete (*it);
 	enemies.clear();
@@ -84,14 +86,25 @@ bool SceneSpace::runNextFrame(const Ogre::FrameEvent& evt) {
 
 SceneSpaceResult SceneSpace::getResult(enum GameLevel* level) {
 	int lv = 0;
+	bool allDestroyed = true;
 	for (std::vector<Planet*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+		allDestroyed = allDestroyed && (*it)->isDestroyed();
 		if (pluto->isCollidingWith(*it)) {
 			*level = static_cast<GameLevel>(lv);
 			return PLUTO_HIT_PLANET;
 		}
 		lv++;
 	}
-	return PLUTO_TRAVELLING;
+	if (pluto->isCollidingWith(sun)) {
+		*level = LV_SUN;
+		return PLUTO_HIT_PLANET;
+	}
+	if (allDestroyed && !sceneFinished) {
+		*level = LV_BOSS;
+		return PLUTO_HIT_PLANET;
+		
+	} else
+		return PLUTO_TRAVELLING;
 	// return PLUTO_HIT_OBSTACLE 
 }
 

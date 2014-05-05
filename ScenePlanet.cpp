@@ -56,9 +56,19 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 			terrain->setMaterial("MarsTerrainTexture", 600);
 		break;
 	case LV_EARTH:
-		numEnemies = 100;
+		numEnemies = 60;
 		if (currentLevel != level)
 			terrain->setMaterial("EarthTerrainTexture", 800);
+		break;
+	case LV_SUN:
+		numEnemies = 200;
+		if (currentLevel != level)
+			terrain->setMaterial("PlutoTerrainTennisCourtTexture", 1);
+		break;
+	case LV_BOSS:
+		numEnemies = 1;
+		if (currentLevel != level)
+			terrain->setMaterial("PlutoTerrainBossTexture", 800);
 		break;
 	}
 	terrain->showTerrain();
@@ -85,6 +95,12 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 			graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -100)
 		));
 		enemies[i]->setBillboard(enemyHPset->createBillboard(Ogre::Vector3(i*40 - level*200, 80, -100)));
+	}
+	if (level == LV_BOSS) {
+		PlayerState* ps = enemies[0]->getPlayerState();
+		ps->defaultHP = HP_BOSS;
+		ps->hp = HP_BOSS;
+		ps->allowShuriken = true;
 	}
 }
 
