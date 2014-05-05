@@ -225,6 +225,57 @@ material PlutoTerrainTennisCourtTexture
 	}
 }
 
+vertex_program PlutoNinjaTexture_VS glsl
+{
+	source PNT_GLSL_VS.glsl
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+		param_named_auto lpos light_position_object_space 0
+		param_named ambient float4 0.2 0.2 0.2 1.0
+		param_named inCol float4 1 1 1 1
+	}
+}
+
+fragment_program PlutoNinjaTexture_PS glsl
+{
+	source PNT_GLSL_PS.glsl
+	default_params
+	{
+		param_named_auto lightDiffuse light_diffuse_colour 0
+	}
+}
+
+material PlutoNinjaColors
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoNinjaTexture_VS
+			{
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoNinjaTexture_PS
+			{
+				param_named myTexture int 0
+				param_named myOtherTexture int 1
+			}
+
+			texture_unit
+			{
+				texture nskin1.png 2d
+				texture nskin2.png 2d
+			}
+
+		}
+	}
+}
+
+
 material PlutoTerrainBossTexture
 {
 	technique

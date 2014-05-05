@@ -22,12 +22,13 @@ Sound::~Sound(void){
 	SDL_Quit();
 }
 
-void Sound::start_ambient(){
+void Sound::start_ambient(const char* track = ambient_sound){
 	std::cout << "starting ambient sound track \n";
 	if(ambient_chunk != NULL)
 		Mix_FreeChunk(ambient_chunk);
 	ambient_chunk = NULL;
-	ambient_chunk = Mix_LoadWAV(ambient_sound);
+	ambient_chunk = Mix_LoadWAV(track);
+	Mix_VolumeChunk(ambient_chunk, 64);
 	if(ambient_chunk == NULL)
 		fprintf(stdout, "Unable to load ambient wav file: %s \n", Mix_GetError());
 	a_channel = Mix_PlayChannel(-1, ambient_chunk, -1);

@@ -17,7 +17,11 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	positionNode = parentNode->createChildSceneNode();
 	isAI = !isPluto;
 	playerEnt = mSceneMgr->createEntity("ninja.mesh" );
+	playerEnt->setMaterialName("PlutoNinjaColors");
 	playerEnt->setCastShadows(true);
+	Ogre::SubEntity* playerSub = playerEnt->getSubEntity(0);
+	playerSub->setCustomParameter(1, Ogre::Vector4(0.051f, 0.353f, 0.145f, 1.0f));
+	//playerSub->setCustomParameter(1, Ogre::Vector4((209.0/255.0), (139.0/255.0), (27.0/255.0), 1.0f));
 
         playerEnt->getAnimationState("Idle1")->setLoop(true);
         playerEnt->getAnimationState("Walk")->setLoop(true);
@@ -30,7 +34,8 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
         playerEnt->getAnimationState("Death1")->setLoop(false);
 
 	if(isPluto) {
-		playerEnt->setMaterialName("Examples/Ninja/Blue");
+		//playerEnt->setMaterialName("Examples/Ninja/Blue");
+		playerSub->setCustomParameter(1, Ogre::Vector4(0.047f, 0.094f, 0.302f, 1.0f));
 		CEGUI::WindowManager* wmgr = CEGUI::WindowManager::getSingletonPtr();
 		wmgr->getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(0.22, 0));
 		wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(true);

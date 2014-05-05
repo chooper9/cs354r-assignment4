@@ -38,6 +38,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		break;
 	case LV_SATURN:
 		// graphicsEngine->setFog(Ogre::FOG_LINEAR, Ogre::ColourValue(0.9, 0.9, 0.9), 0.0, 50, 500);
+		weather = graphicsEngine->createParticleSystem("fog", "Examples/MyFog");
 		numEnemies = 30;
 		if (currentLevel != level)
 			terrain->setMaterial("SaturnTerrainTexture", 20);
