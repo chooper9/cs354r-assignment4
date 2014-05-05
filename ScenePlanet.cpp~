@@ -23,6 +23,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
 
 	int numEnemies = 0;
+	Ogre::Vector3 enemy_color = Ogre::Vector3(0.051f, 0.353f, 0.145f);
 	switch(level) {
 	case LV_NEPTUNE:
 		numEnemies = 10;
@@ -33,15 +34,12 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 	case LV_URANUS:
 		weather = graphicsEngine->createParticleSystem("Heavy Rain", "Examples/Rain");
 		numEnemies = 20;
+		enemy_color = Ogre::Vector3(0.819f, 0.545f, 0.106f);
 		if (currentLevel != level)
 			terrain->setMaterial("UranusTerrainTexture", 60);
 		break;
 	case LV_SATURN:
-		// graphicsEngine->setFog(Ogre::FOG_LINEAR, Ogre::ColourValue(0.9, 0.9, 0.9), 0.0, 50, 500);
-<<<<<<< HEAD
-		weather = graphicsEngine->createParticleSystem("fog", "Examples/Smoke");
-=======
->>>>>>> 9070c709e05cbd232825c865b4a2c5a1631cdc15
+		weather = graphicsEngine->createParticleSystem("fog", "Examples/MyFog");
 		numEnemies = 30;
 		if (currentLevel != level)
 			terrain->setMaterial("SaturnTerrainTexture", 20);
@@ -70,6 +68,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		break;
 	case LV_BOSS:
 		numEnemies = 1;
+		enemy_color = Ogre::Vector3(0.129f, 0.137f, 0.180f);
 		if (currentLevel != level)
 			terrain->setMaterial("PlutoTerrainBossTexture", 800);
 		break;
@@ -92,12 +91,12 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 	hpBBSnode->attachObject(enemyHPset);
 	enemies.clear();
 
-
 	for(int i = 0; i < numEnemies; i++) {
 		enemies.push_back(new Player(
 			graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -100)
 		));
 		enemies[i]->setBillboard(enemyHPset->createBillboard(Ogre::Vector3(i*40 - level*200, 80, -100)));
+		enemies[i]->setColor(enemy_color.x, enemy_color.y, enemy_color.z);
 	}
 	if (level == LV_BOSS) {
 		PlayerState* ps = enemies[0]->getPlayerState();
@@ -144,7 +143,7 @@ bool ScenePlanet::addCamera(Ogre::Camera* cam, enum CameraMode camMode) {
 //-------------------------------------------------------------------------------------
 
 void ScenePlanet::runAI(const Ogre::FrameEvent& evt) {
-	int i = 0;
+	int enemiesLeft = 0;
 	bool run = false;
 	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
 		Player* enemy = *it;
@@ -152,9 +151,14 @@ void ScenePlanet::runAI(const Ogre::FrameEvent& evt) {
 			pluto->reactTo(enemy);
 			enemy->reactTo(pluto);
 			run = true;
+			++enemiesLeft;
 		}
 		enemy->runNextFrame(evt, pluto, enemies);
 	}
+	sprintf(num_enemies_buf, "%d", enemiesLeft);
+	std::string enemy_string = "Enemies Remaining: ";
+	enemy_string += num_enemies_buf;
+	CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/EnemyCount")->setText(enemy_string);
 }
 
 //-------------------------------------------------------------------------------------

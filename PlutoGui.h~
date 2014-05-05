@@ -43,10 +43,12 @@ void Pluto::setup_PlutoGui() {
 	
 
 	// subscribe events
+	
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Quit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Resume")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::resumeGame, this));
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Options")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showOptions, this));
 	wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showSoundOptions, this));
+	wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds/BGMVolume")->subscribeEvent(CEGUI::Scrollbar::EventScrollPositionChanged, CEGUI::Event::Subscriber(&Pluto::options_set_BGMvolume, this));
 	wmgr.getWindow("Pluto/TitleRoot/StartGame")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::startGame, this));
 	wmgr.getWindow("Pluto/TitleRoot/Controls")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showControls, this));
 	wmgr.getWindow("Pluto/TitleRoot/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
@@ -108,9 +110,22 @@ bool Pluto::showSoundOptions(const CEGUI::EventArgs &e) {
 	return true;
 }
 
+bool Pluto::options_set_BGMvolume(const CEGUI::EventArgs &e) {
+	CEGUI::Scrollbar *vol = (CEGUI::Scrollbar*) CEGUI::WindowManager::getSingleton().getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds/BGMVolume");
+	soundHandler->set_ambient_volume(a_channel, (vol->getScrollPosition() * 128));
+	return true;
+}
+
+bool Pluto::options_set_SFXvolume(const CEGUI::EventArgs &e) {
+	CEGUI::Scrollbar *vol = (CEGUI::Scrollbar*) CEGUI::WindowManager::getSingleton().getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds/SFXVolume");
+	soundHandler->set_effects_volume(vol->getScrollPosition() * 128);
+	return true;
+}
+
 bool Pluto::startGame(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/TitleRoot")->setVisible(false);
 	CEGUI::MouseCursor::getSingleton().hide();
+	game->enterScene(SCENE_SPACE);
 	return true;
 }
 

@@ -14,7 +14,6 @@ void main()
 	vec4 darkerCol = vec4(0.6, 0.6, 0.6, 1.0);
 	vec4 texCol = (texture2D(myTexture, vTexCoord)*modCol)
 			+ (texture2D(myOtherTexture, vTexCoord)*darkerCol);
-	gl_FragColor = 2*(Kd + Ka)*texCol;
-	//gl_FragColor = (Kd + Ka)*texCol;
+	gl_FragColor = (Kd + Ka)*texCol;
 	gl_FragColor.a = 1.0;
 }

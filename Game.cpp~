@@ -3,7 +3,7 @@
 Game::Game(Ogre::SceneManager* mSceneMgr) {
 	currentLevel= LV_NEPTUNE;
 	debugging = false;
-	gamePaused = false;
+	gamePaused = true;
 	graphicsEngine = mSceneMgr;
 	mainCam = graphicsEngine->getCamera("MainCam");
 	currentGameScene = SCENE_NONE;
@@ -82,12 +82,9 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 	case SCENE_SPACE:
 		switch(sceneSpace->getResult(&lv)){
 		case PLUTO_HIT_PLANET:
-			if(lv == LV_SUN) {;	
-			} else {
-				currentLevel = lv;
-				sceneSpace->hideScene();
-				enterScene(SCENE_PLANET);
-			}
+			currentLevel = lv;
+			sceneSpace->hideScene();
+			enterScene(SCENE_PLANET);
 			break;
 		case PLUTO_HIT_OBSTACLE: break;
 		default: break;

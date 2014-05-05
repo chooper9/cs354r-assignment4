@@ -116,9 +116,16 @@ bool Pluto::options_set_BGMvolume(const CEGUI::EventArgs &e) {
 	return true;
 }
 
+bool Pluto::options_set_SFXvolume(const CEGUI::EventArgs &e) {
+	CEGUI::Scrollbar *vol = (CEGUI::Scrollbar*) CEGUI::WindowManager::getSingleton().getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds/SFXVolume");
+	soundHandler->set_effects_volume(vol->getScrollPosition() * 128);
+	return true;
+}
+
 bool Pluto::startGame(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/TitleRoot")->setVisible(false);
 	CEGUI::MouseCursor::getSingleton().hide();
+	game->unPause();
 	game->enterScene(SCENE_SPACE);
 	return true;
 }

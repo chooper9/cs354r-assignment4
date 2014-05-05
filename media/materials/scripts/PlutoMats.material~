@@ -225,6 +225,33 @@ material PlutoTerrainTennisCourtTexture
 	}
 }
 
+material PlutoTerrainBossTexture
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			vertex_program_ref PlutoTerrainTexture_VS
+			{
+				param_named_auto worldViewProj worldviewproj_matrix
+				param_named_auto inCol custom 1
+			}
+
+			fragment_program_ref PlutoTerrainTexture_PS
+			{
+				param_named myTexture int 0
+			}
+
+			texture_unit
+			{
+				texture tron.jpg 2d
+			}
+		}
+	}
+}
+
 vertex_program PlutoNinjaTexture_VS glsl
 {
 	source PNT_GLSL_VS.glsl
@@ -268,37 +295,13 @@ material PlutoNinjaColors
 			texture_unit
 			{
 				texture nskin1.png 2d
-				texture nskin2.png 2d
-			}
-
-		}
-	}
-}
-
-
-material PlutoTerrainBossTexture
-{
-	technique
-	{
-		pass
-		{
-			scene_blend alpha_blend
-
-			vertex_program_ref PlutoTerrainTexture_VS
-			{
-				param_named_auto worldViewProj worldviewproj_matrix
-				param_named_auto inCol custom 1
-			}
-
-			fragment_program_ref PlutoTerrainTexture_PS
-			{
-				param_named myTexture int 0
 			}
 
 			texture_unit
 			{
-				texture tron.jpg 2d
+				texture nskin2.png 2d
 			}
+
 		}
 	}
 }

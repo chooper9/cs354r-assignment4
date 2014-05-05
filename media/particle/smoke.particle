@@ -62,8 +62,8 @@ particle_system Examples/MyFog
 		direction 0 1 0
 		velocity_min 3
 		velocity_max 15
-		width 1500
-		height 1500
+		width 1800
+		height 1800
 		depth 100   	
 	}
 

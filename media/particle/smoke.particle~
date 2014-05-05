@@ -49,7 +49,7 @@ particle_system Examples/MyFog
 	particle_width  	200
 	particle_height 	100
 	cull_each       	true
-	quota           	80
+	quota           	100
 	billboard_type  	point
 	sorted				true
     
@@ -58,12 +58,12 @@ particle_system Examples/MyFog
 	{
 		position 0 50 -15
 		emission_rate 15
-		time_to_live 7
+		time_to_live 6
 		direction 0 1 0
 		velocity_min 3
 		velocity_max 15
-		width 1250
-		height 1250
+		width 1500
+		height 1500
 		depth 100   	
 	}
 

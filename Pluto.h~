@@ -50,6 +50,7 @@ Ogre::AnimationState* animation;
 	bool quitGame(const CEGUI::EventArgs &e);
 	bool showOptions(const CEGUI::EventArgs &e);
 	bool showSoundOptions(const CEGUI::EventArgs &e);
+	bool options_set_BGMvolume(const CEGUI::EventArgs &e);
 	bool startGame(const CEGUI::EventArgs &e);
 	bool showControls(const CEGUI::EventArgs &e);
 	bool controls_togglePage(const CEGUI::EventArgs &e);

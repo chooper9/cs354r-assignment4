@@ -3,7 +3,7 @@
 Game::Game(Ogre::SceneManager* mSceneMgr) {
 	currentLevel= LV_NEPTUNE;
 	debugging = false;
-	gamePaused = false;
+	gamePaused = true;
 	graphicsEngine = mSceneMgr;
 	mainCam = graphicsEngine->getCamera("MainCam");
 	currentGameScene = SCENE_NONE;
