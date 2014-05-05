@@ -21,7 +21,7 @@ ScenePlanet::~ScenePlanet(void) {
 
 bool ScenePlanet::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
-
+	soundHandler->start_ambient(ambient_fire);
 	int numEnemies = 0;
 	Ogre::Vector3 enemy_color = Ogre::Vector3(0.051f, 0.353f, 0.145f);
 	switch(level) {
