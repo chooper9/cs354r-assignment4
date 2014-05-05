@@ -32,7 +32,7 @@ void Sound::start_ambient(const char* track){
 		Mix_FreeMusic(ambient_chunk);
 	ambient_chunk = NULL;
 	ambient_chunk = Mix_LoadMUS(track);
-	Mix_VolumeMusic(64);
+	Mix_VolumeMusic(amb_vol);
 	if(ambient_chunk == NULL)
 		fprintf(stdout, "Unable to load ambient wav file: %s \n", Mix_GetError());
 	a_channel = Mix_PlayMusic(ambient_chunk, -1);
@@ -62,6 +62,7 @@ void Sound::play_sound(const char* current)
 void Sound::set_ambient_volume(int chan, int vol)
 {
 		Mix_VolumeMusic(vol);
+		amb_vol = vol;
 }
 
 void Sound::set_effects_volume(int vol){

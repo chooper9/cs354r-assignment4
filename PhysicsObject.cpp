@@ -11,7 +11,7 @@ PhysicsObject::PhysicsObject(void) :
 PhysicsObject::~PhysicsObject(void)
 {
 	clearData();
-	std::cout << "========= Debug: Physics Object Deleted =========" << std::endl;
+	//std::cout << "========= Debug: Physics Object Deleted =========" << std::endl;
 }
 
 

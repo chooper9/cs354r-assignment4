@@ -43,7 +43,7 @@ Shuriken::~Shuriken(void) {
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
 	graphicsEngine->destroySceneNode(positionNode);
-	std::cout << "========= Debug: Shuriken Deleted =========" << std::endl;
+	//std::cout << "========= Debug: Shuriken Deleted =========" << std::endl;
 }
 
 //-------------------------------------------------------------------------------------

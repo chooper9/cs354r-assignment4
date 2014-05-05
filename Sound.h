@@ -42,5 +42,5 @@ static Mix_Music *ambient_chunk;
 static Uint8 *audio_chunk;
 static Uint32 audio_len;
 static Uint8 *audio_pos;
-static int channel, a_channel, p_u_chan, effects_vol = 32;
+static int channel, a_channel, p_u_chan, effects_vol = 64, amb_vol = 64;
 #endif
