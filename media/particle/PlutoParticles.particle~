@@ -105,7 +105,7 @@ particle_system Pluto/CometTail
 	{
 		red -0.05
 		green -0.05
-		blue -0.2
+		blue -0.25
 	}
 	affector Scaler
    	{
