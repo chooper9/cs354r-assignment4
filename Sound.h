@@ -37,6 +37,8 @@ public:
 	void set_ambient_volume(int chan, int vol);
 	void set_effects_volume(int vol);
 	void stop_ambient();
+	void fade_out_music();
+	void play_explosion();
 };
 
 static SDL_AudioSpec s_wanted;

@@ -67,6 +67,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 			terrain->setMaterial("PlutoTerrainTennisCourtTexture", 1);
 		break;
 	case LV_BOSS:
+		soundHandler->fade_out_music();
 		soundHandler->start_ambient(bossbattle);
 		numEnemies = 1;
 		enemy_color = Ogre::Vector3(0.129f, 0.137f, 0.180f);
@@ -111,6 +112,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 
 bool ScenePlanet::destroyScene(void) {
 	detachCamera(camera);
+	soundHandler->play_explosion();
 	if(weather != NULL && pluto) {
 		pluto->getSceneNode()->detachObject(weather);
 		graphicsEngine->destroyParticleSystem(weather);

@@ -59,6 +59,23 @@ void Sound::play_sound(const char* current)
 		fprintf(stdout, "Unable to play wav file: %s \n", Mix_GetError());
 }
 
+void Sound::play_explosion(){
+	if (!sound_effects)
+		return;
+	if (sound_c != NULL)
+		Mix_FreeChunk(sound_c);
+	sound_c = NULL;
+	sound_c = Mix_LoadWAV(explosion);
+	if(sound_c == NULL){
+		fprintf(stdout, "Unable to load wav file: %s \n", Mix_GetError());
+		return;
+	}
+	Mix_VolumeChunk(sound_c, 55);
+	channel = Mix_PlayChannel(-1, sound_c, 0);
+	if(channel == -1)
+		fprintf(stdout, "Unable to play wav file: %s \n", Mix_GetError());
+}
+
 void Sound::set_ambient_volume(int chan, int vol)
 {
 		Mix_VolumeMusic(vol);
@@ -71,4 +88,8 @@ void Sound::set_effects_volume(int vol){
 
 void Sound::stop_ambient(){
 	Mix_HaltMusic();
+}
+
+void Sound::fade_out_music(){
+	Mix_FadeOutMusic(1000);
 }
