@@ -5,6 +5,7 @@ ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr
 	enemies.clear();
 	pluto = NULL;
 	weather = NULL;
+	weatherNode = mSceneMgr->createSceneNode("WeatherNode");
 	terrain = OGRE_NEW SceneTerrain("terrain.png", "NeptuneTerrainTexture", graphicsEngine);
 	terrain->hideTerrain();
 	currentLevel = LV_NEPTUNE;
@@ -21,7 +22,7 @@ ScenePlanet::~ScenePlanet(void) {
 
 bool ScenePlanet::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
-	soundHandler->start_ambient(ambient_fire);
+	//soundHandler->start_ambient(toglory);
 	int numEnemies = 0;
 	Ogre::Vector3 enemy_color = Ogre::Vector3(0.051f, 0.353f, 0.145f);
 	switch(level) {
@@ -34,18 +35,21 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 	case LV_URANUS:
 		weather = graphicsEngine->createParticleSystem("Heavy Rain", "Examples/Rain");
 		numEnemies = 20;
-		enemy_color = Ogre::Vector3(0.819f, 0.545f, 0.106f);
+		enemy_color = Ogre::Vector3(0.275f, 0.839f, 0.800f);
 		if (currentLevel != level)
 			terrain->setMaterial("UranusTerrainTexture", 60);
 		break;
 	case LV_SATURN:
 		weather = graphicsEngine->createParticleSystem("fog", "Examples/MyFog");
 		numEnemies = 30;
+		enemy_color = Ogre::Vector3(0.819f, 0.545f, 0.106f);
 		if (currentLevel != level)
 			terrain->setMaterial("SaturnTerrainTexture", 20);
 		break;
 	case LV_JUPITER:
 		numEnemies = 40;
+		enemy_color = Ogre::Vector3(0.431f, 0.271f, 0.043f);
+		weather = graphicsEngine->createParticleSystem("Firewall", "Pluto/FlameGeysers");
 		if (currentLevel != level)
 			terrain->setMaterial("JupiterTerrainTexture", 30);
 		break;
@@ -53,6 +57,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		numEnemies = 50;
 		weather = graphicsEngine->createParticleSystem("Heavy Rain", "Examples/Rain");
 		weather->setMaterialName("Examples/Droplet_Red");
+		enemy_color = Ogre::Vector3(0.612f, 0.043f, 0.043f);
 		if (currentLevel != level)
 			terrain->setMaterial("MarsTerrainTexture", 600);
 		break;
@@ -67,6 +72,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 			terrain->setMaterial("PlutoTerrainTennisCourtTexture", 1);
 		break;
 	case LV_BOSS:
+		soundHandler->start_ambient(bossbattle);
 		numEnemies = 1;
 		enemy_color = Ogre::Vector3(0.129f, 0.137f, 0.180f);
 		if (currentLevel != level)
@@ -78,8 +84,13 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
-	if(weather != NULL)
-		pluto->getSceneNode()->attachObject(weather);
+	if(weather != NULL) {
+		weatherNode->attachObject(weather);
+		if(weather->getName() == "Firewall")
+			graphicsEngine->getRootSceneNode()->addChild(weatherNode);
+		else
+			pluto->getSceneNode()->addChild(weatherNode);
+	}
 	enemyHPset = graphicsEngine->createBillboardSet("EnemyHPSet");
 	enemyHPset->setPoolSize(level*10);
 	enemyHPset->setMaterialName("Pluto/EnemyHP");
@@ -111,7 +122,11 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 bool ScenePlanet::destroyScene(void) {
 	detachCamera(camera);
 	if(weather != NULL && pluto) {
-		pluto->getSceneNode()->detachObject(weather);
+		if(weather->getName() == "Firewall")
+			graphicsEngine->getRootSceneNode()->removeChild("WeatherNode");
+		else
+			pluto->getSceneNode()->removeChild("WeatherNode");
+		weatherNode->detachObject(weather);
 		graphicsEngine->destroyParticleSystem(weather);
 	}
 	weather = NULL;
