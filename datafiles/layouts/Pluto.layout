@@ -229,6 +229,13 @@
 		<Window Type="DefaultWindow" Name="Pluto/EndGameRoot">
 			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
 			<Property Name="Visible" Value="False" />
+			<Window Type="TaharezLook/StaticImage" Name="Pluto/EndGameRoot/Congrats">
+				<Property Name="UnifiedSize" Value="{{0.5,0},{0.3,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.25,0},{0.35,0}}" />
+				<Property Name="Image" Value="set:Pluto image:Congrats" />
+				<Property Name="BackgroundEnabled" Value="False" />
+				<Property Name="FrameEnabled" Value="False" />
+			</Window>
 		</Window>
 	</Window>
 </GUILayout>

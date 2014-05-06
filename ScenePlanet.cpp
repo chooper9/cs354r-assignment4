@@ -5,6 +5,7 @@ ScenePlanet::ScenePlanet(Ogre::SceneManager* mSceneMgr) : Scene::Scene(mSceneMgr
 	enemies.clear();
 	pluto = NULL;
 	weather = NULL;
+	weatherNode = mSceneMgr->createSceneNode("WeatherNode");
 	terrain = OGRE_NEW SceneTerrain("terrain.png", "NeptuneTerrainTexture", graphicsEngine);
 	terrain->hideTerrain();
 	currentLevel = LV_NEPTUNE;
@@ -46,6 +47,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		break;
 	case LV_JUPITER:
 		numEnemies = 40;
+		weather = graphicsEngine->createParticleSystem("Firewall", "Pluto/FlameGeysers");
 		if (currentLevel != level)
 			terrain->setMaterial("JupiterTerrainTexture", 30);
 		break;
@@ -78,8 +80,13 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
-	if(weather != NULL)
-		pluto->getSceneNode()->attachObject(weather);
+	if(weather != NULL) {
+		weatherNode->attachObject(weather);
+		if(weather->getName() == "Firewall")
+			graphicsEngine->getRootSceneNode()->addChild(weatherNode);
+		else
+			pluto->getSceneNode()->addChild(weatherNode);
+	}
 	enemyHPset = graphicsEngine->createBillboardSet("EnemyHPSet");
 	enemyHPset->setPoolSize(level*10);
 	enemyHPset->setMaterialName("Pluto/EnemyHP");
@@ -111,7 +118,11 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 bool ScenePlanet::destroyScene(void) {
 	detachCamera(camera);
 	if(weather != NULL && pluto) {
-		pluto->getSceneNode()->detachObject(weather);
+		if(weather->getName() == "Firewall")
+			graphicsEngine->getRootSceneNode()->removeChild("WeatherNode");
+		else
+			pluto->getSceneNode()->removeChild("WeatherNode");
+		weatherNode->detachObject(weather);
 		graphicsEngine->destroyParticleSystem(weather);
 	}
 	weather = NULL;

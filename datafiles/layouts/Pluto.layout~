@@ -148,7 +148,7 @@
 					</Window>
 					<Window Type="TaharezLook/StaticText" Name="Pluto/OptionsRoot/OptionsMenu/Sounds/SFX">
 						<Property Name="UnifiedSize" Value="{{1,0},{0.2,0}}" />
-						<Property Name="UnifiedPosition" Value="{{0,0},{0.3,0}}" />
+						<Property Name="UnifiedPosition" Value="{{0,0},{0.35,0}}" />
 						<Property Name="Text" Value=" SFX Volume" />
 						<Property Name="FrameEnabled" Value="False" />
 						<Property Name="BackgroundEnabled" Value="False" />
@@ -156,7 +156,7 @@
 					</Window>
 					<Window Type="TaharezLook/HorizontalScrollbar" Name="Pluto/OptionsRoot/OptionsMenu/Sounds/SFXVolume">
 						<Property Name="UnifiedSize" Value="{{0.9,0},{0.08,0}}" />
-						<Property Name="UnifiedPosition" Value="{{0.05,0},{0.5,0}}" />
+						<Property Name="UnifiedPosition" Value="{{0.05,0},{0.55,0}}" />
 						<Property Name="StepSize" Value="0.2" />
 						<Property Name="ScrollPosition" Value="0.5" />
 						<Property Name="ZOrderChangeEnabled" Value="False" />
@@ -229,6 +229,15 @@
 		<Window Type="DefaultWindow" Name="Pluto/EndGameRoot">
 			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
 			<Property Name="Visible" Value="False" />
+			<Window Type="TaharezLook/StaticImage" Name="Pluto/EndGameRoot/Congrats">
+				<Property Name="UnifiedSize" Value="{{0.5,0},{0.3,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.25,0},{0.35,0}}" />
+				<Property Name="Image" Value="set:Pluto image:Congrats" />
+				<Property Name="BackgroundEnabled" Value="False" />
+				<Property Name="FrameEnabled" Value="False" />
+				<Property Name="ZOrderChangeEnabled" Value="True" />
+				<Property Name="Visible" Value="False" />
+			</Window>
 		</Window>
 	</Window>
 </GUILayout>

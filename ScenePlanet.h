@@ -16,6 +16,7 @@ private:
 	std::vector<Player*> enemies;
 	Ogre::BillboardSet* enemyHPset;
 	Ogre::ParticleSystem* weather;
+	Ogre::SceneNode* weatherNode;
 	char num_enemies_buf[5];
 
 	SceneTerrain* terrain;

@@ -62,8 +62,8 @@ particle_system Examples/MyFog
 		direction 0 1 0
 		velocity_min 3
 		velocity_max 15
-		width 1500
-		height 1500
+		width 1800
+		height 1800
 		depth 100   	
 	}
 
@@ -83,6 +83,47 @@ particle_system Examples/MyFog
    	affector Scaler
    	{
        	rate 10
+   	}
+
+}
+
+particle_system Examples/Explode
+{
+	material        	Examples/Smoke
+	particle_width  	50
+	particle_height 	50
+	cull_each       	true
+	quota           	500
+	billboard_type  	point
+	sorted				true
+    
+	// Area emitter
+	emitter Point
+	{
+		angle 35
+		emission_rate 10
+		time_to_live 2
+		duration 3
+		direction 0 1 0
+		velocity 0    	
+	}
+
+	affector ColourImage
+	{
+		image smokecolors.png
+	}
+
+   	affector Rotator
+   	{
+		rotation_range_start 0
+		rotation_range_end 360
+		rotation_speed_range_start -60
+		rotation_speed_range_end 200
+   	}
+
+   	affector Scaler
+   	{
+       	rate 200
    	}
 
 }
