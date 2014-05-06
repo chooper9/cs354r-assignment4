@@ -89,6 +89,10 @@ Planet::~Planet(void) {
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
 	graphicsEngine->destroySceneNode(positionNode);
+	if(explosion){
+		graphicsEngine->destroyParticleSystem(explosion);
+		graphicsEngine->destroyParticleSystem(explosionSmoke);
+	}
 	std::cout << "========= Debug: Planet Deleted =========" << std::endl;
 }
 
