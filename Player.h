@@ -37,6 +37,9 @@ public:
 	void reactTo(Player* enemy);
 	void setBillboard(Ogre::Billboard* bb) { hpbar = bb; }
 	void setColor(float r, float g, float b) { playerEnt->getSubEntity(0)->setCustomParameter(1, Ogre::Vector4(r, g, b, 1.0f)); }
+	void setRandColor() { playerEnt->getSubEntity(0)->setCustomParameter(1, Ogre::Vector4(Ogre::Math::UnitRandom(),
+												Ogre::Math::UnitRandom(),
+												Ogre::Math::UnitRandom(), 1.0f)); }
 	void setTransform(const Ogre::Vector3& pos=Ogre::Vector3::ZERO, const Ogre::Quaternion& q=Ogre::Quaternion::IDENTITY);
 	void setThrowTennis(bool b) { throwTennis = b; }
 	Ogre::SceneNode* getSceneNode(void) { return positionNode; }
