@@ -22,8 +22,6 @@ SceneSpace::~SceneSpace(void) {
 
 bool SceneSpace::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
-
-	
 	
 	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, 0, Ogre::Vector3(0,100, 10000));
@@ -34,7 +32,7 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(-20000, 0, -22000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(-27000, 0, -28000)));
 	sun = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(-50000, 0, -18000));
-	soundHandler->start_ambient(ambient_sound);
+	soundHandler->start_ambient(toglory);
 }
 
 //-------------------------------------------------------------------------------------

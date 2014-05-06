@@ -68,3 +68,7 @@ void Sound::set_ambient_volume(int chan, int vol)
 void Sound::set_effects_volume(int vol){
 	effects_vol = vol;
 }
+
+void Sound::stop_ambient(){
+	Mix_HaltMusic();
+}

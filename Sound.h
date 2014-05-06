@@ -23,6 +23,8 @@ static const char *explosion = "./media/sounds/explosion.wav";
 static const char *sword_miss = "./media/sounds/sword_swipe.wav";
 static const char *sword_hit = "./media/sounds/sword_slice_flesh.wav";
 static const char *sword_block = "./media/sounds/sword_block.wav";
+static const char *toglory = "./media/sounds/toglory.wav";
+static const char *bossbattle = "./media/sounds/pokemonrockremix.wav";
 
 static bool sound_effects = true;
 
@@ -34,6 +36,7 @@ public:
 	void start_ambient(const char* track = ambient_sound);
 	void set_ambient_volume(int chan, int vol);
 	void set_effects_volume(int vol);
+	void stop_ambient();
 };
 
 static SDL_AudioSpec s_wanted;
