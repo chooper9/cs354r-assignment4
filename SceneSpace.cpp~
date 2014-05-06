@@ -27,6 +27,7 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	
 	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, 0, Ogre::Vector3(0,100, 10000));
+	pluto->getSceneNode()->attachObject(graphicsEngine->createParticleSystem("boom", "Examples/Explode"));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 0, Ogre::Vector3(0, 0, 5000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 1, Ogre::Vector3(-100, 0, -5000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 2, Ogre::Vector3(-2006, 0, -12000)));
@@ -34,6 +35,7 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(-20000, 0, -22000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(-27000, 0, -28000)));
 	sun = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(-50000, 0, -18000));
+	soundHandler->start_ambient(ambient_sound);
 }
 
 //-------------------------------------------------------------------------------------
@@ -95,7 +97,6 @@ SceneSpaceResult SceneSpace::getResult(enum GameLevel* level) {
 		}
 		lv++;
 	}
-	allDestroyed = true;
 	if (pluto->isCollidingWith(sun)) {
 		*level = LV_SUN;
 		return PLUTO_HIT_PLANET;

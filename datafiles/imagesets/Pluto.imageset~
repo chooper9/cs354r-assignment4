@@ -7,5 +7,4 @@
 	<Image Name="ControlBase" XPos="0" YPos="260" Width="860" Height="360" />
 	<Image Name="ControlPlanet" XPos="0" YPos="622" Width="860" Height="360" />
 	<Image Name="ControlPlanetNotes" XPos="276" YPos="977" Width="563" Height="37" />
-	<Image Name="Congrats" XPos="351" YPos="0" Width="419" Height="211" />
 </Imageset>
