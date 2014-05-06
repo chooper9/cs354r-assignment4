@@ -105,7 +105,10 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 				soundHandler->play_sound(win);
 			}
 			break;
-		case PLUTO_LOSE: break;
+		case PLUTO_LOSE: 
+			exitScene();
+			enterScene(SCENE_PLANET);
+			break;
 		default: break;
 		}
 		break;
