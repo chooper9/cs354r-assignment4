@@ -3,10 +3,10 @@
 # libtool - Provide generalized library-building support services.
 # Generated automatically by config.status (SampleApp) 0.1
 <<<<<<< HEAD
-# Libtool was configured on host rovner:
+# Libtool was configured on host oh-henry:
 =======
-# Libtool was configured on host raum:
->>>>>>> c09f2ad49dd9bc6e1b3941aefbbc931194b25bbe
+# Libtool was configured on host payday:
+>>>>>>> c336c42ac9008a30c5a06c98ffe2ff2fbf78a909
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
 #   Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005,

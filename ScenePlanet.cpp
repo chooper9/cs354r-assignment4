@@ -29,24 +29,27 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 	case LV_NEPTUNE:
 		numEnemies = 10;
 		weather = graphicsEngine->createParticleSystem("Heavy Snow", "Examples/Snow");
+		enemy_color = Ogre::Vector3(0.860f, 0.883f, 0.933f);
 		if (currentLevel != level)
 			terrain->setMaterial("NeptuneTerrainTexture", 10);
 		break;
 	case LV_URANUS:
 		weather = graphicsEngine->createParticleSystem("Heavy Rain", "Examples/Rain");
 		numEnemies = 20;
-		enemy_color = Ogre::Vector3(0.819f, 0.545f, 0.106f);
+		enemy_color = Ogre::Vector3(0.275f, 0.839f, 0.800f);
 		if (currentLevel != level)
 			terrain->setMaterial("UranusTerrainTexture", 60);
 		break;
 	case LV_SATURN:
 		weather = graphicsEngine->createParticleSystem("fog", "Examples/MyFog");
 		numEnemies = 30;
+		enemy_color = Ogre::Vector3(0.819f, 0.545f, 0.106f);
 		if (currentLevel != level)
 			terrain->setMaterial("SaturnTerrainTexture", 20);
 		break;
 	case LV_JUPITER:
 		numEnemies = 40;
+		enemy_color = Ogre::Vector3(0.431f, 0.271f, 0.043f);
 		weather = graphicsEngine->createParticleSystem("Firewall", "Pluto/FlameGeysers");
 		if (currentLevel != level)
 			terrain->setMaterial("JupiterTerrainTexture", 30);
@@ -55,6 +58,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		numEnemies = 50;
 		weather = graphicsEngine->createParticleSystem("Heavy Rain", "Examples/Rain");
 		weather->setMaterialName("Examples/Droplet_Red");
+		enemy_color = Ogre::Vector3(0.612f, 0.043f, 0.043f);
 		if (currentLevel != level)
 			terrain->setMaterial("MarsTerrainTexture", 600);
 		break;
