@@ -16,6 +16,7 @@ private:
 	std::vector<Player*> enemies;
 	Ogre::BillboardSet* enemyHPset;
 	Ogre::ParticleSystem* weather;
+	char num_enemies_buf[5];
 
 	SceneTerrain* terrain;
 	enum GameLevel currentLevel;
