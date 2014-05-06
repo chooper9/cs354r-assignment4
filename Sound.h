@@ -14,9 +14,6 @@ created: 4/17/2014
 
 //CONSTANTS TO IDENTIFY EACH SOUND
 static const char *ambient_sound = "./media/sounds/spring-weather-1.wav";
-static const char *ambient_fire = "./media/sounds/fire-1.wav";
-static const char *player_win = "./media/sounds/player_win.wav";
-static const char *player_lose = "./media/sounds/player_lose.wav";
 static const char *grunt = "./media/sounds/grunt.wav";
 static const char *hyah = "./media/sounds/hyah.wav";
 static const char *explosion = "./media/sounds/explosion.wav";
@@ -25,6 +22,9 @@ static const char *sword_hit = "./media/sounds/sword_slice_flesh.wav";
 static const char *sword_block = "./media/sounds/sword_block.wav";
 static const char *toglory = "./media/sounds/toglory.wav";
 static const char *bossbattle = "./media/sounds/pokemonrockremix.wav";
+static const char *win = "./media/sounds/tada.wav";
+static const char *fireworks = "./media/sounds/fireworks.wav";
+static const char *pluto_dead = "./media/sounds/pluto_dead.wav";
 
 static bool sound_effects = true;
 
