@@ -109,9 +109,8 @@ void Planet::resetState(void) {
 void Planet::runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vector<Planet*>& enemies) {
 	
 	Ogre::Vector3 direction(0, 0, 0);
-	if (planetState.movingLeft) {
+	if (planetState.movingLeft) 
 		direction.x -= planetState.step;	
-	}
 	if (planetState.movingRight)
 		direction.x += planetState.step;
 	if (planetState.movingForward)
@@ -139,26 +138,6 @@ void Planet::runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vecto
 		Ogre::Vector3 oldPos = positionNode->getPosition();
 		positionNode->translate(direction, Ogre::Node::TS_LOCAL);
 		
-		
-		// check collisions between Planetoids
-		/*
-		Ogre::Vector3 pushedPosition(0, 0, 0);
-		for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-			Player* enemy = *it;
-			if (isAI && this == enemy) continue;
-			if (this != enemy && !enemy->isDead() && isCollidingWith(enemy)){
-				positionNode->translate(direction*(-0.6), Ogre::Node::TS_LOCAL);
-				if (isCollidingWith(enemy, pushedPosition))
-					positionNode->setPosition(pushedPosition);
-				break;
-			}
-		}
-		if (isAI && !pluto->isDead() && isCollidingWith(pluto)) {
-			positionNode->translate(direction*(-0.6), Ogre::Node::TS_LOCAL);
-			if (isCollidingWith(pluto, pushedPosition))
-				positionNode->setPosition(pushedPosition);
-		}
-		*/
 	}
 	setTransform(positionNode->getPosition(), positionNode->getOrientation());
 }

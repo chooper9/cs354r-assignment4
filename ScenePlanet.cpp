@@ -108,9 +108,31 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 	enemies.clear();
 
 	for(int i = 0; i < numEnemies; i++) {
-		enemies.push_back(new Player(
-			graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -100)
-		));
+		if (i < 5) {
+			enemies.push_back(new Player(
+				graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -100)
+			));
+		}
+		else if (i < 15) {
+			enemies.push_back(new Player(
+				graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -500)
+			));
+		}
+		else if (i < 45) {
+			enemies.push_back(new Player(
+				graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -1000)
+			));
+		}
+		else if (i < 100) {
+			enemies.push_back(new Player(
+				graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -1500)
+			));
+		}
+		else {
+			enemies.push_back(new Player(
+				graphicsEngine, sceneRootNode, physicsEngine, false, terrain, Ogre::Vector3(i*40 - level*200, 0, -2000)
+			));
+		}
 		enemies[i]->setBillboard(enemyHPset->createBillboard(Ogre::Vector3(i*40 - level*200, 80, -100)));
 		enemies[i]->setColor(enemy_color.x, enemy_color.y, enemy_color.z);
 	}

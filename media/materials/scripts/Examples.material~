@@ -1116,7 +1116,7 @@ material Examples/Sun
 		{
 			lighting off
 			ambient 6.0 6.0 6.0
-			emissive 0.75 0.75 0.75
+			emissive 1 1 1
 			texture_unit
 			{
 				texture sun.jpeg
