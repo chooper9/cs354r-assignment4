@@ -74,6 +74,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 			terrain->setMaterial("PlutoTerrainTennisCourtTexture", 1);
 		break;
 	case LV_BOSS:
+		soundHandler->fade_out_music();
 		soundHandler->start_ambient(bossbattle);
 		numEnemies = 1;
 		enemy_color = Ogre::Vector3(0.129f, 0.137f, 0.180f);
@@ -128,6 +129,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 
 bool ScenePlanet::destroyScene(void) {
 	detachCamera(camera);
+	soundHandler->play_explosion();
 	if(weather != NULL && pluto) {
 		if(weather->getName() == "Firewall")
 			graphicsEngine->getRootSceneNode()->removeChild("WeatherNode");
@@ -196,7 +198,11 @@ bool ScenePlanet::runNextFrame(const Ogre::FrameEvent& evt) {
 //-------------------------------------------------------------------------------------
 
 ScenePlanetResult ScenePlanet::getResult(void) {
-	if (pluto->isDead()) return PLUTO_LOSE;
+	if (pluto->isDead()) 
+	{
+		soundHandler->play_sound(pluto_dead);
+		return PLUTO_LOSE;
+	}
 	bool botsAllDead = true;
 	for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
 		Player* enemy = *it;

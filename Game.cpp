@@ -99,10 +99,16 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 			sceneSpace->showScene();
 			currentGameScene = SCENE_SPACE;
 			currentScene = sceneSpace;
-			if(currentLevel == LV_BOSS)
+			if(currentLevel == LV_BOSS){
 				CEGUI::WindowManager::getSingleton().getWindow("Pluto/EndGameRoot")->setVisible(true);
+				soundHandler->stop_ambient();
+				soundHandler->play_sound(win);
+			}
 			break;
-		case PLUTO_LOSE: break;
+		case PLUTO_LOSE: 
+			exitScene();
+			enterScene(SCENE_PLANET);
+			break;
 		default: break;
 		}
 		break;
