@@ -191,7 +191,7 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 				Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
 				shurikenPos.y += 50;
 				Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos);
-				s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
+				s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*150, 10, orient.z*150));
 				shurikens.push_back(s);
 				playerState.numShuriken--;
 				sprintf(shuriken_buf, "x%d", playerState.numShuriken);

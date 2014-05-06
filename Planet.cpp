@@ -20,36 +20,42 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 			planetEnt->setMaterialName("Examples/Neptune");
 			ratio = SIZE_PLANET1/100;
 			explosion = graphicsEngine->createParticleSystem("neptuneExplosion", "Examples/Explosion");
+			explosionSmoke = graphicsEngine->createParticleSystem("neptuneExplosionSmoke", "Examples/ExplodeSmoke");
 		}
 		else if (type == 1) {
 			planetState.size = SIZE_PLANET2;
 			planetEnt->setMaterialName("Examples/Uranus");
 			ratio = SIZE_PLANET1/100;
 			explosion = graphicsEngine->createParticleSystem("uranusExplosion", "Examples/Explosion");
+			explosionSmoke = graphicsEngine->createParticleSystem("uranusExplosionSmoke", "Examples/ExplodeSmoke");
 		}
 		else if (type == 2) {
 			planetState.size = SIZE_PLANET3;
 			planetEnt->setMaterialName("Examples/Saturn");
 			ratio = SIZE_PLANET3/100;
 			explosion = graphicsEngine->createParticleSystem("saturnExplosion", "Examples/Explosion");
+			explosionSmoke = graphicsEngine->createParticleSystem("saturnExplosionSmoke", "Examples/ExplodeSmoke");
 		}
 		else if (type == 3) {
 			planetState.size = SIZE_PLANET4;
 			planetEnt->setMaterialName("Examples/Jupiter");
 			ratio = SIZE_PLANET4/100;
 			explosion = graphicsEngine->createParticleSystem("jupiterExplosion", "Examples/Explosion");
+			explosionSmoke = graphicsEngine->createParticleSystem("jupiterExplosionSmoke", "Examples/ExplodeSmoke");
 		}
 		else if (type == 4) {
 			planetState.size = SIZE_PLANET5;
 			planetEnt->setMaterialName("Examples/Mars");
 			ratio = SIZE_PLANET5/100;
 			explosion = graphicsEngine->createParticleSystem("marsExplosion", "Examples/Explosion");
+			explosionSmoke = graphicsEngine->createParticleSystem("marsExplosionSmoke", "Examples/ExplodeSmoke");
 		}
 		else if (type == 5) {
 			planetState.size = SIZE_PLANET6;
 			planetEnt->setMaterialName("Examples/Earth");
 			ratio = SIZE_PLANET6/100;
 			explosion = graphicsEngine->createParticleSystem("earthExplosion", "Examples/Explosion");
+			explosionSmoke = graphicsEngine->createParticleSystem("earthExplosionSmoke", "Examples/ExplodeSmoke");
 		}
 		else if (type == 6) {
 			planetState.size = SIZE_SUN;
@@ -83,9 +89,6 @@ Planet::~Planet(void) {
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
 	graphicsEngine->destroySceneNode(positionNode);
-	if(explosion){
-		graphicsEngine->destroyParticleSystem(explosion);
-	}
 	std::cout << "========= Debug: Planet Deleted =========" << std::endl;
 }
 
