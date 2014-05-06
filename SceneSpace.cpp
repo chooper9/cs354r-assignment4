@@ -25,8 +25,6 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	
 	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, 0, Ogre::Vector3(0,100, 10000));
-	//pluto->getSceneNode()->attachObject(graphicsEngine->createParticleSystem("boom", "Examples/Explode"));
-	pluto->getSceneNode()->attachObject(graphicsEngine->createParticleSystem("boom", "Pluto/CometTail"));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 0, Ogre::Vector3(0, 0, 5000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 1, Ogre::Vector3(-100, 0, -5000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 2, Ogre::Vector3(-2006, 0, -12000)));
@@ -92,6 +90,8 @@ SceneSpaceResult SceneSpace::getResult(enum GameLevel* level) {
 		allDestroyed = allDestroyed && (*it)->isDestroyed();
 		if (pluto->isCollidingWith(*it)) {
 			*level = static_cast<GameLevel>(lv);
+			if(*level == LV_JUPITER)
+				pluto->getSceneNode()->attachObject(graphicsEngine->createParticleSystem("PlutoTail", "Pluto/CometTail"));
 			return PLUTO_HIT_PLANET;
 		}
 		lv++;
