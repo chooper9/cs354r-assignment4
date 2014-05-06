@@ -48,7 +48,10 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		break;
 	case LV_JUPITER:
 		numEnemies = 40;
+<<<<<<< HEAD
 		enemy_color = Ogre::Vector3(0.431f, 0.271f, 0.043f);
+=======
+>>>>>>> e9c275a2cd4080a57a2adf4d47137c5e85115389
 		weather = graphicsEngine->createParticleSystem("Firewall", "Pluto/FlameGeysers");
 		if (currentLevel != level)
 			terrain->setMaterial("JupiterTerrainTexture", 30);
@@ -84,6 +87,12 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
+<<<<<<< HEAD
+=======
+	if (level == LV_SUN) {
+		pluto->setThrowTennis(true);
+	}
+>>>>>>> e9c275a2cd4080a57a2adf4d47137c5e85115389
 	if(weather != NULL) {
 		weatherNode->attachObject(weather);
 		if(weather->getName() == "Firewall")

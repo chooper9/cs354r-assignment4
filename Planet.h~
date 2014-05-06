@@ -7,6 +7,7 @@ class Planet {
 private:
 	bool isAI;
 	bool destroyed;
+	bool throwTennis;
 	Ogre::ParticleSystem* explosion;
 	Ogre::ParticleSystem* explosionSmoke;
 protected:
@@ -33,7 +34,7 @@ public:
 	bool isDestroyed(void) { return destroyed; }
 	void setDestroyed(bool d) { 
 		destroyed = d; 
-		Ogre::Real scale = 50.0/planetState.size;
+		Ogre::Real scale = 60.0/planetState.size;
 		planetNode->scale(scale, scale, scale); 
 		if(explosion != NULL) {
 			positionNode->attachObject(explosion);
