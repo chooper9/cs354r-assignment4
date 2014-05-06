@@ -7,6 +7,8 @@ class Planet {
 private:
 	bool isAI;
 	bool destroyed;
+	Ogre::ParticleSystem* explosion;
+	Ogre::ParticleSystem* explosionSmoke;
 protected:
 	Ogre::SceneManager* graphicsEngine;
 	Ogre::Entity* planetEnt;
@@ -29,7 +31,15 @@ public:
 	}
 	void runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vector<Planet*>& enemies);
 	bool isDestroyed(void) { return destroyed; }
-	void setDestroyed(bool d) { destroyed = d; positionNode->scale(0.1, 0.1, 0.1); }
+	void setDestroyed(bool d) { 
+		destroyed = d; 
+		Ogre::Real scale = 60.0/planetState.size;
+		planetNode->scale(scale, scale, scale); 
+		if(explosion != NULL) {
+			positionNode->attachObject(explosion);
+			positionNode->attachObject(explosionSmoke);
+		}
+	}
 	void setTransform(const Ogre::Vector3& pos=Ogre::Vector3::ZERO, const Ogre::Quaternion& q=Ogre::Quaternion::IDENTITY);
 	Ogre::SceneNode* getSceneNode(void) { return positionNode; }
 	Ogre::Entity* getEntity(void) { return planetEnt; }

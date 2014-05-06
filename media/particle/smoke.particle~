@@ -87,13 +87,13 @@ particle_system Examples/MyFog
 
 }
 
-particle_system Examples/Explode
+particle_system Examples/ExplodeSmoke
 {
 	material        	Examples/Smoke
 	particle_width  	50
 	particle_height 	50
 	cull_each       	true
-	quota           	500
+	quota           	50
 	billboard_type  	point
 	sorted				true
     
@@ -101,8 +101,8 @@ particle_system Examples/Explode
 	emitter Point
 	{
 		angle 35
-		emission_rate 10
-		time_to_live 2
+		emission_rate 6
+		time_to_live 2.5
 		duration 3
 		direction 0 1 0
 		velocity 0    	

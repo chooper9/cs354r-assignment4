@@ -12,20 +12,17 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 	attackEffectChecked(true)
 {
 	shurikens.clear();
+	throwTennis = false;
 	int height = isPluto ? HEIGHT_PLUTO : HEIGHT_NINJA;
 	playerState.defaultHP = isPluto ? HP_PLUTO : HP_NINJA;
 	positionNode = parentNode->createChildSceneNode();
 	isAI = !isPluto;
 	playerEnt = mSceneMgr->createEntity("ninja.mesh" );
-<<<<<<< HEAD
 	playerEnt->setMaterialName("PlutoNinjaColors");
 	playerEnt->setCastShadows(true);
 	Ogre::SubEntity* playerSub = playerEnt->getSubEntity(0);
-	//playerSub->setCustomParameter(1, Ogre::Vector4(0.051f, 0.353f, 0.145f, 1.0f));
-	playerSub->setCustomParameter(1, Ogre::Vector4((209.0/255.0), (139.0/255.0), (27.0/255.0), 0.7f));
-=======
-	playerEnt->setCastShadows(true);
->>>>>>> 9070c709e05cbd232825c865b4a2c5a1631cdc15
+	playerSub->setCustomParameter(1, Ogre::Vector4(0.051f, 0.353f, 0.145f, 1.0f));
+	//playerSub->setCustomParameter(1, Ogre::Vector4((209.0/255.0), (139.0/255.0), (27.0/255.0), 1.0f));
 
         playerEnt->getAnimationState("Idle1")->setLoop(true);
         playerEnt->getAnimationState("Walk")->setLoop(true);
@@ -38,12 +35,8 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
         playerEnt->getAnimationState("Death1")->setLoop(false);
 
 	if(isPluto) {
-<<<<<<< HEAD
 		//playerEnt->setMaterialName("Examples/Ninja/Blue");
 		playerSub->setCustomParameter(1, Ogre::Vector4(0.047f, 0.094f, 0.302f, 1.0f));
-=======
-		playerEnt->setMaterialName("Examples/Ninja/Blue");
->>>>>>> 9070c709e05cbd232825c865b4a2c5a1631cdc15
 		CEGUI::WindowManager* wmgr = CEGUI::WindowManager::getSingletonPtr();
 		wmgr->getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(0.22, 0));
 		wmgr->getWindow("Pluto/PlanetRoot/Blade")->setVisible(true);
@@ -111,10 +104,7 @@ void Player::toggleVisible(void) {
 void Player::resetState(void) {
 	playerState.action = IDLE;
 	playerState.hp = playerState.defaultHP;
-<<<<<<< HEAD
-=======
 	playerState.allowShuriken = false;
->>>>>>> 9070c709e05cbd232825c865b4a2c5a1631cdc15
 	playerState.step = STEP_NINJA;
 	playerState.weapon = WEAPON_BLADE;
 	playerState.numShuriken = 10000000;
@@ -201,8 +191,8 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 			if (!attackEffectChecked && playerState.numShuriken > 0) {
 				Ogre::Vector3 shurikenPos = positionNode->getPosition() + orient*20;
 				shurikenPos.y += 50;
-				Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos);
-				s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*100, 10, orient.z*100));
+				Shuriken* s = new Shuriken(graphicsEngine, positionNode->getParentSceneNode(), physicsEngine, shurikenPos, throwTennis);
+				s->getPhysicsObject().setLinearVelocity(btVector3(orient.x*150, 10, orient.z*150));
 				shurikens.push_back(s);
 				playerState.numShuriken--;
 				sprintf(shuriken_buf, "x%d", playerState.numShuriken);
@@ -316,7 +306,8 @@ void Player::checkAttackEffect(Player* enemy) {
 		if (enemy->playerEnt->getAnimationState("Block")->getTimePosition() < 0.24) {
 			enemy->hitBy(ATTACK_BLADE);
 		} else {
-			std::cout <<"  play sound - blocked" << std::endl;
+			//std::cout <<"  play sound - blocked" << std::endl;
+			soundHandler->play_sound(sword_block);
 		}
 	} else if (!attackEffectChecked && playerEnt->getAnimationState("SideKick")->getTimePosition() > 0.3) {
 		enemy->hitBy(ATTACK_KICK);
@@ -364,13 +355,10 @@ void Player::reactTo(Player* enemy) {
 		}
 	} else {
 		stopBlock();
-<<<<<<< HEAD
-=======
 		if(dist < 200 && playerState.allowShuriken) {
 			if (Ogre::Math::UnitRandom() < 0.3)
 				throwShuriken();
 		}
->>>>>>> 9070c709e05cbd232825c865b4a2c5a1631cdc15
 	}
 
 	if (yaw > 0) playerState.degreeYaw = 1;

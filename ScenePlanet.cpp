@@ -64,7 +64,7 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 			terrain->setMaterial("EarthTerrainTexture", 800);
 		break;
 	case LV_SUN:
-		numEnemies = 200;
+		numEnemies = 100;
 		if (currentLevel != level)
 			terrain->setMaterial("PlutoTerrainTennisCourtTexture", 1);
 		break;
@@ -82,6 +82,9 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 
 
 	pluto = new Player(graphicsEngine, sceneRootNode, physicsEngine, true, terrain);
+	if (level == LV_SUN) {
+		pluto->setThrowTennis(true);
+	}
 	if(weather != NULL) {
 		weatherNode->attachObject(weather);
 		if(weather->getName() == "Firewall")

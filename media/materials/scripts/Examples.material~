@@ -649,6 +649,20 @@ material Examples/WaterStream
 	}
 }
 
+material Examples/AnimatedExplosion
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        anim_texture explosion.jpeg 3 1
+      }
+    }
+  }
+}
+
 material Examples/Flare
 {
 	technique
@@ -1105,7 +1119,7 @@ material Examples/Sun
 			emissive 0.75 0.75 0.75
 			texture_unit
 			{
-				texture sun3.jpg
+				texture sun.jpeg
 			}
 		}
 	}

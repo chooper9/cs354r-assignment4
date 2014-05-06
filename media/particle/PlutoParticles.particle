@@ -84,8 +84,8 @@ particle_system Pluto/FlameGeysers
 particle_system Pluto/CometTail
 {
 	material 		Examples/Flare
-	particle_width 	200
-	particle_height	200
+	particle_width 	180
+	particle_height	180
 	cull_each		false
 	quota			200
 	billboard_type	point
@@ -109,7 +109,7 @@ particle_system Pluto/CometTail
 	}
 	affector Scaler
    	{
-		rate -100
+		rate -80
    	}
 	
 }
