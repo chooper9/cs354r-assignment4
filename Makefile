@@ -103,21 +103,12 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-<<<<<<< HEAD
 ACLOCAL = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 AR = ar
 AUTOCONF = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run autoconf
 AUTOHEADER = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run autoheader
 AUTOMAKE = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run automake-1.11
-=======
-ACLOCAL = ${SHELL} /u/agarza/cs354r-assignment4/missing --run aclocal-1.11
-AMTAR = $${TAR-tar}
-AR = ar
-AUTOCONF = ${SHELL} /u/agarza/cs354r-assignment4/missing --run autoconf
-AUTOHEADER = ${SHELL} /u/agarza/cs354r-assignment4/missing --run autoheader
-AUTOMAKE = ${SHELL} /u/agarza/cs354r-assignment4/missing --run automake-1.11
->>>>>>> ff9ba9f3dfcfd54d5577d499e8babc7d3a5d9459
 AWK = gawk
 BULLET_CFLAGS = 
 BULLET_LIBS = 
@@ -160,11 +151,7 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
-<<<<<<< HEAD
 MAKEINFO = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run makeinfo
-=======
-MAKEINFO = ${SHELL} /u/agarza/cs354r-assignment4/missing --run makeinfo
->>>>>>> ff9ba9f3dfcfd54d5577d499e8babc7d3a5d9459
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -201,17 +188,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.1
-<<<<<<< HEAD
 abs_builddir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
 abs_srcdir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
 abs_top_builddir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
 abs_top_srcdir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
-=======
-abs_builddir = /u/agarza/cs354r-assignment4
-abs_srcdir = /u/agarza/cs354r-assignment4
-abs_top_builddir = /u/agarza/cs354r-assignment4
-abs_top_srcdir = /u/agarza/cs354r-assignment4
->>>>>>> ff9ba9f3dfcfd54d5577d499e8babc7d3a5d9459
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -243,11 +223,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-<<<<<<< HEAD
 install_sh = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/install-sh
-=======
-install_sh = ${SHELL} /u/agarza/cs354r-assignment4/install-sh
->>>>>>> ff9ba9f3dfcfd54d5577d499e8babc7d3a5d9459
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
