@@ -13,7 +13,7 @@ created: 4/17/2014
 #include <iostream>
 
 //CONSTANTS TO IDENTIFY EACH SOUND
-static const char *ambient_sound = "./media/sounds/spring-weather-1.wav";
+static const char *ambient_sound = "./media/sounds/IsaacAreYouThere.wav";
 static const char *grunt = "./media/sounds/grunt.wav";
 static const char *hyah = "./media/sounds/hyah.wav";
 static const char *explosion = "./media/sounds/explosion.wav";

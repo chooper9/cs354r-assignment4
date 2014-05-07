@@ -75,10 +75,10 @@ public:
 		case ATTACK_BLADE:
 			soundHandler->play_sound(sword_hit); break;
 		case ATTACK_KICK:
-			soundHandler->play_sound(hyah); break;
-		case ATTACK_SHURIKEN:
+			soundHandler->play_sound(grunt); break;
+		//case ATTACK_SHURIKEN:
 			//std::cout <<"  play sound - hit by shuriken" << std::endl; break;
-			soundHandler->play_sound(grunt);
+			//soundHandler->play_sound(hyah); break;
 		}
 		if(isAI) {
 			hpbar->resetDimensions();
@@ -178,6 +178,7 @@ public:
 		playerEnt->getAnimationState("Spin")->setEnabled(false);
 	}
 	void die(void) {
+		//soundHandler->play_sound(grunt);
 		playerState.hp = 0;
 		playerState.action = DIE;
 		playerEnt->getAnimationState("Backflip")->setEnabled(false);

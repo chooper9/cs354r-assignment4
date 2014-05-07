@@ -22,7 +22,6 @@ ScenePlanet::~ScenePlanet(void) {
 
 bool ScenePlanet::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
-	//soundHandler->start_ambient(toglory);
 	int numEnemies = 0;
 	Ogre::Vector3 enemy_color = Ogre::Vector3(0.051f, 0.353f, 0.145f);
 	switch(level) {
@@ -74,7 +73,6 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 			terrain->setMaterial("PlutoTerrainTennisCourtTexture", 1);
 		break;
 	case LV_BOSS:
-		soundHandler->fade_out_music();
 		soundHandler->start_ambient(bossbattle);
 		numEnemies = 1;
 		enemy_color = Ogre::Vector3(0.129f, 0.137f, 0.180f);

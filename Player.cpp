@@ -223,6 +223,8 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 	case KICK:
 		animation = playerEnt->getAnimationState("SideKick");
 		animation->addTime(evt.timeSinceLastFrame);
+		if(animation->getTimePosition() == 0)
+			soundHandler->play_sound(hyah);
 		if (animation->getTimePosition() == animation->getLength()) {
 			playerState.action = IDLE;
 			animation->setTimePosition(0);
@@ -240,6 +242,8 @@ void Player::runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vecto
 		return; // don't proceed to walk while being kicked
 	case DIE:
 		animation = playerEnt->getAnimationState("Death1");
+		if(animation->getTimePosition() == 0)
+			soundHandler->play_sound(grunt);
 		animation->addTime(evt.timeSinceLastFrame);
 		return; // don't proceed to walk while dying
 	default: break;
