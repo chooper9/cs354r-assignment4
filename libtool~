@@ -2,11 +2,7 @@
 
 # libtool - Provide generalized library-building support services.
 # Generated automatically by config.status (SampleApp) 0.1
-<<<<<<< HEAD
-# Libtool was configured on host heath:
-=======
 # Libtool was configured on host dum-dums:
->>>>>>> ebf390d014a3cf4264fb1315818b42d10be9cf0d
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
 #   Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005,

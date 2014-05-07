@@ -7,6 +7,20 @@ SceneSpace::SceneSpace(Ogre::SceneManager* mSceneMgr) : Scene(mSceneMgr) {
 
 	enemies.clear();
 	pluto = NULL;
+
+	
+	Ogre::Plane plane1(Ogre::Vector3(0,1,0), 0);
+	Ogre::MeshManager::getSingleton().createPlane(
+		"RingUp", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+        	plane1, 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3(0,0,1)
+	);
+	Ogre::Plane plane2(Ogre::Vector3(0,-1,0), 0);
+	Ogre::MeshManager::getSingleton().createPlane(
+		"RingDown", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+        	plane2, 200, 200, 1, 1, true, 1, 1, 1, Ogre::Vector3(0,0,1)
+	);
+
+
         std::cout << "========= Debug: SceneSpace Created =========" << std::endl;
 }
 
@@ -25,12 +39,12 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	
 	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, 0, Ogre::Vector3(0,100, 10000));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 0, Ogre::Vector3(0, 0, -5000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 1, Ogre::Vector3(0, 0, -10000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 2, Ogre::Vector3(0, 0, -18000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(0, 0, -30000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(0, 0, -45000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(0, 0, -60000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 0, Ogre::Vector3(5000, 0, -5000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 1, Ogre::Vector3(-6000, 0, -10000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 2, Ogre::Vector3(1000, 0, -18000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(8000, 0, -30000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(6000, 0, -45000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(5000, 0, -60000)));
 	sun = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(0, 0, -100000));
 	soundHandler->start_ambient(toglory);
 }

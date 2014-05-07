@@ -17,11 +17,11 @@
 
 // ======================== Player Constants ======================== 
 enum PlayerAction { IDLE, KICK, KICKED, ATTACK, BLOCK, STOP_BLOCK, THROW_SHURIKEN, JUMP, DIE };
-enum PlayerHp { HP_PLUTO = 100, HP_NINJA = 100, HP_BOSS = 10000 };
+enum PlayerHp { HP_PLUTO = 40000, HP_NINJA = 100, HP_BOSS = 10000 };
 enum PlayerHeight { HEIGHT_PLUTO = 90, HEIGHT_NINJA = 80 };
 enum PlayerStep { STEP_NINJA = 150, STEP_NINJA_RUN = 250 };
 enum PlayerWeapon { WEAPON_BLADE, WEAPON_SHURIKEN }; 
-enum PlayerAttack { ATTACK_BLADE = 50, ATTACK_KICK = 10, ATTACK_SHURIKEN = 100 }; 
+enum PlayerAttack { ATTACK_BLADE = 200, ATTACK_KICK = 40, ATTACK_SHURIKEN = 100 }; 
 
 typedef struct PlayerState {
 	enum PlayerAction action;
@@ -39,8 +39,8 @@ typedef struct PlayerState {
 } PlayerState;
 
 // ======================== Planet Constants ========================
-enum PlanetFly { FLY_PLANET = 1500, FLY_PLANET_FAST = 2500 };
-enum PlanetSize { SIZE_PLUTO = 100, SIZE_PLANET1 = 500, SIZE_PLANET2 = 750, SIZE_PLANET3 = 1500, SIZE_PLANET4 = 5000, SIZE_PLANET5 = 500, SIZE_PLANET6 = 1000, SIZE_SUN = 15000}; 
+enum PlanetFly { FLY_PLANET = 15000, FLY_PLANET_FAST = 25000 };
+enum PlanetSize { SIZE_PLUTO = 100, SIZE_PLANET1 = 500, SIZE_PLANET2 = 750, SIZE_PLANET3 = 1500, SIZE_PLANET4 = 5000, SIZE_PLANET5 = 500, SIZE_PLANET6 = 1000, SIZE_SUN = 40000}; 
 
 typedef struct PlanetState {
 	int hp;
