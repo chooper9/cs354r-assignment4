@@ -40,6 +40,16 @@ void Pluto::setup_PlutoGui() {
 	anmtn->setTargetWindow(wmgr.getWindow("Pluto/PauseRoot/OptionsRoot"));
 	anmtn = CEGUI::AnimationManager::getSingleton().instantiateAnimation(anim); // indx 3
 	anmtn->setTargetWindow(wmgr.getWindow("Pluto/OptionsRoot/SoundOptions"));
+
+	anim = CEGUI::AnimationManager::getSingleton().getAnimation("Go_Away");
+	anmtn = CEGUI::AnimationManager::getSingleton().instantiateAnimation(anim);
+	anmtn->setTargetWindow(wmgr.getWindow("Pluto/BossQuotes/1"));
+	anmtn = CEGUI::AnimationManager::getSingleton().instantiateAnimation(anim);
+	anmtn->setTargetWindow(wmgr.getWindow("Pluto/BossQuotes/2"));
+	anmtn = CEGUI::AnimationManager::getSingleton().instantiateAnimation(anim);
+	anmtn->setTargetWindow(wmgr.getWindow("Pluto/BossQuotes/3"));
+	anmtn = CEGUI::AnimationManager::getSingleton().instantiateAnimation(anim);
+	anmtn->setTargetWindow(wmgr.getWindow("Pluto/EndGameRoot"));
 	
 
 	std::string storyText ("");

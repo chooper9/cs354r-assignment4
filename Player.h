@@ -16,6 +16,8 @@ private:
 	Ogre::Vector3 orient;
 	bool visible;
 	bool isAI;
+	bool isBoss;
+	bool bq1, bq2, bq3;
 	bool throwTennis;
 	SceneTerrain* terrain;
 	void checkAttackEffect(Player* enemy);
@@ -35,6 +37,7 @@ public:
 	void resetState(void);
 	void runNextFrame(const Ogre::FrameEvent& evt, Player* pluto, std::vector<Player*>& enemies);
 	void reactTo(Player* enemy);
+	void setAsBoss() { isBoss = true; }
 	void setBillboard(Ogre::Billboard* bb) { hpbar = bb; }
 	void setColor(float r, float g, float b) { playerEnt->getSubEntity(0)->setCustomParameter(1, Ogre::Vector4(r, g, b, 1.0f)); }
 	void setRandColor() { playerEnt->getSubEntity(0)->setCustomParameter(1, Ogre::Vector4(Ogre::Math::UnitRandom(),
@@ -82,6 +85,20 @@ public:
 			hpbar->setDimensions(hpbar->mParentSet->getDefaultWidth()*((float)playerState.hp / (float)playerState.defaultHP), hpbar->mParentSet->getDefaultHeight());
 		} else {
 			CEGUI::WindowManager::getSingleton().getWindow("Pluto/PlanetRoot/HPBar")->setWidth(CEGUI::UDim(((float)playerState.hp / (float)playerState.defaultHP)*0.22, 0));
+		}
+		if(isBoss) {
+			if((((float)playerState.hp / (float)playerState.defaultHP) < 0.25) && !bq3) {
+				CEGUI::WindowManager::getSingleton().getWindow("Pluto/BossQuotes/3")->show();
+				//CEGUI::WindowManager::getSingleton().getWindow("Pluto/BossQuotes/2")->setVisible(false);
+				bq3 = true;
+			} else if ((((float)playerState.hp / (float)playerState.defaultHP) < 0.5) && !bq2) {
+				//CEGUI::WindowManager::getSingleton().getWindow("Pluto/BossQuotes/1")->setVisible(false);
+				CEGUI::WindowManager::getSingleton().getWindow("Pluto/BossQuotes/2")->show();
+				bq2 = true;
+			} else if ((((float)playerState.hp / (float)playerState.defaultHP) < 0.75) && !bq1) {
+				CEGUI::WindowManager::getSingleton().getWindow("Pluto/BossQuotes/1")->show();
+				bq1 = true;
+			}
 		}
 	}
 	void switchWeapon(void) {

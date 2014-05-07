@@ -25,13 +25,13 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	
 	enemies.clear();
 	pluto = new Planet(graphicsEngine, sceneRootNode, physicsEngine, true, 0, Ogre::Vector3(0,100, 10000));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 0, Ogre::Vector3(0, 0, 5000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 1, Ogre::Vector3(-100, 0, -5000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 2, Ogre::Vector3(-2006, 0, -12000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(-10000, 0, -18000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(-20000, 0, -22000)));
-	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(-27000, 0, -28000)));
-	sun = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(-50000, 0, -18000));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 0, Ogre::Vector3(0, 0, -5000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 1, Ogre::Vector3(0, 0, -10000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 2, Ogre::Vector3(0, 0, -18000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(0, 0, -30000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(0, 0, -45000)));
+	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(0, 0, -60000)));
+	sun = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(0, 0, -100000));
 	soundHandler->start_ambient(toglory);
 }
 
@@ -90,12 +90,13 @@ SceneSpaceResult SceneSpace::getResult(enum GameLevel* level) {
 		allDestroyed = allDestroyed && (*it)->isDestroyed();
 		if (pluto->isCollidingWith(*it)) {
 			*level = static_cast<GameLevel>(lv);
-			//if(*level == LV_JUPITER)
-			//	pluto->getSceneNode()->attachObject(graphicsEngine->createParticleSystem("PlutoTail", "Pluto/CometTail"));
+			if(*level == LV_JUPITER)
+				pluto->getSceneNode()->attachObject(graphicsEngine->createParticleSystem("PlutoTail", "Pluto/CometTail"));
 			return PLUTO_HIT_PLANET;
 		}
 		lv++;
 	}
+	allDestroyed = true;
 	if (pluto->isCollidingWith(sun)) {
 		*level = LV_SUN;
 		return PLUTO_HIT_PLANET;

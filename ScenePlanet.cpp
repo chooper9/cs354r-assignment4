@@ -141,6 +141,8 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 	}
 	if (level == LV_BOSS) {
 		PlayerState* ps = enemies[0]->getPlayerState();
+		enemies[0]->setAsBoss();
+		CEGUI::WindowManager::getSingleton().getWindow("Pluto/BossQuotes")->setVisible(true);
 		ps->defaultHP = HP_BOSS;
 		ps->hp = HP_BOSS;
 		ps->allowShuriken = true;

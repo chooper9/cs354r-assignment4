@@ -33,4 +33,12 @@
 		</Affector>
 	</AnimationDefinition>
 
+	<AnimationDefinition name="Go_Away" duration="3" replayMode="once">
+		<Affector property="Visible" interpolator="bool">
+			<KeyFrame position="0" value="True" />
+			<KeyFrame position="3" value="False" progression="discrete" />
+		</Affector>
+		<Subscription event="Shown" action="Start" />
+	</AnimationDefinition>
+
 </Animations>

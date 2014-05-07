@@ -100,7 +100,7 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 			currentGameScene = SCENE_SPACE;
 			currentScene = sceneSpace;
 			if(currentLevel == LV_BOSS){
-				CEGUI::WindowManager::getSingleton().getWindow("Pluto/EndGameRoot")->setVisible(true);
+				CEGUI::WindowManager::getSingleton().getWindow("Pluto/EndGameRoot")->show();
 				soundHandler->stop_ambient();
 				soundHandler->play_sound(win);
 			}

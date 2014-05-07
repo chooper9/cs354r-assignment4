@@ -28,9 +28,17 @@
 
 	<AnimationDefinition name="Slide_out" duration="0.3" replayMode="once">
 		<Affector property="UnifiedXPosition" interpolator="UDim" applicationMethod="relative">
-			<KeyFrame position="0" value="{0.2,0}" />
-			<KeyFrame position="0.3" value="{0,0}" progression="linear" />
+			<KeyFrame position="0" value="{0,0}" />
+			<KeyFrame position="0.3" value="{-0.2,0}" progression="linear" />
 		</Affector>
+	</AnimationDefinition>
+
+	<AnimationDefinition name="Go_Away" duration="0.4" replayMode="once">
+		<Affector property="Visible" interpolator="bool">
+			<KeyFrame position="0" value="True" />
+			<KeyFrame position="3" value="False" progression="discrete" />
+		</Affector>
+		<Subscription event="Shown" action="Start" />
 	</AnimationDefinition>
 
 </Animations>

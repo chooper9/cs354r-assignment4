@@ -13,6 +13,10 @@ Player::Player(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 {
 	shurikens.clear();
 	throwTennis = false;
+	isBoss = false;
+	bq1 = false;
+	bq2 = false;
+	bq3 = false;
 	int height = isPluto ? HEIGHT_PLUTO : HEIGHT_NINJA;
 	playerState.defaultHP = isPluto ? HP_PLUTO : HP_NINJA;
 	positionNode = parentNode->createChildSceneNode();
