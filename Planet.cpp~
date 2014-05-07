@@ -21,6 +21,16 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 			ratio = SIZE_PLANET1/100;
 			explosion = graphicsEngine->createParticleSystem("neptuneExplosion", "Examples/Explosion");
 			explosionSmoke = graphicsEngine->createParticleSystem("neptuneExplosionSmoke", "Examples/ExplodeSmoke");
+			
+			Ogre::SceneNode* ringNode = planetNode->createChildSceneNode();
+			Ogre::Entity* endRingUp = graphicsEngine->createEntity("RingUp");
+			endRingUp->setMaterialName("Examples/NeptuneRing");	
+			ringNode->attachObject(endRingUp);
+			Ogre::Entity* endRingDown = graphicsEngine->createEntity("RingDown");
+			endRingDown->setMaterialName("Examples/NeptuneRing");
+			ringNode->attachObject(endRingDown);
+			planetNode->pitch(Ogre::Degree(-90));
+			planetNode->roll(Ogre::Degree(-30));
 		}
 		else if (type == 1) {
 			planetState.size = SIZE_PLANET2;
@@ -28,6 +38,16 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 			ratio = SIZE_PLANET1/100;
 			explosion = graphicsEngine->createParticleSystem("uranusExplosion", "Examples/Explosion");
 			explosionSmoke = graphicsEngine->createParticleSystem("uranusExplosionSmoke", "Examples/ExplodeSmoke");
+			
+			Ogre::SceneNode* ringNode = planetNode->createChildSceneNode();
+			Ogre::Entity* endRingUp = graphicsEngine->createEntity("RingUp");
+			endRingUp->setMaterialName("Examples/UranusRing");	
+			ringNode->attachObject(endRingUp);
+			Ogre::Entity* endRingDown = graphicsEngine->createEntity("RingDown");
+			endRingDown->setMaterialName("Examples/UranusRing");
+			ringNode->attachObject(endRingDown);
+			planetNode->pitch(Ogre::Degree(-60));
+			planetNode->roll(Ogre::Degree(-10));
 		}
 		else if (type == 2) {
 			planetState.size = SIZE_PLANET3;
@@ -35,6 +55,14 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 			ratio = SIZE_PLANET3/100;
 			explosion = graphicsEngine->createParticleSystem("saturnExplosion", "Examples/Explosion");
 			explosionSmoke = graphicsEngine->createParticleSystem("saturnExplosionSmoke", "Examples/ExplodeSmoke");
+			
+			Ogre::SceneNode* ringNode = planetNode->createChildSceneNode();
+			Ogre::Entity* endRingUp = graphicsEngine->createEntity("RingUp");
+			endRingUp->setMaterialName("Examples/SaturnRing");	
+			ringNode->attachObject(endRingUp);
+			Ogre::Entity* endRingDown = graphicsEngine->createEntity("RingDown");
+			endRingDown->setMaterialName("Examples/SaturnRing");
+			ringNode->attachObject(endRingDown);
 		}
 		else if (type == 3) {
 			planetState.size = SIZE_PLANET4;
@@ -42,6 +70,17 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 			ratio = SIZE_PLANET4/100;
 			explosion = graphicsEngine->createParticleSystem("jupiterExplosion", "Examples/Explosion");
 			explosionSmoke = graphicsEngine->createParticleSystem("jupiterExplosionSmoke", "Examples/ExplodeSmoke");
+	
+			Ogre::SceneNode* ringNode = planetNode->createChildSceneNode();
+			Ogre::Entity* endRingUp = graphicsEngine->createEntity("RingUp");
+			endRingUp->setMaterialName("Examples/JupiterRing");	
+			ringNode->attachObject(endRingUp);
+			Ogre::Entity* endRingDown = graphicsEngine->createEntity("RingDown");
+			endRingDown->setMaterialName("Examples/JupiterRing");
+			ringNode->attachObject(endRingDown);
+			planetNode->pitch(Ogre::Degree(-60));
+			ringNode->scale(0.7, 0.7, 0.7);
+			planetNode->roll(Ogre::Degree(-40));
 		}
 		else if (type == 4) {
 			planetState.size = SIZE_PLANET5;
@@ -69,6 +108,8 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 		explosion = NULL;
 		ratio = SIZE_PLUTO/100;
 	}
+	planetNode->pitch(Ogre::Degree(30));
+	planetNode->roll(Ogre::Degree(10));
 	planetNode->scale(ratio, ratio, ratio);
 	physicsObject.setToSphere(
 		ratio * 100, 
@@ -89,10 +130,6 @@ Planet::~Planet(void) {
 	destroySceneNodeHelper(positionNode);
 	positionNode->removeAndDestroyAllChildren();
 	graphicsEngine->destroySceneNode(positionNode);
-	if(explosion){
-		graphicsEngine->destroyParticleSystem(explosion);
-		graphicsEngine->destroyParticleSystem(explosionSmoke);
-	}
 	std::cout << "========= Debug: Planet Deleted =========" << std::endl;
 }
 
@@ -113,9 +150,8 @@ void Planet::resetState(void) {
 void Planet::runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vector<Planet*>& enemies) {
 	
 	Ogre::Vector3 direction(0, 0, 0);
-	if (planetState.movingLeft) {
+	if (planetState.movingLeft) 
 		direction.x -= planetState.step;	
-	}
 	if (planetState.movingRight)
 		direction.x += planetState.step;
 	if (planetState.movingForward)
@@ -143,26 +179,6 @@ void Planet::runNextFrame(const Ogre::FrameEvent& evt, Planet* pluto, std::vecto
 		Ogre::Vector3 oldPos = positionNode->getPosition();
 		positionNode->translate(direction, Ogre::Node::TS_LOCAL);
 		
-		
-		// check collisions between Planetoids
-		/*
-		Ogre::Vector3 pushedPosition(0, 0, 0);
-		for (std::vector<Player*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-			Player* enemy = *it;
-			if (isAI && this == enemy) continue;
-			if (this != enemy && !enemy->isDead() && isCollidingWith(enemy)){
-				positionNode->translate(direction*(-0.6), Ogre::Node::TS_LOCAL);
-				if (isCollidingWith(enemy, pushedPosition))
-					positionNode->setPosition(pushedPosition);
-				break;
-			}
-		}
-		if (isAI && !pluto->isDead() && isCollidingWith(pluto)) {
-			positionNode->translate(direction*(-0.6), Ogre::Node::TS_LOCAL);
-			if (isCollidingWith(pluto, pushedPosition))
-				positionNode->setPosition(pushedPosition);
-		}
-		*/
 	}
 	setTransform(positionNode->getPosition(), positionNode->getOrientation());
 }
