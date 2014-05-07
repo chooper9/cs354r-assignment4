@@ -45,7 +45,7 @@ bool SceneSpace::setupScene(enum GameLevel level) {
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 3, Ogre::Vector3(8000, 0, -30000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 4, Ogre::Vector3(6000, 0, -45000)));
 	enemies.push_back(new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 5, Ogre::Vector3(5000, 0, -60000)));
-	sun = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(0, 0, -100000));
+	sun = new Planet(graphicsEngine, sceneRootNode, physicsEngine, false, 6, Ogre::Vector3(0, 0, -120000));
 	soundHandler->start_ambient(toglory);
 }
 

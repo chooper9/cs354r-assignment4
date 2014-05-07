@@ -99,7 +99,7 @@ Planet::Planet(Ogre::SceneManager* mSceneMgr, Ogre::SceneNode* parentNode, Physi
 		else if (type == 6) {
 			planetState.size = SIZE_SUN;
 			planetEnt->setMaterialName("Examples/Sun");
-			ratio = SIZE_SUN/100;
+			ratio = SIZE_SUN/90;
 			explosion = NULL;
 		}
 	} else {

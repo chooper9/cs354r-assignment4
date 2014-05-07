@@ -409,7 +409,7 @@ void Player::handleKeyPressed(const OIS::KeyCode key) {
 	case OIS::KC_Q: 
 		switchWeapon();
 		break;
-	case OIS::KC_G: 
+	case OIS::KC_H: 
 		if (playerState.weapon == WEAPON_SHURIKEN) shurikenAOE();
 		break;
 	}

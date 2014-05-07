@@ -61,6 +61,20 @@ void Pluto::setup_PlutoGui() {
 	storyText += "destroying every planet that stands in his way - to exact revenge upon the misled astrophysicist.\n \n";
 	wmgr.getWindow("Pluto/StoryRoot/Text")->setText(storyText);
 
+	std::string creditsText ("");
+	creditsText += "\n\n    --Creators--\n \n";
+	creditsText += "\t    Jiawei Guo\n \n";
+	creditsText += "\t    Cameron Hooper\n \n";
+	creditsText += "\t    Anthony Garza\n \n";
+	creditsText += "\t    Kyle Vanderhoof\n \n";
+	creditsText += "\n \n \n    --Music--\n \n";
+	creditsText += "    \"To Glory\" by Two Steps From Hell\n \n";
+	creditsText += "    \"Isaac, Are You There?\" by Jason Graves\n \n";
+	creditsText += "    \"Pokemon Rock Remix\" (artist unknown)\n \n";
+	creditsText += "    Sound effects provided by SoundJay.com and SoundBible.com\n \n";
+
+	wmgr.getWindow("Pluto/CreditsRoot/Text")->setText(creditsText);
+
 	// subscribe events
 	
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Quit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
@@ -72,10 +86,12 @@ void Pluto::setup_PlutoGui() {
 	wmgr.getWindow("Pluto/TitleRoot/StartGame")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::startGame, this));
 	wmgr.getWindow("Pluto/StoryRoot/Continue")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::startGame2, this));
 	wmgr.getWindow("Pluto/TitleRoot/Controls")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showControls, this));
+	wmgr.getWindow("Pluto/TitleRoot/Credits")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showCredits, this));
 	wmgr.getWindow("Pluto/TitleRoot/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
 	wmgr.getWindow("Pluto/ControlRoot/NextPage")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::controls_togglePage, this));
 	wmgr.getWindow("Pluto/ControlRoot/PrevPage")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::controls_togglePage, this));
 	wmgr.getWindow("Pluto/ControlRoot/Return")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::controls_return, this));
+	wmgr.getWindow("Pluto/CreditsRoot/Return")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::credits_return, this));
 	wmgr.getWindow("Pluto/GameOverRoot/No")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
 	wmgr.getWindow("Pluto/GameOverRoot/Yes")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::game_over_retry, this));
 }
@@ -177,6 +193,18 @@ bool Pluto::controls_return(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/ControlRoot/Page2")->setVisible(false);
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/ControlRoot")->setVisible(false);
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/TitleRoot")->setVisible(true);
+	return true;
+}
+
+bool Pluto::showCredits(const CEGUI::EventArgs &e) {
+	CEGUI::WindowManager::getSingleton().getWindow("Pluto/TitleRoot")->setVisible(false);
+	CEGUI::WindowManager::getSingleton().getWindow("Pluto/CreditsRoot")->setVisible(true);
+	return true;
+}
+
+bool Pluto::credits_return(const CEGUI::EventArgs &e) {
+	CEGUI::WindowManager::getSingleton().getWindow("Pluto/TitleRoot")->setVisible(true);
+	CEGUI::WindowManager::getSingleton().getWindow("Pluto/CreditsRoot")->setVisible(false);
 	return true;
 }
 

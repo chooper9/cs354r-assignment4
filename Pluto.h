@@ -57,6 +57,8 @@ Ogre::AnimationState* animation;
 	bool showControls(const CEGUI::EventArgs &e);
 	bool controls_togglePage(const CEGUI::EventArgs &e);
 	bool controls_return(const CEGUI::EventArgs &e);
+	bool showCredits(const CEGUI::EventArgs &e);
+	bool credits_return(const CEGUI::EventArgs &e);
 	bool game_over_retry(const CEGUI::EventArgs &e);
 };
 
