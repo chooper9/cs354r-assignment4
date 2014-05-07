@@ -2,7 +2,11 @@
 
 # libtool - Provide generalized library-building support services.
 # Generated automatically by config.status (SampleApp) 0.1
+<<<<<<< HEAD
 # Libtool was configured on host dubble-bubble:
+=======
+# Libtool was configured on host paper-golem:
+>>>>>>> 0163933be3f87441fd0d64afecde27bd8efdc77f
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 #
 #   Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005,

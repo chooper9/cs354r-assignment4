@@ -40,7 +40,7 @@ typedef struct PlayerState {
 
 // ======================== Planet Constants ========================
 enum PlanetFly { FLY_PLANET = 1500, FLY_PLANET_FAST = 2500 };
-enum PlanetSize { SIZE_PLUTO = 100, SIZE_PLANET1 = 500, SIZE_PLANET2 = 750, SIZE_PLANET3 = 1500, SIZE_PLANET4 = 5000, SIZE_PLANET5 = 500, SIZE_PLANET6 = 750, SIZE_SUN = 15000}; 
+enum PlanetSize { SIZE_PLUTO = 100, SIZE_PLANET1 = 500, SIZE_PLANET2 = 750, SIZE_PLANET3 = 1500, SIZE_PLANET4 = 5000, SIZE_PLANET5 = 500, SIZE_PLANET6 = 1000, SIZE_SUN = 15000}; 
 
 typedef struct PlanetState {
 	int hp;
