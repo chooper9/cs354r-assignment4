@@ -5,6 +5,13 @@
 		<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
 		<Window Type="DefaultWindow" Name="Pluto/TitleRoot">
 			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
+			<Window Type="TaharezLook/StaticImage" Name="Pluto/TitleRoot/Title">
+				<Property Name="UnifiedSize" Value="{{0.7,0},{0.3,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.15,0},{0.2,0}}" />
+				<Property Name="Image" Value="set:Pluto image:TitleImg" />
+				<Property Name="BackgroundEnabled" Value="False" />
+				<Property Name="FrameEnabled" Value="False" />
+			</Window>
 			<Window Type="TaharezLook/MenuItem" Name="Pluto/TitleRoot/StartGame">
 				<Property Name="UnifiedSize" Value="{{0.12,0},{0.05,0}}" />
 				<Property Name="UnifiedPosition" Value="{{0.44,0},{0.7,0}}" />
@@ -21,11 +28,28 @@
 				<Property Name="Text" Value="       Exit" />
 			</Window>
 		</Window>
+		<Window Type="DefaultWindow" Name="Pluto/StoryRoot">
+			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
+			<Property Name="Visible" Value="False" />
+			<Window Type="TaharezLook/StaticText" Name="Pluto/StoryRoot/Text">
+				<Property Name="UnifiedSize" Value="{{0.94,0},{0.84,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.03,0},{0.08,0}}" />
+				<Property Name="FrameEnabled" Value="False" />
+				<Property Name="HorzFormatting" Value="WordWrapLeftAligned" />
+				<Property Name="VertFormatting" Value="TopAligned" />
+				<Property Name="Text" Value="Text goes here" />
+			</Window>
+			<Window Type="TaharezLook/Button" Name="Pluto/StoryRoot/Continue">
+				<Property Name="UnifiedSize" Value="{{0.4,0},{0.1,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.3,0},{0.6,0}}" />
+				<Property Name="Text" Value="Click to continue" />
+			</Window>
+		</Window>
 		<Window Type="DefaultWindow" Name="Pluto/ControlRoot">
 			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
 			<Property Name="Visible" Value="False" />
 			<Window Type="TaharezLook/StaticImage" Name="Pluto/ControlRoot/CtrImg1">
-				<Property Name="UnifiedSize" Value="{{0.8,0},{0.6,0}}" />
+				<Property Name="UnifiedSize" Value="{{0.8,0},{0.63,0}}" />
 				<Property Name="UnifiedPosition" Value="{{0.1,0},{0.16,0}}" />
 				<Property Name="Image" Value="set:Pluto image:ControlBase" />
 				<Property Name="BackgroundEnabled" Value="False" />
@@ -48,7 +72,7 @@
 				</Window>
 				<Window Type="TaharezLook/StaticImage" Name="Pluto/ControlRoot/CtrImg2">
 					<Property Name="UnifiedSize" Value="{{0.8,0},{0.6,0}}" />
-					<Property Name="UnifiedPosition" Value="{{0.1,0},{0.16,0}}" />
+					<Property Name="UnifiedPosition" Value="{{0.1,0},{0.15,0}}" />
 					<Property Name="Image" Value="set:Pluto image:ControlPlanet" />
 					<Property Name="BackgroundEnabled" Value="False" />
 					<Property Name="FrameEnabled" Value="False" />
@@ -73,6 +97,13 @@
 					<Property Name="UnifiedSize" Value="{{0.2,0},{0.1,0}}" />
 					<Property Name="UnifiedPosition" Value="{{0.4,0},{0.05,0}}" />
 					<Property Name="Text" Value="Planet Controls" />
+					<Property Name="BackgroundEnabled" Value="False" />
+					<Property Name="FrameEnabled" Value="False" />
+				</Window>
+				<Window Type="TaharezLook/StaticImage" Name="Pluto/ControlRoot/CtrImg3">
+					<Property Name="UnifiedSize" Value="{{0.175,0},{0.34,0}}" />
+					<Property Name="UnifiedPosition" Value="{{0.17,0},{0.178,0}}" />
+					<Property Name="Image" Value="set:Pluto image:ControlSpace" />
 					<Property Name="BackgroundEnabled" Value="False" />
 					<Property Name="FrameEnabled" Value="False" />
 				</Window>
@@ -224,6 +255,27 @@
 				<Property Name="Text" Value="Enemies Remaining: " />
 				<Property Name="BackgroundEnabled" Value="False" />
 				<Property Name="FrameEnabled" Value="False" />
+			</Window>
+		</Window>
+		<Window Type="DefaultWindow" Name="Pluto/GameOverRoot">
+			<Property Name="UnifiedSize" Value="{{1,0},{1,0}}" />
+			<Property Name="Visible" Value="False" />
+			<Window Type="TaharezLook/StaticText" Name="Pluto/GameOverRoot/Retry">
+				<Property Name="UnifiedSize" Value="{{0.3,0},{0.2,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.35,0},{0.3,0}}" />
+				<Property Name="Text" Value="Retry?" />
+				<Property Name="HorzFormatting" Value="HorzCentred" />
+				<Property Name="FrameEnabled" Value="False" />
+			</Window>
+			<Window Type="TaharezLook/Button" Name="Pluto/GameOverRoot/Yes">
+				<Property Name="UnifiedSize" Value="{{0.2,0},{0.1,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.25,0},{0.55,0}}" />
+				<Property Name="Text" Value="Yes" />
+			</Window>
+			<Window Type="TaharezLook/Button" Name="Pluto/GameOverRoot/No">
+				<Property Name="UnifiedSize" Value="{{0.2,0},{0.1,0}}" />
+				<Property Name="UnifiedPosition" Value="{{0.55,0},{0.55,0}}" />
+				<Property Name="Text" Value="No" />
 			</Window>
 		</Window>
 		<Window Type="DefaultWindow" Name="Pluto/EndGameRoot">

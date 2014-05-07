@@ -103,12 +103,21 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
+<<<<<<< HEAD
+ACLOCAL = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run aclocal-1.11
+AMTAR = $${TAR-tar}
+AR = ar
+AUTOCONF = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run autoconf
+AUTOHEADER = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run autoheader
+AUTOMAKE = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run automake-1.11
+=======
 ACLOCAL = ${SHELL} /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4/missing --run aclocal-1.11
 AMTAR = $${TAR-tar}
 AR = ar
 AUTOCONF = ${SHELL} /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4/missing --run autoconf
 AUTOHEADER = ${SHELL} /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4/missing --run autoheader
 AUTOMAKE = ${SHELL} /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4/missing --run automake-1.11
+>>>>>>> 0163933be3f87441fd0d64afecde27bd8efdc77f
 AWK = gawk
 BULLET_CFLAGS = 
 BULLET_LIBS = 
@@ -151,7 +160,11 @@ LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LIPO = 
 LN_S = ln -s
 LTLIBOBJS = 
+<<<<<<< HEAD
+MAKEINFO = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/missing --run makeinfo
+=======
 MAKEINFO = ${SHELL} /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4/missing --run makeinfo
+>>>>>>> 0163933be3f87441fd0d64afecde27bd8efdc77f
 MANIFEST_TOOL = :
 MKDIR_P = /bin/mkdir -p
 NM = /usr/bin/nm -B
@@ -188,10 +201,17 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = strip
 VERSION = 0.1
+<<<<<<< HEAD
+abs_builddir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
+abs_srcdir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
+abs_top_builddir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
+abs_top_srcdir = /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4
+=======
 abs_builddir = /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4
 abs_srcdir = /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4
 abs_top_builddir = /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4
 abs_top_srcdir = /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4
+>>>>>>> 0163933be3f87441fd0d64afecde27bd8efdc77f
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_CXX = g++
@@ -223,7 +243,11 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
+<<<<<<< HEAD
+install_sh = ${SHELL} /v/filer4b/v38q001/chooper9/cs354r/cs354r-assignment4/install-sh
+=======
 install_sh = ${SHELL} /v/filer4b/v38q001/kvander/Desktop/354R/cs354r-assignment4/install-sh
+>>>>>>> 0163933be3f87441fd0d64afecde27bd8efdc77f
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
