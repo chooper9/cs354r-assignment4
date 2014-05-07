@@ -42,6 +42,15 @@ void Pluto::setup_PlutoGui() {
 	anmtn->setTargetWindow(wmgr.getWindow("Pluto/OptionsRoot/SoundOptions"));
 	
 
+	std::string storyText ("");
+	storyText += " \nAll was peaceful in the solar system...\n \n";
+	storyText += "Until one day some famous Earth scientist shook the foundations of the Cosmos.\n \n";
+	storyText += "\"PLUTO IS NOT A PLANET\" he said, unaware of the consequences to come.\n \n";
+	storyText += "His words, reverberating through space, finally reach the distant Pluto... and Pluto is pissed.\n \n";
+	storyText += "Now, donning the spirit of a brave ninja warrior, Pluto makes his way towards Earth -\n \n";
+	storyText += "destroying every planet that stands in his way - to exact revenge upon the misled astrophysicist.\n \n";
+	wmgr.getWindow("Pluto/StoryRoot/Text")->setText(storyText);
+
 	// subscribe events
 	
 	wmgr.getWindow("Pluto/PauseRoot/Menu/Quit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
@@ -51,11 +60,14 @@ void Pluto::setup_PlutoGui() {
 	wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds/BGMVolume")->subscribeEvent(CEGUI::Scrollbar::EventScrollPositionChanged, CEGUI::Event::Subscriber(&Pluto::options_set_BGMvolume, this));
 	wmgr.getWindow("Pluto/OptionsRoot/OptionsMenu/Sounds/SFXVolume")->subscribeEvent(CEGUI::Scrollbar::EventScrollPositionChanged, CEGUI::Event::Subscriber(&Pluto::options_set_SFXvolume, this));
 	wmgr.getWindow("Pluto/TitleRoot/StartGame")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::startGame, this));
+	wmgr.getWindow("Pluto/StoryRoot/Continue")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::startGame2, this));
 	wmgr.getWindow("Pluto/TitleRoot/Controls")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::showControls, this));
 	wmgr.getWindow("Pluto/TitleRoot/Exit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
 	wmgr.getWindow("Pluto/ControlRoot/NextPage")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::controls_togglePage, this));
 	wmgr.getWindow("Pluto/ControlRoot/PrevPage")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::controls_togglePage, this));
 	wmgr.getWindow("Pluto/ControlRoot/Return")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::controls_return, this));
+	wmgr.getWindow("Pluto/GameOverRoot/No")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::quitGame, this));
+	wmgr.getWindow("Pluto/GameOverRoot/Yes")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Pluto::game_over_retry, this));
 }
 
 bool Pluto::resumeGame(const CEGUI::EventArgs &e) {
@@ -125,6 +137,12 @@ bool Pluto::options_set_SFXvolume(const CEGUI::EventArgs &e) {
 
 bool Pluto::startGame(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/TitleRoot")->setVisible(false);
+	CEGUI::WindowManager::getSingleton().getWindow("Pluto/StoryRoot")->setVisible(true);
+	return true;
+}
+
+bool Pluto::startGame2(const CEGUI::EventArgs &e) {
+	CEGUI::WindowManager::getSingleton().getWindow("Pluto/StoryRoot")->setVisible(false);
 	CEGUI::MouseCursor::getSingleton().hide();
 	game->unPause();
 	game->enterScene(SCENE_SPACE);
@@ -149,6 +167,15 @@ bool Pluto::controls_return(const CEGUI::EventArgs &e) {
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/ControlRoot/Page2")->setVisible(false);
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/ControlRoot")->setVisible(false);
 	CEGUI::WindowManager::getSingleton().getWindow("Pluto/TitleRoot")->setVisible(true);
+	return true;
+}
+
+bool Pluto::game_over_retry(const CEGUI::EventArgs &e) {
+	CEGUI::WindowManager::getSingleton().getWindow("Pluto/GameOverRoot")->setVisible(false);
+	CEGUI::MouseCursor::getSingleton().hide();
+	game->exitScene();
+	game->enterScene(SCENE_PLANET);
+	//game->unPause();
 	return true;
 }
 

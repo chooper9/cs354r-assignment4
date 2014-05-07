@@ -53,9 +53,11 @@ Ogre::AnimationState* animation;
 	bool options_set_BGMvolume(const CEGUI::EventArgs &e);
 	bool options_set_SFXvolume(const CEGUI::EventArgs &e);
 	bool startGame(const CEGUI::EventArgs &e);
+	bool startGame2(const CEGUI::EventArgs &e);
 	bool showControls(const CEGUI::EventArgs &e);
 	bool controls_togglePage(const CEGUI::EventArgs &e);
 	bool controls_return(const CEGUI::EventArgs &e);
+	bool game_over_retry(const CEGUI::EventArgs &e);
 };
 
 const Ogre::Real Pluto::BOX_SIDE_LENGTH = 200.0f;

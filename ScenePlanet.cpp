@@ -22,7 +22,6 @@ ScenePlanet::~ScenePlanet(void) {
 
 bool ScenePlanet::setupScene(enum GameLevel level) {
 	if (!Scene::setupScene(level)) return false;
-	//soundHandler->start_ambient(toglory);
 	int numEnemies = 0;
 	Ogre::Vector3 enemy_color = Ogre::Vector3(0.051f, 0.353f, 0.145f);
 	switch(level) {
@@ -69,11 +68,11 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		break;
 	case LV_SUN:
 		numEnemies = 100;
+		CEGUI::WindowManager::getSingleton().getWindow("Pluto/EndGameRoot")->setVisible(false);
 		if (currentLevel != level)
 			terrain->setMaterial("PlutoTerrainTennisCourtTexture", 1);
 		break;
 	case LV_BOSS:
-		soundHandler->fade_out_music();
 		soundHandler->start_ambient(bossbattle);
 		numEnemies = 1;
 		enemy_color = Ogre::Vector3(0.129f, 0.137f, 0.180f);
@@ -135,6 +134,8 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		}
 		enemies[i]->setBillboard(enemyHPset->createBillboard(Ogre::Vector3(i*40 - level*200, 80, -100)));
 		enemies[i]->setColor(enemy_color.x, enemy_color.y, enemy_color.z);
+		if (level == LV_SUN)
+			enemies[i]->setRandColor();
 	}
 	if (level == LV_BOSS) {
 		PlayerState* ps = enemies[0]->getPlayerState();
