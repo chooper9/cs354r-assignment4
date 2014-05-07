@@ -106,8 +106,9 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 			}
 			break;
 		case PLUTO_LOSE: 
-			exitScene();
-			enterScene(SCENE_PLANET);
+			CEGUI::WindowManager::getSingleton().getWindow("Pluto/GameOverRoot")->setVisible(true);
+			CEGUI::MouseCursor::getSingleton().show();
+			//gamePaused = true;
 			break;
 		default: break;
 		}
