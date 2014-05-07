@@ -92,4 +92,5 @@ void Sound::stop_ambient(){
 
 void Sound::fade_out_music(){
 	Mix_FadeOutMusic(1000);
+	SDL_Delay(1000);
 }

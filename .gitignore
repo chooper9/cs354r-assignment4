@@ -32,3 +32,6 @@ Makefile
 
 # status
 *.status
+
+# libtool
+libtool
