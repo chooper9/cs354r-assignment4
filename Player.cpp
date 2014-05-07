@@ -107,7 +107,7 @@ void Player::resetState(void) {
 	playerState.allowShuriken = false;
 	playerState.step = STEP_NINJA;
 	playerState.weapon = WEAPON_BLADE;
-	playerState.numShuriken = 10000000;
+	playerState.numShuriken = 10000;
 	playerEnt->getSubEntity(1)->setVisible(true);
 	playerState.degreeYaw = 0;
 	playerState.movingLeft = false;
@@ -409,7 +409,7 @@ void Player::handleKeyPressed(const OIS::KeyCode key) {
 	case OIS::KC_Q: 
 		switchWeapon();
 		break;
-	case OIS::KC_H: 
+	case OIS::KC_G: 
 		if (playerState.weapon == WEAPON_SHURIKEN) shurikenAOE();
 		break;
 	}

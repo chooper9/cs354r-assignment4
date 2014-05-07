@@ -1155,6 +1155,66 @@ material Examples/TennisNet
 		}
 	}
 }
+material Examples/SaturnRing
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			texture_unit
+			{
+				texture saturn_ring.png
+			}
+		}
+	}
+}
+material Examples/UranusRing
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			texture_unit
+			{
+				texture uranus_ring.png
+			}
+		}
+	}
+}
+material Examples/NeptuneRing
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			texture_unit
+			{
+				texture neptune_ring.png
+			}
+		}
+	}
+}
+material Examples/JupiterRing
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			texture_unit
+			{
+				texture jupiter_ring.png
+			}
+		}
+	}
+}
 
 material Examples/TennisBall
 {
