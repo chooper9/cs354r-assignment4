@@ -20,7 +20,8 @@ public:
 	void finishLevel(enum GameLevel level) {
 		if(level == LV_BOSS) sceneFinished = true;
 		else if(level == LV_SUN) {
-			pluto->setTransform();
+			sun->setDestroyed(true);
+			pluto->setTransform(Ogre::Vector3(0,100, 10000));
 		}else enemies.at(level)->setDestroyed(true);
 	}
 	SceneSpaceResult getResult(enum GameLevel* level);

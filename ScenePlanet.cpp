@@ -137,6 +137,8 @@ bool ScenePlanet::setupScene(enum GameLevel level) {
 		if (level == LV_SUN)
 			enemies[i]->setRandColor();
 	}
+	if(level != LV_SUN)
+		pluto->getPlayerState()->numShuriken = 300;
 	if (level == LV_BOSS) {
 		PlayerState* ps = enemies[0]->getPlayerState();
 		enemies[0]->setAsBoss();

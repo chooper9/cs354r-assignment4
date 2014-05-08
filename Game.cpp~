@@ -100,7 +100,7 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 			currentGameScene = SCENE_SPACE;
 			currentScene = sceneSpace;
 			if(currentLevel == LV_BOSS){
-				CEGUI::WindowManager::getSingleton().getWindow("Pluto/EndGameRoot")->setVisible(true);
+				CEGUI::WindowManager::getSingleton().getWindow("Pluto/EndGameRoot")->show();
 				soundHandler->stop_ambient();
 				soundHandler->play_sound(win);
 			}
@@ -121,6 +121,7 @@ void Game::runNextFrame(const Ogre::FrameEvent& evt) {
 void Game::handleKeyPressed(const OIS::KeyCode key) {
 	if(gamePaused) return;
 	switch (key) {
+/*
 	case OIS::KC_B:
 		switch (currentGameScene) {
 		case SCENE_SPACE: 
@@ -134,6 +135,7 @@ void Game::handleKeyPressed(const OIS::KeyCode key) {
 			enterScene(SCENE_SPACE); break;
 		}
 		break;
+*/
 	case OIS::KC_RETURN:
 		CEGUI::WindowManager::getSingleton().getWindow("Pluto/PauseRoot")->setVisible(true);
 		CEGUI::MouseCursor::getSingleton().show();
